@@ -1347,8 +1347,10 @@ const DisplayData = ({ id, onClose }) => {
   };
 
   return (
-    <div className="data-display-container fixed inset-0 flex items-center justify-center mt-[10%] bg-gray-800 bg-opacity-50 z-50">
-      <div className="popup-content bg-white p-6 rounded-lg shadow-lg w-full sm:w-[85%] mx-auto relative overflow-y-auto h-[90vh]">
+    <div className="data-display-container fixed inset-0 flex items-center justify-center mt-[10%]   z-50">
+      {/* <div className="popup-content bg-white p-6 rounded-lg shadow-lg  sm:w-[85%] mx-auto relative overflow-y-auto h-[100vh]"> */}
+      <div className="popup-content bg-white p-6 rounded-lg shadow-lg w-800 mx-auto relative overflow-y-auto h-[100vh]">
+
         <h1 className="text-2xl font-bold text-center text-blue-500 mb-6">Form Data Display for User {id}</h1>
 
         <div className="space-y-8 h-full">

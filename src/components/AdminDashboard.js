@@ -484,25 +484,142 @@
 
 // export default AdminDashboard;
 
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import './AdminDashboard.css';
+
+// const AdminDashboard = () => {
+//   const [skills, setSkills] = useState([]);
+//   const [formDatas, setFormDatas] = useState([]); 
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState('');
+
+//   // Fetch skills and form data
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const formDataResponse = await axios.get('http://localhost:8707/api/formdata');
+//         setFormDatas(formDataResponse.data); // Set form data response
+
+//         const skillsResponse = await axios.get('http://localhost:8707/api/skills');
+//         setSkills(skillsResponse.data); // Set skills response
+//       } catch (error) {
+//         setError('Error fetching data');
+//         console.error(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>{error}</p>;
+
+//   return (
+//     <div className="admin-dashboard-container">
+//       <header className="admin-header py-4 bg-blue-500 text-white text-center">
+//         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+//       </header>
+
+//       <div className="dashboard-content p-4">
+//         <section className="dashboard-section">
+//           <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
+          
+//           <div className="overflow-x-auto">
+//             <table className="min-w-full border-collapse block md:table">
+//               <thead className="block md:table-header-group">
+//                 <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Roadmap PDF</th>
+//                   <th className="p-2 text-left bg-gray-50 md:table-cell">First Chapter PDF</th>
+//                 </tr>
+//               </thead>
+//               <tbody className="block md:table-row-group">
+//                 {formDatas.map((formData) => (
+//                   <tr key={formData._id} className="block md:table-row">
+//                     <td className="p-2 border-t block md:table-cell">{formData._id}</td>
+//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
+//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
+//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
+//                     <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
+//                     <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
+//                     <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
+//                     <td className="p-2 border-t block md:table-cell">
+//                       {formData.roadmapIntroduction && (
+//                         <a
+//                           href={`http://localhost:8707/pdfUploads/${formData.roadmapIntroduction}`}
+//                           target="_blank"
+//                           rel="noopener noreferrer"
+//                           className="text-blue-500 hover:underline"
+//                         >
+//                           View Roadmap PDF
+//                         </a>
+//                       )}
+//                     </td>
+//                     <td className="p-2 border-t block md:table-cell">
+//                       {formData.firstChapter && (
+//                         <a
+//                           href={`http://localhost:8707/pdfUploads/${formData.firstChapter}`}
+//                           target="_blank"
+//                           rel="noopener noreferrer"
+//                           className="text-blue-500 hover:underline"
+//                         >
+//                           View First Chapter PDF
+//                         </a>
+//                       )}
+//                     </td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           </div>
+//         </section>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AdminDashboard;
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [skills, setSkills] = useState([]);
-  const [formDatas, setFormDatas] = useState([]); 
+  const [formDatas, setFormDatas] = useState([]);
+  const [payments, setPayments] = useState([]); // State for payment details
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [activeSection, setActiveSection] = useState('formdata'); // State to track active section
 
-  // Fetch skills and form data
+  // Fetch skills, form data, and payment details
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch form data
         const formDataResponse = await axios.get('http://localhost:8707/api/formdata');
-        setFormDatas(formDataResponse.data); // Set form data response
+        setFormDatas(formDataResponse.data);
 
+        // Fetch skills
         const skillsResponse = await axios.get('http://localhost:8707/api/skills');
-        setSkills(skillsResponse.data); // Set skills response
+        setSkills(skillsResponse.data);
+
+        // Fetch payment details
+        const paymentResponse = await axios.get('http://localhost:8707/payment');
+        setPayments(paymentResponse.data.payments); // Assuming the payments are in "payments" array
       } catch (error) {
         setError('Error fetching data');
         console.error(error);
@@ -518,74 +635,129 @@ const AdminDashboard = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="admin-dashboard-container">
-      <header className="admin-header py-4 bg-blue-500 text-white text-center">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-      </header>
+    <div className="admin-dashboard-container flex">
+      {/* Sidebar */}
+      <div className="sidebar w-1/4 bg-gray-800 text-white h-screen p-4">
+        <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
+        <ul>
+          <li 
+            className={`p-2 mb-2 cursor-pointer ${activeSection === 'formdata' ? 'bg-blue-500' : 'bg-gray-700'}`} 
+            onClick={() => setActiveSection('formdata')}
+          >
+            Form Data
+          </li>
+          <li 
+            className={`p-2 mb-2 cursor-pointer ${activeSection === 'payments' ? 'bg-blue-500' : 'bg-gray-700'}`} 
+            onClick={() => setActiveSection('payments')}
+          >
+            Payments
+          </li>
+        </ul>
+      </div>
 
-      <div className="dashboard-content p-4">
-        <section className="dashboard-section">
-          <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
-          
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse block md:table">
-              <thead className="block md:table-header-group">
-                <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Roadmap PDF</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">First Chapter PDF</th>
-                </tr>
-              </thead>
-              <tbody className="block md:table-row-group">
-                {formDatas.map((formData) => (
-                  <tr key={formData._id} className="block md:table-row">
-                    <td className="p-2 border-t block md:table-cell">{formData._id}</td>
-                    <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-                    <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
-                    <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-                    <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
-                    <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
-                    <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
-                    <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
-                    <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
-                    <td className="p-2 border-t block md:table-cell">
-                      {formData.roadmapIntroduction && (
-                        <a
-                          href={`http://localhost:8707/pdfUploads/${formData.roadmapIntroduction}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:underline"
-                        >
-                          View Roadmap PDF
-                        </a>
-                      )}
-                    </td>
-                    <td className="p-2 border-t block md:table-cell">
-                      {formData.firstChapter && (
-                        <a
-                          href={`http://localhost:8707/pdfUploads/${formData.firstChapter}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:underline"
-                        >
-                          View First Chapter PDF
-                        </a>
-                      )}
-                    </td>
+      {/* Main Content */}
+      <div className="dashboard-content w-3/4 p-4">
+        {/* Form Data Section */}
+        {activeSection === 'formdata' && (
+          <section className="dashboard-section">
+            <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse block md:table">
+                <thead className="block md:table-header-group">
+                  <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Roadmap PDF</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">First Chapter PDF</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+                </thead>
+                <tbody className="block md:table-row-group">
+                  {formDatas.map((formData) => (
+                    <tr key={formData._id} className="block md:table-row">
+                      <td className="p-2 border-t block md:table-cell">{formData._id}</td>
+                      <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+                      <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
+                      <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+                      <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
+                      <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
+                      <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
+                      <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
+                      <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
+                      <td className="p-2 border-t block md:table-cell">
+                        {formData.roadmapIntroduction && (
+                          <a
+                            href={`http://localhost:8707/pdfUploads/${formData.roadmapIntroduction}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                          >
+                            View Roadmap PDF
+                          </a>
+                        )}
+                      </td>
+                      <td className="p-2 border-t block md:table-cell">
+                        {formData.firstChapter && (
+                          <a
+                            href={`http://localhost:8707/pdfUploads/${formData.firstChapter}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
+                          >
+                            View First Chapter PDF
+                          </a>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {/* Payment Details Section */}
+        {activeSection === 'payments' && (
+          <section className="dashboard-section mt-8">
+            <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse block md:table">
+                <thead className="block md:table-header-group">
+                  <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Product Name</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Amount</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Stripe Charge ID</th>
+                  </tr>
+                </thead>
+                <tbody className="block md:table-row-group">
+                  {payments.map((payment) => (
+                    <tr key={payment._id} className="block md:table-row">
+                      <td className="p-2 border-t block md:table-cell">{payment._id}</td>
+                      <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
+                      <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
+                      <td className="p-2 border-t block md:table-cell">{payment.productName}</td>
+                      <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
+                      <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
+                      <td className="p-2 border-t block md:table-cell">${payment.instructorAmount}</td>
+                      <td className="p-2 border-t block md:table-cell">{payment.stripeId}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );
