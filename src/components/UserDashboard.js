@@ -9,7 +9,7 @@ const UserDashboard = () => {
   const [profileName, setProfileName] = useState('');
   const [preferredLanguage, setPreferredLanguage] = useState('');
   const [educationalBackground, setEducationalBackground] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null); // State for profile picture
+  const [profilePicture, setProfilePicture] = useState(null);
   const [updatedForm, setUpdatedForm] = useState({});
   const skillId = localStorage.getItem('skillId');
 
@@ -26,7 +26,7 @@ const UserDashboard = () => {
       setProfileName(response.data.profileName);
       setPreferredLanguage(response.data.preferredLanguage);
       setEducationalBackground(response.data.educationalBackground);
-      setProfilePicture(response.data.profilePicture); // Set profile picture URL
+      setProfilePicture(response.data.profilePicture);
     } catch (err) {
       console.error('Error fetching skill data:', err);
       setError(err);
@@ -40,7 +40,7 @@ const UserDashboard = () => {
 
     try {
       const response = await axios.get(`http://localhost:8707/api/formdata`);
-      setFormData(response.data); // Set all form data related to skillId
+      setFormData(response.data);
     } catch (err) {
       console.error('Error fetching form data:', err);
       setError(err);
@@ -50,45 +50,43 @@ const UserDashboard = () => {
   const handleFormChange = (e, fieldName) => {
     setUpdatedForm({
       ...updatedForm,
-      [fieldName]: e.target.value,
+      [fieldName]: e.target.value === "" ? "" : e.target.value,
     });
-  };
+  };  
 
   const handleFileChange = (e, fieldName) => {
     setUpdatedForm({
       ...updatedForm,
-      [fieldName]: e.target.files[0], // Handle file input
+      [fieldName]: e.target.files[0],
     });
   };
 
   const updateFormData = async (id) => {
     const formDataObj = new FormData();
   
-    // Append non-file fields
     Object.keys(updatedForm).forEach((key) => {
       if (key !== 'image') {
         formDataObj.append(key, updatedForm[key]);
       }
     });
-  
-    // Only append the image field if a new file has been uploaded
+
     if (updatedForm.image && updatedForm.image instanceof File) {
       formDataObj.append('image', updatedForm.image);
     }
-  
+
     try {
       const response = await axios.patch(`http://localhost:8707/api/formdata/${id}`, formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       if (response.status === 200) {
         alert('Form data updated successfully');
         setFormData((prevFormData) =>
           prevFormData.map((form) => (form._id === id ? response.data.formData : form))
         );
-        // Fetch form data again to refresh the UI
+        setUpdatedForm({});
         fetchFormData();
       } else {
         alert('Failed to update form data. Please try again.');
@@ -99,12 +97,11 @@ const UserDashboard = () => {
       alert('An error occurred while updating the form data.');
     }
   };
-  
 
   const updateSkill = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(); // Use FormData to handle file uploads
+    const formData = new FormData();
     formData.append('profileName', profileName);
     formData.append('preferredLanguage', preferredLanguage);
     formData.append('educationalBackground', educationalBackground);
@@ -113,9 +110,9 @@ const UserDashboard = () => {
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8707/api/skills/${skillId}`, formData, {
+      const response = await axios.patch(`http://localhost:8707/api/skills/${skillId}/details`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Ensure the correct content type
+          'Content-Type': 'multipart/form-data',
         },
       });
 
@@ -146,7 +143,6 @@ const UserDashboard = () => {
     return <div className="text-red-500 text-center mt-10">Error: {error.message}</div>;
   }
 
-  // Filter formData to only include entries that match the skillId
   const filteredFormData = formData.filter((form) => form.skill._id === skillId);
 
   return (
@@ -217,10 +213,27 @@ const UserDashboard = () => {
                 key !== '_id' && key !== 'skill' && (
                   <div key={key} className="mb-2">
                     <label className="block text-sm font-medium text-gray-700 capitalize">{key}:</label>
-                    {key.includes('Chapter') || key.includes('image') ? (
+                    {key.includes('Chapter') || key.includes('roadmapIntroduction') ? (
                       <>
-                        {/* Display the image if it's an image field */}
                         {form[key] && (
+                          <a
+                            href={`http://localhost:8707/pdfUploads/${form[key]}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-indigo-600 hover:underline"
+                          >
+                            Download PDF
+                          </a>
+                        )}
+                        <input
+                          type="file"
+                          onChange={(e) => handleFileChange(e, key)}
+                          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-300"
+                        />
+                      </>
+                    ) : key === 'image' ? (
+                      <>
+                        {form.image && (
                           <img
                             src={`http://localhost:8707/imageUploads/${form.image}`}
                             alt="Formdataimage"
@@ -229,14 +242,14 @@ const UserDashboard = () => {
                         )}
                         <input
                           type="file"
-                          onChange={(e) => handleFileChange(e, key)}
+                          onChange={(e) => handleFileChange(e, 'image')}
                           className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-300"
                         />
                       </>
                     ) : (
                       <input
                         type="text"
-                        value={updatedForm[key] || form[key]}
+                        defaultValue={form[key]}
                         onChange={(e) => handleFormChange(e, key)}
                         className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-300"
                       />
@@ -246,7 +259,7 @@ const UserDashboard = () => {
               ))}
               <button
                 onClick={() => updateFormData(form._id)}
-                className="w-full py-2 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition duration-200"
+                className="mt-2 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200"
               >
                 Update Form
               </button>
