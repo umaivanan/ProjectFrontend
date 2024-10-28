@@ -725,38 +725,38 @@ const AdminDashboard = () => {
         {/* Payment Details Section */}
         {activeSection === 'payments' && (
           <section className="dashboard-section mt-8">
-            <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
-            <div className="overflow-x-auto">
-              <table className="min-w-full border-collapse block md:table">
-                <thead className="block md:table-header-group">
-                  <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Product Name</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Amount</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Stripe Charge ID</th>
+          <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse block md:table">
+              <thead className="block md:table-header-group">
+                <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Product Name</th>
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Amount</th>
+                  <th className="p-2 text-left bg-gray-50 md:table-cell">Stripe Charge ID</th>
+                </tr>
+              </thead>
+              <tbody className="block md:table-row-group">
+                {payments.map((payment) => (
+                  <tr key={payment._id} className="block md:table-row">
+                    <td className="p-2 border-t block md:table-cell">{payment._id}</td>
+                    <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
+                    <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
+                    <td className="p-2 border-t block md:table-cell">{payment.productName}</td>
+                    <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
+                    <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
+                    <td className="p-2 border-t block md:table-cell">${payment.instructorAmount}</td>
+                    <td className="p-2 border-t block md:table-cell">{payment.stripeId}</td>
                   </tr>
-                </thead>
-                <tbody className="block md:table-row-group">
-                  {payments.map((payment) => (
-                    <tr key={payment._id} className="block md:table-row">
-                      <td className="p-2 border-t block md:table-cell">{payment._id}</td>
-                      <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
-                      <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
-                      <td className="p-2 border-t block md:table-cell">{payment.productName}</td>
-                      <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
-                      <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
-                      <td className="p-2 border-t block md:table-cell">${payment.instructorAmount}</td>
-                      <td className="p-2 border-t block md:table-cell">{payment.stripeId}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
         )}
       </div>
     </div>
