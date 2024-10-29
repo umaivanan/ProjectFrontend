@@ -26,7 +26,7 @@
 //         const checkFormSubmissionStatus = async () => {
 //           try {
 //             // Send request to backend to check submission status
-//             const response = await axios.post('http://localhost:8707/api/skills/check-form', { email: decryptedEmail });
+//             const response = await axios.post('http://localhost:8712/api/skills/check-form', { email: decryptedEmail });
 //             console.log('Backend Response:', response.data);
 //             if (response.data.formSubmitted) {
 //               // If form is already submitted
@@ -61,7 +61,7 @@
 //     }
 
 //     try {
-//       const response = await axios.post('http://localhost:8707/api/skills', formData, {
+//       const response = await axios.post('http://localhost:8712/api/skills', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //         },
@@ -70,7 +70,7 @@
 //       const skillId = response.data._id;
 
 //       // Backend update for submittedStatus
-//       await axios.patch(`http://localhost:8707/api/skills/${skillId}`, { submittedStatus: true });
+//       await axios.patch(`http://localhost:8712/api/skills/${skillId}`, { submittedStatus: true });
 
 //       // Redirect after form submission
 //       navigate('/additionalInformation', { state: { skillId: skillId } });
@@ -167,7 +167,7 @@
 //         } else {
 //           const checkFormSubmissionStatus = async () => {
 //             try {
-//               const response = await axios.post('http://localhost:8707/api/skills/check-form', { email: decryptedEmail });
+//               const response = await axios.post('http://localhost:8712/api/skills/check-form', { email: decryptedEmail });
 //               console.log('Backend Response:', response.data);
 //               if (response.data.formSubmitted) {
 //                 // Save the form submission status in localStorage if backend says it's submitted
@@ -204,7 +204,7 @@
 //     }
 
 //     try {
-//       const response = await axios.post('http://localhost:8707/api/skills', formData, {
+//       const response = await axios.post('http://localhost:8712/api/skills', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //         },
@@ -213,7 +213,7 @@
 //       const skillId = response.data._id;
 
 //       // Backend update for submittedStatus
-//       await axios.patch(`http://localhost:8707/api/skills/${skillId}`, { submittedStatus: true });
+//       await axios.patch(`http://localhost:8712/api/skills/${skillId}`, { submittedStatus: true });
 
 //       // Save the form submission status to localStorage
 //       localStorage.setItem(`formSubmitted_${currentUserEmail}`, 'true');
@@ -316,7 +316,7 @@ const SkillForm = () => {
         } else {
           const checkFormSubmissionStatus = async () => {
             try {
-              const response = await axios.post('http://localhost:8707/api/skills/check-form', { email: decryptedEmail });
+              const response = await axios.post('http://localhost:8712/api/skills/check-form', { email: decryptedEmail });
               console.log('Backend Response:', response.data);
               if (response.data.formSubmitted) {
                 localStorage.setItem(`formSubmitted_${decryptedEmail}`, 'true');
@@ -352,7 +352,7 @@ const SkillForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8707/api/skills', formData, {
+      const response = await axios.post('http://localhost:8712/api/skills', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -361,7 +361,7 @@ const SkillForm = () => {
       const skillId = response.data._id;
 
       // Update the submittedStatus in the backend
-      await axios.patch(`http://localhost:8707/api/skills/${skillId}`, { submittedStatus: true });
+      await axios.patch(`http://localhost:8712/api/skills/${skillId}`, { submittedStatus: true });
 
       // Save the form submission status to localStorage
       localStorage.setItem(`formSubmitted_${currentUserEmail}`, 'true');

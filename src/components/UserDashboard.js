@@ -21,7 +21,7 @@ const UserDashboard = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8707/api/skills/${skillId}`);
+      const response = await axios.get(`http://localhost:8712/api/skills/${skillId}`);
       setSkillData(response.data);
       setProfileName(response.data.profileName);
       setPreferredLanguage(response.data.preferredLanguage);
@@ -39,7 +39,7 @@ const UserDashboard = () => {
     if (!skillId) return;
 
     try {
-      const response = await axios.get(`http://localhost:8707/api/formdata`);
+      const response = await axios.get(`http://localhost:8712/api/formdata`);
       setFormData(response.data);
     } catch (err) {
       console.error('Error fetching form data:', err);
@@ -75,7 +75,7 @@ const UserDashboard = () => {
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8707/api/formdata/${id}`, formDataObj, {
+      const response = await axios.patch(`http://localhost:8712/api/formdata/${id}`, formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -110,7 +110,7 @@ const UserDashboard = () => {
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8707/api/skills/${skillId}/details`, formData, {
+      const response = await axios.patch(`http://localhost:8712/api/skills/${skillId}/details`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -152,7 +152,7 @@ const UserDashboard = () => {
         <div className="skill-info mt-6">
           <h2 className="text-2xl font-semibold mb-4">Skill Information</h2>
           <img
-            src={`http://localhost:8707${profilePicture}` || 'default_profile_picture_url.jpg'}
+            src={`http://localhost:8712${profilePicture}` || 'default_profile_picture_url.jpg'}
             alt="Profile"
             className="w-32 h-32 rounded-full mb-4"
           />
@@ -217,7 +217,7 @@ const UserDashboard = () => {
                       <>
                         {form[key] && (
                           <a
-                            href={`http://localhost:8707/pdfUploads/${form[key]}`}
+                            href={`http://localhost:8712/pdfUploads/${form[key]}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-indigo-600 hover:underline"
@@ -235,7 +235,7 @@ const UserDashboard = () => {
                       <>
                         {form.image && (
                           <img
-                            src={`http://localhost:8707/imageUploads/${form.image}`}
+                            src={`http://localhost:8712/imageUploads/${form.image}`}
                             alt="Formdataimage"
                             className="w-32 h-32 rounded-md mb-4"
                           />

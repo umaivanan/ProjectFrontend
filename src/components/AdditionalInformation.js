@@ -1,15 +1,13 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBook, faClock, faUser, faTag,
-    faLanguage, faDollarSign, faImage,faPlus
+    faLanguage, faDollarSign, faImage, faPlus
 } from '@fortawesome/free-solid-svg-icons';
 
 import backgroundImage from '../assets/a-man-reads-a-book-1024x683.jpg';  // Import the background image
-
 
 const AdditionalInformation = () => {
     const location = useLocation();
@@ -46,6 +44,11 @@ const AdditionalInformation = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [chapterCount, setChapterCount] = useState(1); // Start with 1 chapter visible
 
+    // Define chapter field names to align with backend multer configuration
+    const chapterNames = [
+        'firstChapter', 'secondChapter', 'thirdChapter', 'fourthChapter', 'fifthChapter',
+        'sixthChapter', 'seventhChapter', 'eighthChapter', 'ninthChapter', 'tenthChapter'
+    ];
 
     // Save skillId to localStorage when it is available
     useEffect(() => {
@@ -69,11 +72,12 @@ const AdditionalInformation = () => {
             setFormData({ ...formData, pdfPrice: value });
         }
     };
+
     const handleShowNextChapter = () => {
         if (chapterCount < 10) {
-          setChapterCount((prev) => prev + 1);
+            setChapterCount((prev) => prev + 1);
         }
-      };
+    };
 
     const validateForm = () => {
         let formErrors = {};
@@ -107,15 +111,14 @@ const AdditionalInformation = () => {
                     }
                 });
 
-                const response = await axios.post('http://localhost:8707/api/formdata', formDataObj, {
+                const response = await axios.post('http://localhost:8712/api/formdata', formDataObj, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
                 const formDataId = response.data.formData._id;
+                await axios.patch(`http://localhost:8712/api/skills/${currentSkillId}`, { formDataId });
 
-                await axios.patch(`http://localhost:8707/api/skills/${currentSkillId}`, { formDataId });
-
-                const skillResponse = await axios.get(`http://localhost:8707/api/skills/${currentSkillId}`);
+                const skillResponse = await axios.get(`http://localhost:8712/api/skills/${currentSkillId}`);
                 const submittedStatus = skillResponse.data.submittedStatus;
 
                 localStorage.setItem('submittedStatus', submittedStatus);
@@ -133,203 +136,190 @@ const AdditionalInformation = () => {
         }
     };
 
-return (
-  <div
-  className="min-h-screen flex items-center justify-center bg-gray-100"
-  style={{
-    backgroundImage: `url(${backgroundImage})`, // Use the imported image
-    backgroundSize: 'cover', // Ensures the image covers the entire container
-    backgroundPosition: 'center', // Center the background image
-    backgroundRepeat: 'no-repeat', // Prevent the image from repeating
-    height: '100vh', // Ensure full viewport height
-    width: '100vw', // Ensure full viewport width
-    position: 'relative', // Ensures the image maintains relative positioning
-  }}
->
-  <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl mt-[8%] bg-opacity-90">
-    <form className="space-y-6" onSubmit={handleSubmit}>
-      {/* Form Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="form-group">
-          <label htmlFor="courseDescription" className="block text-sm font-medium text-gray-700">
-            <FontAwesomeIcon icon={faBook} /> Course Description
-          </label>
-          <textarea
-            id="courseDescription"
-            name="courseDescription"
-            value={formData.courseDescription}
-            onChange={handleChange}
-            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
-          />
+    return (
+        <div
+            className="min-h-screen flex items-center justify-center bg-gray-100"
+            style={{
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                height: '100vh',
+                width: '100vw',
+                position: 'relative',
+            }}
+        >
+            <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl mt-[8%] bg-opacity-90">
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                    {/* Form Fields */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="form-group">
+                            <label htmlFor="courseDescription" className="block text-sm font-medium text-gray-700">
+                                <FontAwesomeIcon icon={faBook} /> Course Description
+                            </label>
+                            <textarea
+                                id="courseDescription"
+                                name="courseDescription"
+                                value={formData.courseDescription}
+                                onChange={handleChange}
+                                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="courseDuration" className="block text-sm font-medium text-gray-700">
+                                <FontAwesomeIcon icon={faClock} /> Course Duration
+                            </label>
+                            <input
+                                type="text"
+                                id="courseDuration"
+                                name="courseDuration"
+                                value={formData.courseDuration}
+                                onChange={handleChange}
+                                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="form-group">
+                            <label htmlFor="targetAudience" className="block text-sm font-medium text-gray-700">
+                                <FontAwesomeIcon icon={faUser} /> Target Audience
+                            </label>
+                            <input
+                                type="text"
+                                id="targetAudience"
+                                name="targetAudience"
+                                value={formData.targetAudience}
+                                onChange={handleChange}
+                                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="courseCategory" className="block text-sm font-medium text-gray-700">
+                                <FontAwesomeIcon icon={faTag} /> Course Category
+                            </label>
+                            <input
+                                type="text"
+                                id="courseCategory"
+                                name="courseCategory"
+                                value={formData.courseCategory}
+                                onChange={handleChange}
+                                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="languages" className="block text-sm font-medium text-gray-700">
+                            <FontAwesomeIcon icon={faLanguage} /> Languages I Speak
+                        </label>
+                        <input
+                            type="text"
+                            id="languages"
+                            name="languages"
+                            value={formData.languages}
+                            onChange={handleChange}
+                            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="pdfPrice" className="block text-sm font-medium text-gray-700">
+                            <FontAwesomeIcon icon={faDollarSign} /> Price for PDFs (in USD)
+                        </label>
+                        <input
+                            type="number"
+                            id="pdfPrice"
+                            name="pdfPrice"
+                            value={formData.pdfPrice}
+                            onChange={handlePriceChange}
+                            min="1"
+                            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                            <FontAwesomeIcon icon={faImage} /> Upload Image
+                        </label>
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            className="block w-full mt-1"
+                        />
+                        {fileNames.image && (
+                            <span className="text-green-500 text-sm">{fileNames.image} uploaded successfully!</span>
+                        )}
+                    </div>
+
+                    {/* File inputs for Roadmap and Chapters */}
+                    <div className="form-group">
+                        <label htmlFor="roadmapIntroduction" className="block text-sm font-medium text-gray-700">
+                            <FontAwesomeIcon icon={faBook} /> Roadmap Introduction (PDF)
+                        </label>
+                        <input
+                            type="file"
+                            id="roadmapIntroduction"
+                            name="roadmapIntroduction"
+                            accept="application/pdf"
+                            onChange={handleFileChange}
+                            className="block w-full mt-1"
+                        />
+                        {fileNames.roadmapIntroduction && (
+                            <span className="text-green-500 text-sm">{fileNames.roadmapIntroduction} uploaded successfully!</span>
+                        )}
+                    </div>
+
+                    {/* Scrollable PDF Section */}
+                    <div className="max-h-48 overflow-y-auto border p-4 rounded-md">
+                        {chapterNames.slice(0, chapterCount).map((fieldName, index) => (
+                            <div className="form-group" key={index}>
+                                <label htmlFor={fieldName} className="block text-sm font-medium text-gray-700">
+                                    Chapter {index + 1} (PDF)
+                                </label>
+                                <input
+                                    type="file"
+                                    id={fieldName}
+                                    name={fieldName}
+                                    accept="application/pdf"
+                                    onChange={handleFileChange}
+                                    className="block w-full mt-1"
+                                />
+                                {fileNames[fieldName] && (
+                                    <span className="text-green-500 text-sm">{fileNames[fieldName]} uploaded successfully!</span>
+                                )}
+                            </div>
+                        ))}
+
+                        {chapterCount < 10 && (
+                            <div className="flex justify-end">
+                                <button
+                                    type="button"
+                                    onClick={handleShowNextChapter}
+                                    className="text-blue-500 hover:text-blue-700"
+                                >
+                                    <FontAwesomeIcon icon={faPlus} /> Add Chapter
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition duration-300"
+                    >
+                        {isLoading ? 'Submitting...' : 'Submit'}
+                    </button>
+                </form>
+            </div>
         </div>
-
-        <div className="form-group">
-          <label htmlFor="courseDuration" className="block text-sm font-medium text-gray-700">
-            <FontAwesomeIcon icon={faClock} /> Course Duration
-          </label>
-          <input
-            type="text"
-            id="courseDuration"
-            name="courseDuration"
-            value={formData.courseDuration}
-            onChange={handleChange}
-            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="form-group">
-          <label htmlFor="targetAudience" className="block text-sm font-medium text-gray-700">
-            <FontAwesomeIcon icon={faUser} /> Target Audience
-          </label>
-          <input
-            type="text"
-            id="targetAudience"
-            name="targetAudience"
-            value={formData.targetAudience}
-            onChange={handleChange}
-            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="courseCategory" className="block text-sm font-medium text-gray-700">
-            <FontAwesomeIcon icon={faTag} /> Course Category
-          </label>
-          <input
-            type="text"
-            id="courseCategory"
-            name="courseCategory"
-            value={formData.courseCategory}
-            onChange={handleChange}
-            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
-          />
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="languages" className="block text-sm font-medium text-gray-700">
-          <FontAwesomeIcon icon={faLanguage} /> Languages I Speak
-        </label>
-        <input
-          type="text"
-          id="languages"
-          name="languages"
-          value={formData.languages}
-          onChange={handleChange}
-          className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="pdfPrice" className="block text-sm font-medium text-gray-700">
-          <FontAwesomeIcon icon={faDollarSign} /> Price for PDFs (in USD)
-        </label>
-        <input
-          type="number"
-          id="pdfPrice"
-          name="pdfPrice"
-          value={formData.pdfPrice}
-          onChange={handlePriceChange}
-          min="1"
-          className="block w-full mt-1 border-gray-300 rounded-md shadow-sm p-2"
-        />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-          <FontAwesomeIcon icon={faImage} /> Upload Image
-        </label>
-        <input
-          type="file"
-          id="image"
-          name="image"
-          accept="image/*"
-          onChange={handleFileChange}
-          className="block w-full mt-1"
-        />
-        {fileNames.image && (
-          <span className="text-green-500 text-sm">{fileNames.image} uploaded successfully!</span>
-        )}
-      </div>
-
-      {/* File inputs for Roadmap and Chapters */}
-      <div className="form-group">
-        <label htmlFor="roadmapIntroduction" className="block text-sm font-medium text-gray-700">
-          <FontAwesomeIcon icon={faBook} /> Roadmap Introduction (PDF)
-        </label>
-        <input
-          type="file"
-          id="roadmapIntroduction"
-          name="roadmapIntroduction"
-          accept="application/pdf"
-          onChange={handleFileChange}
-          className="block w-full mt-1"
-        />
-        {fileNames.roadmapIntroduction && (
-          <span className="text-green-500 text-sm">{fileNames.roadmapIntroduction} uploaded successfully!</span>
-        )}
-      </div>
-
-      {/* Scrollable PDF Section */}
-      <div className="max-h-48 overflow-y-auto border p-4 rounded-md">
-        {[...Array(chapterCount)].map((_, index) => (
-          <div className="form-group" key={index}>
-            <label htmlFor={`chapter${index + 1}`} className="block text-sm font-medium text-gray-700">
-              Chapter {index + 1} (PDF)
-            </label>
-            <input
-              type="file"
-              id={`chapter${index + 1}`}
-              name={`chapter${index + 1}`}
-              accept="application/pdf"
-              onChange={handleFileChange}
-              className="block w-full mt-1"
-            />
-            {fileNames[`chapter${index + 1}`] && (
-              <span className="text-green-500 text-sm">{fileNames[`chapter${index + 1}`]} uploaded successfully!</span>
-            )}
-          </div>
-        ))}
-
-        {chapterCount < 10 && (
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={handleShowNextChapter}
-              className="text-blue-500 hover:text-blue-700"
-            >
-              <FontAwesomeIcon icon={faPlus} /> Add Chapter
-            </button>
-          </div>
-        )}
-      </div>
-
-      <button
-  type="submit"
-  disabled={isLoading}
-  className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition duration-300"
->
-  {isLoading ? 'Submitting...' : 'Submit'}
-</button>
-g
-    </form>
-  </div>
-</div>
-
-);
+    );
 };
 
 export default AdditionalInformation;
-    
-    
-
-
-
-
-
-
-
-
-

@@ -82,7 +82,6 @@ import FormDataDetails from './components/FormDataDetails';
 import FileDisplay from './components/FileDisplay'; // Import FileDisplay from components folder
 import UserDashboard from './components/UserDashboard';
 import LearnMore from './components/LearnMore';
-import Summarize from './components/Summarize';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State for handling login status
@@ -108,7 +107,6 @@ function App() {
           <Route path="/learnmore" element={<LearnMore />} />
           <Route path="/formdata/:id" element={<FormDataDetails />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
-          <Route path="/Summarize" element={<Summarize/>} />
           
         </Routes>
       </Router>

@@ -667,7 +667,7 @@ import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 // Importing images
-import placeholder from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 20.41.52 - A full-screen image of a single person studying with a roadmap or study plan in front of them, inspired by the color palette of the provided hero imag.webp';
+import placeholder from '/home/ukijaffna/um/swapSmartFrontend/src/assets/a059ab83-26d8-459e-917a-b198bacd3999.webp';
 import webDevImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/website-development-banner_33099-1687.avif';
 import dataScienceImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/what_is_Data_Science.avif';
 import dataEngineeringImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/maxresdefault (1).jpg';
