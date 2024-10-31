@@ -240,10 +240,7 @@ const SkillList = () => {
     setSelectedId(null);
   };
 
-  const generateRandomColor = () => {
-    const colors = ['bg-red-400', 'bg-green-400', 'bg-blue-400', 'bg-yellow-400', 'bg-purple-400'];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
+  
 
   useEffect(() => {
     if (searchTerm === '') {
@@ -271,7 +268,7 @@ const SkillList = () => {
   const chunkedUsersData = chunkArray(filteredData, [3, 4, 3]);
 
   return (
-    <div className="bg-white">
+    <div className="bg-white p-12">
       <h1 className="text-4xl font-bold text-center mt-20 text-cyan-500">Explore Our Courses</h1>
 
       {/* Fixed Search Bar and Icon Grid Container */}
@@ -341,12 +338,13 @@ const SkillList = () => {
                 onClick={() => handleShowMore(user._id)}
                 className="relative bg-gradient-to-r from-[#ebf8ff] to-[#e6f7ff] p-6 rounded-lg shadow-xl h-72 cursor-pointer"
               >
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-4 rounded-lg">
-                  <h2 className="text-white font-bold text-lg mb-2">
+                <div className="absolute inset-0 bg-black bg-opacity-25 flex flex-col justify-between  rounded-lg">
+                <h2 className="font-bold text-lg mb-4" style={{ background: 'linear-gradient(to right, purple 70%, black 30%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+
                     {user.courseDescription}
                   </h2>
                   <button
-                    className={`absolute bottom-4 right-4 py-2 px-4 text-white rounded-full shadow-lg hover:shadow-2xl transition-all ${generateRandomColor()}`}
+                  className={`absolute bottom-4 right-4 py-1 px-1  rounded-full shadow-lg hover:shadow-2xl transition-all bg-gradient-to-r from-purple-600 to-white`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleShowMore(user._id);

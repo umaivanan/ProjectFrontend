@@ -76,105 +76,55 @@ const RegisterPage = ({ onSuccess }) => {
   };
 
   return (
-    // <motion.div
-    //   className="flex justify-center items-center h-auto bg-white" // Changed h-screen to h-auto
-    //   initial={{ opacity: 0, scale: 0.9 }}
-    //   animate={{ opacity: 1, scale: 1 }}
-    //   exit={{ opacity: 0, scale: 0.9 }}
-    //   transition={{ duration: 0.5 }}
-    // >
-    //   <div className="max-w-lg w-full h-auto  p-6 rounded-xl shadow-lg">
-    //     <h2 className="text-10xl text-cyan-500 mb-6 text-center">Register</h2>
-    //     <form className="w-full" onSubmit={handleSubmit}>
-    //       <div className="mb-4">
-    //         <label className="block text-cyan-500">Name</label>
-    //         <input
-    //           type="text"
-    //           name="name"
-    //           value={inputs.name}
-    //           onChange={handleInput}
-    //           className="form-control w-full p-3 border rounded border-gray-300"
-    //         />
-    //         {errors.name.required && <span className="text-red-500">Name is required.</span>}
-    //       </div>
-    //       <div className="mb-4">
-    //         <label className="block text-cyan-500">Email</label>
-    //         <input
-    //           type="email"
-    //           name="email"
-    //           value={inputs.email}
-    //           onChange={handleInput}
-    //           className="form-control w-full p-3 border rounded border-gray-300"
-    //         />
-    //         {errors.email.required && <span className="text-red-500">Email is required.</span>}
-    //       </div>
-    //       <div className="mb-4">
-    //         <label className="block text-cyan-500">Password</label>
-    //         <input
-    //           type="password"
-    //           name="password"
-    //           value={inputs.password}
-    //           onChange={handleInput}
-    //           className="form-control w-full p-3 border rounded border-gray-300"
-    //         />
-    //         {errors.password.required && <span className="text-red-500">Password is required.</span>}
-    //       </div>
-    //       {errors.custom_error && <span className="text-red-500">{errors.custom_error}</span>}
-    //       {loading ? <div className="text-center">Loading...</div> : null}
-    //       <button
-    //         type="submit"
-    //         disabled={loading}
-    //         className="w-full bg-cyan-500 text-white py-2 mt-4 rounded-lg hover:bg-cyan-600 transition duration-300"
-    //       >
-    //         Register
-    //       </button>
-    //     </form>
-    //   </div>
-    // </motion.div> 
-    <motion.div
-  className="flex justify-center items-center h-auto bg-white"
-  initial={{ opacity: 0, scale: 0.9 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 0, scale: 0.9 }}
-  transition={{ duration: 0.5 }}
+  <div
+  className="flex justify-center items-center h-auto bg-transparent "
+ 
 >
-  <div className="max-w-md w-full h-auto p-6 rounded-xl shadow-lg">
-    <h2 className="text-4xl text-purple-600 mb-6 text-center font-bold">Register</h2>
+  <div className="max-w-md w-full h-auto p-6 rounded-xl shadow-lg backdrop-blur-md"style={{ backgroundColor: 'rgba(255, 255, 250, 0.3)' }}>
+    <h2 className="text-4xl mb-6 text-center font-bold" style={{ color: 'rgba(70, 30, 120, 20)' }}>Register</h2>
     <form className="w-full" onSubmit={handleSubmit}>
-      <div className="mb-6">
-        <label className="block text-purple-600 text-lg mb-2">Name</label>
+      <div className="mb-4">
+        <label className="block  text-lg mb-2" style={{ color: 'rgba(70, 30, 120, 20)' }}>Name</label>
         <input
+        style={{ borderRadius: '30px' }}
           type="text"
           name="name"
           value={inputs.name}
           onChange={handleInput}
+          placeholder="John Doe" 
           className="w-full h-12 p-4 border border-gray-300 rounded-md"
         />
-        {errors.name.required && <span className="text-red-500 text-sm">Name is required.</span>}
+        {errors.name.required && <span className="">Name is required.</span>}
       </div>
-      <div className="mb-6">
-        <label className="block text-purple-600 text-lg mb-2">Email</label>
+      <div className="mb-4">
+        <label className="block  text-lg mb-2" style={{ color: 'rgba(70, 30, 120, 20)' }}>Email</label>
         <input
+        style={{ borderRadius: '30px' }}
           type="email"
           name="email"
           value={inputs.email}
           onChange={handleInput}
+          placeholder="example@example.com"  // Added placeholder here
+
           className="w-full h-12 p-4 border border-gray-300 rounded-md"
         />
-        {errors.email.required && <span className="text-red-500 text-sm">Email is required.</span>}
+        {errors.email.required && <span className="">Email is required.</span>}
       </div>
-      <div className="mb-6">
-        <label className="block text-purple-600 text-lg mb-2">Password</label>
+      <div className="mb-4">
+        <label className="block text-lg mb-2" style={{ color: 'rgba(70, 30, 120, 20)' }}>Password</label>
         <input
+        style={{ borderRadius: '30px' }}
           type="password"
           name="password"
           value={inputs.password}
           onChange={handleInput}
+          placeholder="Enter your password"
+
           className="w-full h-12 p-4 border border-gray-300 rounded-md"
         />
-        {errors.password.required && <span className="text-red-500 text-sm">Password is required.</span>}
+        {errors.password.required && <span className="">Password is required.</span>}
       </div>
-      {errors.custom_error && <span className="text-red-500 text-sm">{errors.custom_error}</span>}
+      {errors.custom_error && <span className="">{errors.custom_error}</span>}
       {loading ? <div className="text-center text-purple-600">Loading...</div> : null}
       {/* <button
         type="submit"
@@ -186,14 +136,15 @@ const RegisterPage = ({ onSuccess }) => {
       <button
   type="submit"
   disabled={loading}
-  className="w-full h-12 bg-purple-600 text-white border border-purple-600 py-2 mt-6 rounded-lg hover:bg-white hover:text-purple-600 transition duration-300"
+  className="w-full h-12 bg-purple-600 text-white border border-purple-600 py-2 mt-6  hover:text-purple-600 transition duration-300"
+  style={{ borderRadius: '30px' }}
 >
   Register
 </button>
 
     </form>
   </div>
-</motion.div>
+</div>
 
   );
 };
