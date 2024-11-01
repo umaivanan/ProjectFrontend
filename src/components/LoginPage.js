@@ -53,7 +53,7 @@ const LoginPage = ({ onSuccess }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8712/api/auth/login', {
+      const response = await fetch('http://localhost:8713/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputs),
@@ -69,7 +69,7 @@ const LoginPage = ({ onSuccess }) => {
         localStorage.setItem('token', encryptedToken);
 
         // Fetch the form submission status after login
-        const checkFormResponse = await fetch('http://localhost:8712/api/skills/check-form', {
+        const checkFormResponse = await fetch('http://localhost:8713/api/skills/check-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: inputs.email }),
@@ -83,7 +83,7 @@ const LoginPage = ({ onSuccess }) => {
 
         // If form is submitted, save Skill ID to localStorage
       if (submittedStatus) {
-        const skillIdResponse = await fetch(`http://localhost:8712/api/skills?email=${inputs.email}`, {
+        const skillIdResponse = await fetch(`http://localhost:8713/api/skills?email=${inputs.email}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -114,7 +114,8 @@ const LoginPage = ({ onSuccess }) => {
   return (
     <div className="flex justify-center items-center h-auto w-[500px] bg-transparent">
   <div className="flex flex-col max-w-md w-full h-auto p-8 rounded-xl shadow-lg  backdrop-blur-md"
-    style={{ backgroundColor: 'rgba(255, 255, 250, 0.3)' }} // 50% opacity
+    style={{ backgroundColor: 'rgba(255, 255, 250, 0.8)',borderRadius: '40px' }} // 50% opacity
+    
     >
     <h2 className="text-4xl  mb-6 text-center font-bold"
     style={{ color: 'rgba(70, 30, 120, 20)' }}>Login</h2>

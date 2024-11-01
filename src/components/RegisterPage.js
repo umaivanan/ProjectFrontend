@@ -47,7 +47,7 @@ const RegisterPage = ({ onSuccess }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8712/api/auth/register', {
+      const response = await fetch('http://localhost:8713/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputs),
@@ -80,7 +80,7 @@ const RegisterPage = ({ onSuccess }) => {
   className="flex justify-center items-center h-auto bg-transparent "
  
 >
-  <div className="max-w-md w-full h-auto p-6 rounded-xl shadow-lg backdrop-blur-md"style={{ backgroundColor: 'rgba(255, 255, 250, 0.3)' }}>
+  <div className="max-w-md w-full h-auto p-6 rounded-xl shadow-lg backdrop-blur-md"style={{ backgroundColor: 'rgba(255, 255, 250, 0.8)',borderRadius: '30px' }}>
     <h2 className="text-4xl mb-6 text-center font-bold" style={{ color: 'rgba(70, 30, 120, 20)' }}>Register</h2>
     <form className="w-full" onSubmit={handleSubmit}>
       <div className="mb-4">

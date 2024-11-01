@@ -16,11 +16,13 @@
 .popup-content {
 background-color: rgba(75, 0, 130, 0.5); 
 padding: 20px;
-border-radius: 8px;
+border-radius: 40px;
 width: 550px;
 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Keep the shadow for better visibility */
 position: relative;
 z-index: 9999;
+border-radius: 10%;
+
 /* backdrop-filter: blur(10px); Optional: Add a blur effect to background */
 }
 

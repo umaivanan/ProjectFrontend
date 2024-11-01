@@ -1,591 +1,317 @@
+
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import './AdminDashboard.css';
 
 // const AdminDashboard = () => {
 //   const [skills, setSkills] = useState([]);
-//   const [formDatas, setFormDatas] = useState([]); // To hold FormData records
-//   const [selectedFormData, setSelectedFormData] = useState(null); // To hold selected FormData details
+//   const [formDatas, setFormDatas] = useState([]);
+//   const [payments, setPayments] = useState([]); // State for payment details
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState('');
-
-//   // Fetch skills and form data
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const formDataResponse = await axios.get(`http://localhost:8706/api/formdata`);
-//         setFormDatas(formDataResponse.data); // Set form data response
-
-//         const skillsResponse = await axios.get('http://localhost:8706/api/skills');
-//         setSkills(skillsResponse.data); // Set skills response
-//       } catch (error) {
-//         setError('Error fetching data');
-//         console.error(error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   // Function to fetch full FormData details when a user clicks 'View Details'
-//   const handleViewDetails = (formDataId) => {
-//     const selectedData = formDatas.find(data => data._id === formDataId);
-//     setSelectedFormData(selectedData); // Set the selected form data details
+//   const [activeSection, setActiveSection] = useState('formdata'); // State to track active section
+//   const [expandedRows, setExpandedRows] = useState({}); // Track expanded rows
+  
+//   const toggleChapters = (id) => {
+//     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
 //   };
 
-//   // Function to delete a user when 'Block User' is clicked
-//   const handleBlockUser = async (formDataId) => {
+//   // Function to send email to Payer
+//   const sendEmailToPayer = async (payerEmail) => {
 //     try {
-//       // Send DELETE request to backend API
-//       await axios.delete(`http://localhost:8712/api/formdata/${formDataId}`);
-
-//       // Update the frontend state to remove the blocked user
-//       setFormDatas(formDatas.filter(data => data._id !== formDataId));
-
+//       const response = await axios.post('http://localhost:8713/api/send-email/payer', { email: payerEmail });
+//       alert(response.data.message);
 //     } catch (error) {
-//       console.error('Error blocking user:', error);
+//       alert('Error sending email to payer');
+//       console.error(error);
 //     }
 //   };
 
-//   if (loading) return <p className="text-cyan-500">Loading...</p>;
-//   if (error) return <p className="text-red-500">{error}</p>;
+//   // Function to send email to Instructor
+//   const sendEmailToInstructor = async (instructorEmail) => {
+//     try {
+//       const response = await axios.post('http://localhost:8713/api/send-email/instructor', { email: instructorEmail });
+//       alert(response.data.message);
+//     } catch (error) {
+//       alert('Error sending email to instructor');
+//       console.error(error);
+//     }
+//   };
+
+//   // Fetch skills, form data, and payment details
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         // Fetch form data
+//         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+//         setFormDatas(formDataResponse.data);
+
+//         // Fetch skills
+//         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+//         setSkills(skillsResponse.data);
+
+//         // Fetch payment details
+//         const paymentResponse = await axios.get('http://localhost:8713/payment');
+//         setPayments(paymentResponse.data.payments); // Assuming the payments are in "payments" array
+//       } catch (error) {
+//         setError('Error fetching data');
+//         console.error(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>{error}</p>;
+
 
 //   return (
-//     <div className="min-h-screen bg-white flex">
-//       {/* Sidebar takes 1/3 of the screen */}
-//       <aside className="w-1/3 bg-cyan-500 text-white p-4">
-//         <button className="w-full py-2 text-white font-semibold">
-//           Users with FormData and Skills
-//         </button>
-//       </aside>
+//     <div className="admin-dashboard-container flex">
+//       {/* Sidebar */}
+//       <div className="sidebar w-1/4 bg-gray-800 text-white h-screen p-4">
+//         <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
+//         <ul>
+//           <li 
+//             className={`p-2 mb-2 cursor-pointer ${activeSection === 'formdata' ? 'bg-blue-500' : 'bg-gray-700'}`} 
+//             onClick={() => setActiveSection('formdata')}
+//           >
+//             Form Data
+//           </li>
+//           <li 
+//             className={`p-2 mb-2 cursor-pointer ${activeSection === 'payments' ? 'bg-blue-500' : 'bg-gray-700'}`} 
+//             onClick={() => setActiveSection('payments')}
+//           >
+//             Payments
+//           </li>
+//         </ul>
+//       </div>
 
-//       {/* Content takes 3/4 of the screen */}
-//       <div className="w-3/4 p-4">
-//         <header className="mb-6">
-//           <h1 className="text-3xl font-bold text-cyan-500">Admin Dashboard</h1>
-//         </header>
+//       {/* Main Content */}
+//       <div className="dashboard-content w-3/4 p-4">
+//         {/* Form Data Section */}
+//         {activeSection === 'formdata' && (
+//           <section className="dashboard-section">
+//       <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
+//       <div className="overflow-x-auto">
+//         <table className="min-w-full border-collapse block md:table">
+//           <thead className="block md:table-header-group">
+//             <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
+//               <th className="p-2 text-left bg-gray-50 md:table-cell">Chapters</th>
+//             </tr>
+//           </thead>
+//           <tbody className="block md:table-row-group">
+//             {formDatas.map((formData) => (
+//               <React.Fragment key={formData._id}>
+//                 <tr className="block md:table-row">
+//                   <td className="p-2 border-t block md:table-cell">{formData._id}</td>
+//                   <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                   <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
+//                   <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                   <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
+//                   <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
+//                   <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
+//                   <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
+//                   <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
+//                   <td className="p-2 border-t block md:table-cell">
+//                     <button
+//                       onClick={() => toggleChapters(formData._id)}
+//                       className="text-blue-500 hover:underline"
+//                     >
+//                       {expandedRows[formData._id] ? 'Hide Chapters' : 'View Chapters'}
+//                     </button>
+//                   </td>
+//                 </tr>
 
-//         <section className="space-y-4">
-//           {formDatas.map((formData) => (
-//             <div key={formData._id} className="p-4 border rounded-lg shadow-md bg-white w-full">
-//               <h2
-//                 className="text-xl font-bold text-cyan-500 cursor-pointer hover:underline"
-//                 onClick={() => handleViewDetails(formData._id)}
-//               >
-//                 Form Data ID: {formData._id}
-//               </h2>
-
-//               {selectedFormData && selectedFormData._id === formData._id && (
-//                 <div className="flex flex-col lg:flex-row lg:space-x-6 mt-4 w-full">
-//                   <div className="w-full lg:w-1/2 space-y-4">
-//                     <p><strong>Course Description:</strong> {selectedFormData.courseDescription}</p>
-//                     <p><strong>Course Duration:</strong> {selectedFormData.courseDuration}</p>
-//                     <p><strong>Target Audience:</strong> {selectedFormData.targetAudience}</p>
-//                     <p><strong>Course Category:</strong> {selectedFormData.courseCategory}</p>
-//                     <p><strong>Languages:</strong> {selectedFormData.languages}</p>
-//                     <h3 className="font-bold text-lg text-cyan-500">PDF Links</h3>
-//                     {/* PDF Links */}
-//                     {selectedFormData.roadmapIntroduction && (
-//                       <div>
-//                         <a
-//                           href={`http://localhost:8706/pdfUploads/${selectedFormData.roadmapIntroduction}`}
-//                           target="_blank"
-//                           rel="noopener noreferrer"
-//                           className="text-cyan-500 underline"
-//                         >
-//                           View Roadmap Introduction PDF
-//                         </a>
+//                 {expandedRows[formData._id] && (
+//                   <tr className="block md:table-row">
+//                     <td colSpan="10" className="p-2 border-t block md:table-cell">
+//                       <div className="mt-2 space-y-2">
+//                         {formData.roadmapIntroduction && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.roadmapIntroduction}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Roadmap PDF
+//                           </a>
+//                         )}
+//                         {formData.firstChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.firstChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             First Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.secondChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.secondChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Second Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.thirdChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.thirdChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Third Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.fourthChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.fourthChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Fourth Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.fifthChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.fifthChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Fifth Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.sixthChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.sixthChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Sixth Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.seventhChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.seventhChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Seventh Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.eighthChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.eighthChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Eighth Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.ninthChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.ninthChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Ninth Chapter PDF
+//                           </a>
+//                         )}
+//                         {formData.tenthChapter && (
+//                           <a
+//                             href={`http://localhost:8713/pdfUploads/${formData.tenthChapter}`}
+//                             target="_blank"
+//                             rel="noopener noreferrer"
+//                             className="block text-blue-500 hover:underline"
+//                           >
+//                             Tenth Chapter PDF
+//                           </a>
+//                         )}
 //                       </div>
-//                     )}
-//                     {/* Include other chapter links similarly... */}
-//                     {['firstChapter', 'secondChapter', 'thirdChapter', 'fourthChapter', 'fifthChapter',
-//                       'sixthChapter', 'seventhChapter', 'eighthChapter', 'ninthChapter', 'tenthChapter']
-//                       .map((chapter, index) => (
-//                         selectedFormData[chapter] && (
-//                           <div key={index}>
-//                             <a
-//                               href={`http://localhost:8706/pdfUploads/${selectedFormData[chapter]}`}
-//                               target="_blank"
-//                               rel="noopener noreferrer"
-//                               className="text-cyan-500 underline"
-//                             >
-//                               View {chapter.charAt(0).toUpperCase() + chapter.slice(1)} PDF
-//                             </a>
-//                           </div>
-//                         )
-//                       ))}
-//                   </div>
-
-//                   <div className="w-full lg:w-1/2 space-y-4">
-//                     <h3 className="font-bold text-lg text-cyan-500">Profile Picture</h3>
-//                     {selectedFormData.skill.profilePicture && (
-//                       <img
-//                         src={`http://localhost:8706${selectedFormData.skill.profilePicture}`}
-//                         alt={selectedFormData.skill.profileName}
-//                         className="w-24 h-24 object-cover rounded-lg"
-//                       />
-//                     )}
-
-//                     <h3 className="font-bold text-lg text-cyan-500">Course Image</h3>
-//                     {selectedFormData.image && (
-//                       <img
-//                         src={`http://localhost:8706/imageUploads/${selectedFormData.image}`}
-//                         alt="Course uploaded"
-//                         className="w-full h-48 object-cover rounded-lg"
-//                       />
-//                     )}
-
-//                     <h3 className="font-bold text-lg text-cyan-500">Skill Details</h3>
-//                     <p><strong>Skill ID:</strong> {selectedFormData.skill._id}</p>
-//                     <p><strong>Profile Name:</strong> {selectedFormData.skill.profileName}</p>
-//                     <p><strong>Skill Category:</strong> {selectedFormData.skill.skillCategory}</p>
-//                     <p><strong>Email:</strong> {selectedFormData.skill.email}</p>
-//                     <p><strong>Submitted Status:</strong> {selectedFormData.skill.submittedStatus ? 'Yes' : 'No'}</p>
-//                     <p><strong>Preferred Language:</strong> {selectedFormData.skill.preferredLanguage}</p>
-//                     <p><strong>Educational Background:</strong> {selectedFormData.skill.educationalBackground}</p>
-//                   </div>
-//                 </div>
-//               )}
-
-//               <div className="mt-4">
-//                 {/* Block User button to delete the formData */}
-//                 <button 
-//                   className="px-4 py-2 bg-cyan-500 text-white rounded hover:bg-cyan-600"
-//                   onClick={() => handleBlockUser(formData._id)}
-//                 >
-//                   Block User
-//                 </button>
-//               </div>
-//             </div>
-//           ))}
-//         </section>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboard;
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './AdminDashboard.css';
-
-// const AdminDashboard = () => {
-//   const [skills, setSkills] = useState([]);
-//   const [formDatas, setFormDatas] = useState([]); // To hold FormData records
-//   const [selectedFormData, setSelectedFormData] = useState(null); // To hold selected FormData details
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-
-//   // Fetch skills and form data
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const formDataResponse = await axios.get(`http://localhost:8712/api/formdata`);
-//         setFormDatas(formDataResponse.data); // Set form data response
-
-//         const skillsResponse = await axios.get('http://localhost:8712/api/skills');
-//         setSkills(skillsResponse.data); // Set skills response
-//       } catch (error) {
-//         setError('Error fetching data');
-//         console.error(error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   // Function to fetch full FormData details when a user clicks 'View Details'
-//   const handleViewDetails = (formDataId) => {
-//     const selectedData = formDatas.find(data => data._id === formDataId);
-//     setSelectedFormData(selectedData); // Set the selected form data details
-//   };
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>{error}</p>;
-
-//   return (
-//     <div className="admin-dashboard-container">
-//       <aside className="sidebar">
-//         <button className={`sidebar-button active`}>
-//           Users with FormData and Skills
-//         </button>
-//       </aside>
-
-//       <div className="dashboard-content">
-//         <header className="admin-header">
-//           <h1>Admin Dashboard</h1>
-//         </header>
-
-//         <section className="dashboard-section">
-//           <h2>Users</h2>
-//           <table className="styled-table">
-//             <thead>
-//               <tr>
-//                 <th>Form Data ID</th>
-//                 <th>Name</th>
-//                 <th>Skill Category</th>
-//                 <th>Details</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {formDatas.map((formData) => (
-//                 <tr key={formData._id}>
-//                   <td>{formData._id}</td>
-//                   <td>{formData.skill.profileName}</td>
-//                   <td>{formData.skill.skillCategory}</td>
-//                   <td>
-//                     <button onClick={() => handleViewDetails(formData._id)}>
-//                       View Details
-//                     </button>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </section>
-
-//         {/* Conditionally render selected FormData details */}
-//         {selectedFormData && (
-//           <div className="form-data-details">
-//             <h2>Form Data Details</h2>
-//             <p><strong>Where I Live:</strong> {selectedFormData.whereILive}</p>
-//             <p><strong>Decade Born:</strong> {selectedFormData.decadeBorn}</p>
-//             <p><strong>Time Spent:</strong> {selectedFormData.timeSpent}</p>
-//             <p><strong>Work:</strong> {selectedFormData.work}</p>
-//             <p><strong>Languages:</strong> {selectedFormData.languages}</p>
-//             <p><strong>About Me:</strong> {selectedFormData.aboutMe}</p>
-
-//             <h3>PDF Links</h3>
-//             {selectedFormData.roadmapIntroduction && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.roadmapIntroduction}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Roadmap Introduction PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.firstChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.firstChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View First Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.secondChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.secondChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Second Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.thirdChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.thirdChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Third Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.fourthChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.fourthChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Fourth Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.fifthChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.fifthChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Fifth Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.sixthChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.sixthChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Sixth Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.seventhChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.seventhChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Seventh Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.eighthChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.eighthChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Eighth Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.ninthChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.ninthChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Ninth Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//             {selectedFormData.tenthChapter && (
-//               <div>
-//                 <a
-//                   href={`http://localhost:8712/pdfUploads/${selectedFormData.tenthChapter}`}
-//                   target="_blank"
-//                   rel="noopener noreferrer"
-//                 >
-//                   View Tenth Chapter PDF
-//                 </a>
-//               </div>
-//             )}
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboard;
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import DisplayData from './DisplayData'; // Import the DisplayData component
-// import './AdminDashboard.css';
-
-// const AdminDashboard = () => {
-//   const [skills, setSkills] = useState([]);
-//   const [formDatas, setFormDatas] = useState([]); 
-//   const [selectedFormData, setSelectedFormData] = useState(null); // Store the selected form data
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-
-//   // Fetch skills and form data
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const formDataResponse = await axios.get('http://localhost:8712/api/formdata');
-//         setFormDatas(formDataResponse.data); // Set form data response
-
-//         const skillsResponse = await axios.get('http://localhost:8712/api/skills');
-//         setSkills(skillsResponse.data); // Set skills response
-//       } catch (error) {
-//         setError('Error fetching data');
-//         console.error(error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   // Function to open detailed view (DisplayData component) when a user clicks 'View Details'
-//   const handleViewDetails = (formDataId) => {
-//     const selectedData = formDatas.find((data) => data._id === formDataId);
-//     setSelectedFormData(selectedData); // Set the selected form data
-//   };
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>{error}</p>;
-
-//   return (
-//     <div className="admin-dashboard-container">
-//       <aside className="sidebar">
-//         <button className={`sidebar-button active`}>
-//           Users with FormData and Skills
-//         </button>
-//       </aside>
-
-//       <div className="dashboard-content">
-//         <header className="admin-header">
-//           <h1>Admin Dashboard</h1>
-//         </header>
-
-//         <section className="dashboard-section">
-//           <h2>Users</h2>
-//           <table className="styled-table">
-//             <thead>
-//               <tr>
-//                 <th>Form Data ID</th>
-//                 <th>Name</th>
-//                 <th>Skill Category</th>
-//                 <th>Details</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {formDatas.map((formData) => (
-//                 <tr key={formData._id}>
-//                   <td>{formData._id}</td>
-//                   <td>{formData.skill.profileName}</td>
-//                   <td>{formData.skill.skillCategory}</td>
-//                   <td>
-//                     <button onClick={() => handleViewDetails(formData._id)}>
-//                       View Details
-//                     </button>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </section>
-
-//         {/* Conditionally render the DisplayData component if selectedFormData is available */}
-//         {selectedFormData && (
-//           <DisplayData id={selectedFormData._id} onClose={() => setSelectedFormData(null)} />
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboard;
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './AdminDashboard.css';
-
-// const AdminDashboard = () => {
-//   const [skills, setSkills] = useState([]);
-//   const [formDatas, setFormDatas] = useState([]); 
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-
-//   // Fetch skills and form data
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const formDataResponse = await axios.get('http://localhost:8712/api/formdata');
-//         setFormDatas(formDataResponse.data); // Set form data response
-
-//         const skillsResponse = await axios.get('http://localhost:8712/api/skills');
-//         setSkills(skillsResponse.data); // Set skills response
-//       } catch (error) {
-//         setError('Error fetching data');
-//         console.error(error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>{error}</p>;
-
-//   return (
-//     <div className="admin-dashboard-container">
-//       <header className="admin-header py-4 bg-blue-500 text-white text-center">
-//         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-//       </header>
-
-//       <div className="dashboard-content p-4">
-//         <section className="dashboard-section">
-//           <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
-          
-//           <div className="overflow-x-auto">
-//             <table className="min-w-full border-collapse block md:table">
-//               <thead className="block md:table-header-group">
-//                 <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">Roadmap PDF</th>
-//                   <th className="p-2 text-left bg-gray-50 md:table-cell">First Chapter PDF</th>
-//                 </tr>
-//               </thead>
-//               <tbody className="block md:table-row-group">
-//                 {formDatas.map((formData) => (
-//                   <tr key={formData._id} className="block md:table-row">
-//                     <td className="p-2 border-t block md:table-cell">{formData._id}</td>
-//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
-//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
-//                     <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
-//                     <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
-//                     <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
-//                     <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
-//                     <td className="p-2 border-t block md:table-cell">
-//                       {formData.roadmapIntroduction && (
-//                         <a
-//                           href={`http://localhost:8712/pdfUploads/${formData.roadmapIntroduction}`}
-//                           target="_blank"
-//                           rel="noopener noreferrer"
-//                           className="text-blue-500 hover:underline"
-//                         >
-//                           View Roadmap PDF
-//                         </a>
-//                       )}
-//                     </td>
-//                     <td className="p-2 border-t block md:table-cell">
-//                       {formData.firstChapter && (
-//                         <a
-//                           href={`http://localhost:8712/pdfUploads/${formData.firstChapter}`}
-//                           target="_blank"
-//                           rel="noopener noreferrer"
-//                           className="text-blue-500 hover:underline"
-//                         >
-//                           View First Chapter PDF
-//                         </a>
-//                       )}
 //                     </td>
 //                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-//           </div>
-//         </section>
+//                 )}
+//               </React.Fragment>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//     </section>
+//         )}
+
+//         {/* Payment Details Section */}
+//         {activeSection === 'payments' && (
+        
+//         <section className="dashboard-section mt-8">
+//         <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
+//         <div className="overflow-x-auto">
+//           <table className="min-w-full border-collapse block md:table">
+//             <thead className="block md:table-header-group">
+//               <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Product Name</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Amount</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Stripe Charge ID</th>
+//                 <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+//               </tr>
+//             </thead>
+//             <tbody className="block md:table-row-group">
+//               {payments.map((payment) => (
+//                 <tr key={payment._id} className="block md:table-row">
+//                   <td className="p-2 border-t block md:table-cell">{payment._id}</td>
+//                   <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
+//                   <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
+//                   <td className="p-2 border-t block md:table-cell">{payment.productName}</td>
+//                   <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
+//                   <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
+//                   <td className="p-2 border-t block md:table-cell">${payment.instructorAmount}</td>
+//                   <td className="p-2 border-t block md:table-cell">{payment.stripeId}</td>
+//                   <td className="p-2 border-t block md:table-cell">
+//                     <button
+//                       onClick={() => sendEmailToPayer(payment.payerEmail)}
+//                       className="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600"
+//                     >
+//                       Mail to Payer
+//                     </button>
+//                     <button
+//                       onClick={() => sendEmailToInstructor(payment.instructorEmail)}
+//                       className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+//                     >
+//                       Mail to Instructor
+//                     </button>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//       </section>
+//         )}
 //       </div>
 //     </div>
 //   );
@@ -593,33 +319,673 @@
 
 // export default AdminDashboard;
 
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import emailjs from 'emailjs-com'; // Use the correct import for emailjs
+// import './AdminDashboard.css';
+// import { FaEnvelope } from 'react-icons/fa';
+
+// const AdminDashboard = () => {
+//   const [skills, setSkills] = useState([]);
+//   const [formDatas, setFormDatas] = useState([]);
+//   const [payments, setPayments] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState('');
+//   const [activeTab, setActiveTab] = useState('formdata');
+//   const [expandedRows, setExpandedRows] = useState({});
+
+//   const toggleChapters = (id) => {
+//     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
+//   };
+
+//   const sendEmail = async (recipientEmail, templateParams) => {
+//     try {
+//       await emailjs.send('service_m9qcm0r', 'YOUR_TEMPLATE_ID', templateParams, 'YOUR_PUBLIC_KEY');
+//       alert('Email sent successfully!');
+//     } catch (error) {
+//       alert('Error sending email');
+//       console.error(error);
+//     }
+//   };
+
+//   const handleEmailToPayer = (payerEmail) => {
+//     const templateParams = {
+//       to_email: payerEmail,
+//       subject: 'Payment Confirmation',
+//       message: 'Thank you for your payment!',
+//     };
+//     sendEmail(payerEmail, templateParams);
+//   };
+
+//   const handleEmailToInstructor = (instructorEmail) => {
+//     const templateParams = {
+//       to_email: instructorEmail,
+//       subject: 'Course Update',
+//       message: 'Your course information has been updated!',
+//     };
+//     sendEmail(instructorEmail, templateParams);
+//   };
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+//         setFormDatas(formDataResponse.data);
+
+//         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+//         setSkills(skillsResponse.data);
+
+//         const paymentResponse = await axios.get('http://localhost:8713/payment');
+//         setPayments(paymentResponse.data.payments);
+//       } catch (error) {
+//         setError('Error fetching data');
+//         console.error(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>{error}</p>;
+
+//   return (
+//     <div className="admin-dashboard flex flex-col items-center bg-gray-100 min-h-screen p-6">
+//       <div className="header bg-purple-900 text-white w-full py-4 px-5 rounded-lg mt-20 shadow-lg flex justify-between items-center">
+//         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+//         <div className="tabs flex">
+//           <button
+//             className={`px-4 py-2 rounded-l-lg ${activeTab === 'formdata' ? 'bg-teal-500' : 'bg-purple-700'}`}
+//             onClick={() => setActiveTab('formdata')}
+//           >
+//             Form Data
+//           </button>
+//           <button
+//             className={`px-4 py-2 rounded-r-lg ${activeTab === 'payments' ? 'bg-teal-500' : 'bg-purple-700'}`}
+//             onClick={() => setActiveTab('payments')}
+//           >
+//             Payments
+//           </button>
+//         </div>
+//       </div>
+
+//       <div className="content w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
+//         {activeTab === 'formdata' && (
+//           <section className="formdata-section">
+//             <h2 className="text-xl font-semibold text-purple-900 mb-4">Users with Form Data and Skills</h2>
+//             <div className="overflow-x-auto">
+//               <table className="min-w-full border-collapse block md:table">
+//                 <thead className="block md:table-header-group">
+//                   <tr className="border-b-2 border-gray-200 block md:table-row">
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody className="block md:table-row-group">
+//                   {formDatas.map((formData) => (
+//                     <React.Fragment key={formData._id}>
+//                       <tr className="block md:table-row">
+//                         <td className="p-2 border-t block md:table-cell">{formData._id}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
+//                         <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
+//                         <td className="p-2 border-t block md:table-cell">
+//                           <button
+//                             onClick={() => toggleChapters(formData._id)}
+//                             className="text-teal-500 hover:underline"
+//                           >
+//                             {expandedRows[formData._id] ? 'Hide Chapters' : 'View Chapters'}
+//                           </button>
+//                         </td>
+//                       </tr>
+//                       {expandedRows[formData._id] && (
+//                         <tr className="block md:table-row">
+//                           <td colSpan="8" className="p-2 border-t block md:table-cell">
+//                             <div className="mt-2 space-y-2">
+//                               {[...Array(10)].map((_, index) => (
+//                                 formData[`chapter${index + 1}`] && (
+//                                   <a
+//                                     key={index}
+//                                     href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+//                                     target="_blank"
+//                                     rel="noopener noreferrer"
+//                                     className="block text-teal-500 hover:underline"
+//                                   >
+//                                     Chapter {index + 1} PDF
+//                                   </a>
+//                                 )
+//                               ))}
+//                             </div>
+//                           </td>
+//                         </tr>
+//                       )}
+//                     </React.Fragment>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             </div>
+//           </section>
+//         )}
+
+//         {activeTab === 'payments' && (
+//           <section className="payments-section">
+//             <h2 className="text-xl font-semibold text-purple-900 mb-4">Payment Details</h2>
+//             <div className="overflow-x-auto">
+//               <table className="min-w-full border-collapse block md:table">
+//                 <thead className="block md:table-header-group">
+//                   <tr className="border-b-2 border-gray-200 block md:table-row">
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody className="block md:table-row-group">
+//                   {payments.map((payment) => (
+//                     <tr key={payment._id} className="block md:table-row">
+//                       <td className="p-2 border-t block md:table-cell">{payment._id}</td>
+//                       <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
+//                       <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
+//                       <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
+//                       <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
+//                       <td className="p-2 border-t block md:table-cell">
+//                         <button
+//                           onClick={() => handleEmailToPayer(payment.payerEmail)}
+//                           className="bg-teal-500 text-white px-1 mr-2 py-1 rounded hover:bg-teal-600"
+//                         >
+//                           Mail to Payer
+//                         </button>
+//                         <button
+//                           onClick={() => handleEmailToInstructor(payment.instructorEmail)}
+//                           className="bg-teal-500 text-white px-2 ml-2 py-1 rounded hover:bg-teal-600"
+//                         >
+//                           Mail to Instructor
+//                         </button>
+//                       </td>
+//                     </tr>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             </div>
+//           </section>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AdminDashboard;
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import emailjs from 'emailjs-com';
+// import './AdminDashboard.css';
+// import { FaEnvelope } from 'react-icons/fa';
+
+// const AdminDashboard = () => {
+//   const [skills, setSkills] = useState([]);
+//   const [formDatas, setFormDatas] = useState([]);
+//   const [payments, setPayments] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState('');
+//   const [activeTab, setActiveTab] = useState('formdata');
+//   const [expandedRows, setExpandedRows] = useState({});
+//   const appName = 'Swapsmaert'; // App name for consistency
+
+//   const toggleChapters = (id) => {
+//     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
+//   };
+
+//   // Send email function using EmailJS
+//   const sendEmail = async (recipientEmail, recipientName, subject, message) => {
+//     const templateParams = {
+//       to_name: recipientName,
+//       from_name: appName,
+//       message,
+//       to_email: recipientEmail
+//     };
+
+//     try {
+//       await emailjs.send('service_m9qcm0r', 'template_rjhjflr', templateParams, 'NtnDyib--Ww0OZmia');
+//       alert('Email sent successfully!');
+//     } catch (error) {
+//       alert('Error sending email');
+//       console.error(error);
+//     }
+//   };
+
+//   // Function to handle email to the payer
+//   const handleEmailToPayer = (payerEmail) => {
+//     sendEmail(payerEmail, 'Payer', 'Payment Confirmation', 'Thank you for your payment!');
+//   };
+
+//   // Function to handle email to the instructor
+//   const handleEmailToInstructor = (instructorEmail) => {
+//     sendEmail(instructorEmail, 'Instructor', 'Course Update', 'Your course information has been updated!');
+//   };
+
+//   // Fetch data on component mount
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+//         setFormDatas(formDataResponse.data);
+
+//         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+//         setSkills(skillsResponse.data);
+
+//         const paymentResponse = await axios.get('http://localhost:8713/payment');
+//         setPayments(paymentResponse.data.payments);
+//       } catch (error) {
+//         setError('Error fetching data');
+//         console.error(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>{error}</p>;
+
+//   return (
+//     <div className="admin-dashboard flex flex-col items-center bg-gray-100 min-h-screen p-6">
+//       <div className="header bg-purple-900 text-white w-full py-4 px-5 rounded-lg mt-20 shadow-lg flex justify-between items-center">
+//         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+//         <div className="tabs flex">
+//           <button
+//             className={`px-4 py-2 rounded-l-lg ${activeTab === 'formdata' ? 'bg-teal-500' : 'bg-purple-700'}`}
+//             onClick={() => setActiveTab('formdata')}
+//           >
+//             Form Data
+//           </button>
+//           <button
+//             className={`px-4 py-2 rounded-r-lg ${activeTab === 'payments' ? 'bg-teal-500' : 'bg-purple-700'}`}
+//             onClick={() => setActiveTab('payments')}
+//           >
+//             Payments
+//           </button>
+//         </div>
+//       </div>
+
+//       <div className="content w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
+//         {activeTab === 'formdata' && (
+//           <section className="formdata-section">
+//             <h2 className="text-xl font-semibold text-purple-900 mb-4">Users with Form Data and Skills</h2>
+//             <div className="overflow-x-auto">
+//               <table className="min-w-full border-collapse block md:table">
+//                 <thead className="block md:table-header-group">
+//                   <tr className="border-b-2 border-gray-200 block md:table-row">
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody className="block md:table-row-group">
+//                   {formDatas.map((formData) => (
+//                     <React.Fragment key={formData._id}>
+//                       <tr className="block md:table-row">
+//                         <td className="p-2 border-t block md:table-cell">{formData._id}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
+//                         <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
+//                         <td className="p-2 border-t block md:table-cell">
+//                           <button
+//                             onClick={() => toggleChapters(formData._id)}
+//                             className="text-teal-500 hover:underline"
+//                           >
+//                             {expandedRows[formData._id] ? 'Hide Chapters' : 'View Chapters'}
+//                           </button>
+//                         </td>
+//                       </tr>
+//                       {expandedRows[formData._id] && (
+//                         <tr className="block md:table-row">
+//                           <td colSpan="8" className="p-2 border-t block md:table-cell">
+//                             <div className="mt-2 space-y-2">
+//                               {[...Array(10)].map((_, index) => (
+//                                 formData[`chapter${index + 1}`] && (
+//                                   <a
+//                                     key={index}
+//                                     href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+//                                     target="_blank"
+//                                     rel="noopener noreferrer"
+//                                     className="block text-teal-500 hover:underline"
+//                                   >
+//                                     Chapter {index + 1} PDF
+//                                   </a>
+//                                 )
+//                               ))}
+//                             </div>
+//                           </td>
+//                         </tr>
+//                       )}
+//                     </React.Fragment>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             </div>
+//           </section>
+//         )}
+
+//         {activeTab === 'payments' && (
+//           <section className="payments-section">
+//             <h2 className="text-xl font-semibold text-purple-900 mb-4">Payment Details</h2>
+//             <div className="overflow-x-auto">
+//               <table className="min-w-full border-collapse block md:table">
+//                 <thead className="block md:table-header-group">
+//                   <tr className="border-b-2 border-gray-200 block md:table-row">
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody className="block md:table-row-group">
+//                   {payments.map((payment) => (
+//                     <tr key={payment._id} className="block md:table-row">
+//                       <td className="p-2 border-t block md:table-cell">{payment._id}</td>
+//                       <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
+//                       <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
+//                       <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
+//                       <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
+//                       <td className="p-2 border-t block md:table-cell">
+//                         <button
+//                           onClick={() => handleEmailToPayer(payment.payerEmail)}
+//                           className="bg-teal-500 text-white px-1 mr-2 py-1 rounded hover:bg-teal-600"
+//                         >
+//                           Mail to Payer
+//                         </button>
+//                         <button
+//                           onClick={() => handleEmailToInstructor(payment.instructorEmail)}
+//                           className="bg-teal-500 text-white px-2 ml-2 py-1 rounded hover:bg-teal-600"
+//                         >
+//                           Mail to Instructor
+//                         </button>
+//                       </td>
+//                     </tr>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             </div>
+//           </section>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AdminDashboard;
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import emailjs from 'emailjs-com';
+// import './AdminDashboard.css';
+// import { FaEnvelope } from 'react-icons/fa';
+
+// const AdminDashboard = () => {
+//   const [skills, setSkills] = useState([]);
+//   const [formDatas, setFormDatas] = useState([]);
+//   const [payments, setPayments] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState('');
+//   const [activeTab, setActiveTab] = useState('formdata');
+//   const [expandedRows, setExpandedRows] = useState({});
+//   const appName = 'Swapsmaert'; // App name for consistency
+
+//   const toggleChapters = (id) => {
+//     setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
+//   };
+
+//   // Send email function using EmailJS
+//   const sendEmailToInstructor = async (instructorEmail) => {
+//     const templateParams = {
+//       to_name: 'Instructor',
+//       from_name: appName,
+//       message: 'Your course has successfully sold!',
+//       to_email: instructorEmail
+      
+//     };
+
+//     try {
+//       await emailjs.send('service_m9qcm0r', 'template_rjhjflr', templateParams, 'NtnDyib--Ww0OZmia');
+//       alert(`Email sent successfully to the instructor!`);
+//     } catch (error) {
+//       alert(`Error sending email to the instructor`);
+//       console.error(error);
+      
+//     }
+//   };
+
+//   // Fetch data on component mount
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+//         setFormDatas(formDataResponse.data);
+
+//         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+//         setSkills(skillsResponse.data);
+
+//         const paymentResponse = await axios.get('http://localhost:8713/payment');
+//         setPayments(paymentResponse.data.payments);
+//       } catch (error) {
+//         setError('Error fetching data');
+//         console.error(error);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>{error}</p>;
+
+//   return (
+//     <div className="admin-dashboard flex flex-col items-center bg-gray-100 min-h-screen p-6">
+//       <div className="header bg-purple-900 text-white w-full py-4 px-5 rounded-lg mt-20 shadow-lg flex justify-between items-center">
+//         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+//         <div className="tabs flex">
+//           <button
+//             className={`px-4 py-2 rounded-l-lg ${activeTab === 'formdata' ? 'bg-teal-500' : 'bg-purple-700'}`}
+//             onClick={() => setActiveTab('formdata')}
+//           >
+//             Form Data
+//           </button>
+//           <button
+//             className={`px-4 py-2 rounded-r-lg ${activeTab === 'payments' ? 'bg-teal-500' : 'bg-purple-700'}`}
+//             onClick={() => setActiveTab('payments')}
+//           >
+//             Payments
+//           </button>
+//         </div>
+//       </div>
+
+//       <div className="content w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
+//         {activeTab === 'formdata' && (
+//           <section className="formdata-section">
+//             <h2 className="text-xl font-semibold text-purple-900 mb-4">Users with Form Data and Skills</h2>
+//             <div className="overflow-x-auto">
+//               <table className="min-w-full border-collapse block md:table">
+//                 <thead className="block md:table-header-group">
+//                   <tr className="border-b-2 border-gray-200 block md:table-row">
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody className="block md:table-row-group">
+//                   {formDatas.map((formData) => (
+//                     <React.Fragment key={formData._id}>
+//                       <tr className="block md:table-row">
+//                         <td className="p-2 border-t block md:table-cell">{formData._id}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
+//                         <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
+//                         <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
+//                         <td className="p-2 border-t block md:table-cell">
+//                           <button
+//                             onClick={() => toggleChapters(formData._id)}
+//                             className="text-teal-500 hover:underline"
+//                           >
+//                             {expandedRows[formData._id] ? 'Hide Chapters' : 'View Chapters'}
+//                           </button>
+//                         </td>
+//                       </tr>
+//                       {expandedRows[formData._id] && (
+//                         <tr className="block md:table-row">
+//                           <td colSpan="8" className="p-2 border-t block md:table-cell">
+//                             <div className="mt-2 space-y-2">
+//                               {[...Array(10)].map((_, index) => (
+//                                 formData[`chapter${index + 1}`] && (
+//                                   <a
+//                                     key={index}
+//                                     href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+//                                     target="_blank"
+//                                     rel="noopener noreferrer"
+//                                     className="block text-teal-500 hover:underline"
+//                                   >
+//                                     Chapter {index + 1} PDF
+//                                   </a>
+//                                 )
+//                               ))}
+//                             </div>
+//                           </td>
+//                         </tr>
+//                       )}
+//                     </React.Fragment>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             </div>
+//           </section>
+//         )}
+
+//         {activeTab === 'payments' && (
+//           <section className="payments-section">
+//             <h2 className="text-xl font-semibold text-purple-900 mb-4">Payment Details</h2>
+//             <div className="overflow-x-auto">
+//               <table className="min-w-full border-collapse block md:table">
+//                 <thead className="block md:table-header-group">
+//                   <tr className="border-b-2 border-gray-200 block md:table-row">
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
+//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody className="block md:table-row-group">
+//                   {payments.map((payment) => (
+//                     <tr key={payment._id} className="block md:table-row">
+//                       <td className="p-2 border-t block md:table-cell">{payment._id}</td>
+//                       <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
+//                       <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
+//                       <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
+//                       <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
+//                       <td className="p-2 border-t block md:table-cell">
+//                         <button
+//                           onClick={() => sendEmailToInstructor(payment.instructorEmail)}
+//                           className="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600"
+//                         >
+//                           Mail to Instructor
+//                         </button>
+//                       </td>
+//                     </tr>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             </div>
+//           </section>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AdminDashboard;
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import emailjs from 'emailjs-com';
 import './AdminDashboard.css';
+import { FaEnvelope } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const [skills, setSkills] = useState([]);
   const [formDatas, setFormDatas] = useState([]);
-  const [payments, setPayments] = useState([]); // State for payment details
+  const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [activeSection, setActiveSection] = useState('formdata'); // State to track active section
+  const [activeTab, setActiveTab] = useState('formdata');
+  const [expandedRows, setExpandedRows] = useState({});
+  const appName = 'Swapsmaert'; // App name for consistency
 
-  // Fetch skills, form data, and payment details
+  const toggleChapters = (id) => {
+    setExpandedRows((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  // Send email function using EmailJS
+  const sendEmailToInstructor = async (instructorEmail) => {
+    // Console log to check if instructorEmail is received correctly
+    console.log("Instructor Email:", instructorEmail);
+
+    const templateParams = {
+      to_name: 'Instructor',
+      from_name: appName,
+      message: 'Your course has successfully sold!',
+      to_email: instructorEmail // Using the actual email here from payment.instructorEmail
+    };
+
+    try {
+      await emailjs.send('service_m9qcm0r', 'template_rjhjflr', templateParams, 'NtnDyib--Ww0OZmia');
+      alert(`Email sent successfully to the instructor!`);
+    } catch (error) {
+      alert(`Error sending email to the instructor`);
+      console.error(error);
+    }
+  };
+
+  // Fetch data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch form data
-        const formDataResponse = await axios.get('http://localhost:8712/api/formdata');
+        const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
         setFormDatas(formDataResponse.data);
 
-        // Fetch skills
-        const skillsResponse = await axios.get('http://localhost:8712/api/skills');
+        const skillsResponse = await axios.get('http://localhost:8713/api/skills');
         setSkills(skillsResponse.data);
 
-        // Fetch payment details
-        const paymentResponse = await axios.get('http://localhost:8712/payment');
-        setPayments(paymentResponse.data.payments); // Assuming the payments are in "payments" array
+        const paymentResponse = await axios.get('http://localhost:8713/payment');
+        setPayments(paymentResponse.data.payments);
       } catch (error) {
         setError('Error fetching data');
         console.error(error);
@@ -627,7 +993,6 @@ const AdminDashboard = () => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -635,84 +1000,125 @@ const AdminDashboard = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="admin-dashboard-container flex">
-      {/* Sidebar */}
-      <div className="sidebar w-1/4 bg-gray-800 text-white h-screen p-4">
-        <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
-        <ul>
-          <li 
-            className={`p-2 mb-2 cursor-pointer ${activeSection === 'formdata' ? 'bg-blue-500' : 'bg-gray-700'}`} 
-            onClick={() => setActiveSection('formdata')}
+    <div className="admin-dashboard flex flex-col items-center bg-gray-100 min-h-screen p-6">
+      <div className="header bg-purple-900 text-white w-full py-4 px-5 rounded-lg mt-20 shadow-lg flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <div className="tabs flex">
+          <button
+            className={`px-4 py-2 rounded-l-lg ${activeTab === 'formdata' ? 'bg-teal-500' : 'bg-purple-700'}`}
+            onClick={() => setActiveTab('formdata')}
           >
             Form Data
-          </li>
-          <li 
-            className={`p-2 mb-2 cursor-pointer ${activeSection === 'payments' ? 'bg-blue-500' : 'bg-gray-700'}`} 
-            onClick={() => setActiveSection('payments')}
+          </button>
+          <button
+            className={`px-4 py-2 rounded-r-lg ${activeTab === 'payments' ? 'bg-teal-500' : 'bg-purple-700'}`}
+            onClick={() => setActiveTab('payments')}
           >
             Payments
-          </li>
-        </ul>
+          </button>
+        </div>
       </div>
 
-      {/* Main Content */}
-      <div className="dashboard-content w-3/4 p-4">
-        {/* Form Data Section */}
-        {activeSection === 'formdata' && (
-          <section className="dashboard-section">
-            <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
+      <div className="content w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
+        {activeTab === 'formdata' && (
+          <section className="formdata-section">
+            <h2 className="text-xl font-semibold text-purple-900 mb-4">Users with Form Data and Skills</h2>
             <div className="overflow-x-auto">
               <table className="min-w-full border-collapse block md:table">
                 <thead className="block md:table-header-group">
-                  <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
+                  <tr className="border-b-2 border-gray-200 block md:table-row">
                     <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
                     <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
                     <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
                     <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
                     <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
                     <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
                     <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">Roadmap PDF</th>
-                    <th className="p-2 text-left bg-gray-50 md:table-cell">First Chapter PDF</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="block md:table-row-group">
                   {formDatas.map((formData) => (
-                    <tr key={formData._id} className="block md:table-row">
-                      <td className="p-2 border-t block md:table-cell">{formData._id}</td>
-                      <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-                      <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
-                      <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-                      <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
-                      <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
-                      <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
-                      <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
-                      <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
-                      <td className="p-2 border-t block md:table-cell">
-                        {formData.roadmapIntroduction && (
-                          <a
-                            href={`http://localhost:8712/pdfUploads/${formData.roadmapIntroduction}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
+                    <React.Fragment key={formData._id}>
+                      <tr className="block md:table-row">
+                        <td className="p-2 border-t block md:table-cell">{formData._id}</td>
+                        <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+                        <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
+                        <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
+                        <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
+                        <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
+                        <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
+                        <td className="p-2 border-t block md:table-cell">
+                          <button
+                            onClick={() => toggleChapters(formData._id)}
+                            className="text-teal-500 hover:underline"
                           >
-                            View Roadmap PDF
-                          </a>
-                        )}
-                      </td>
+                            {expandedRows[formData._id] ? 'Hide Chapters' : 'View Chapters'}
+                          </button>
+                        </td>
+                      </tr>
+                      {expandedRows[formData._id] && (
+                        <tr className="block md:table-row">
+                          <td colSpan="8" className="p-2 border-t block md:table-cell">
+                            <div className="mt-2 space-y-2">
+                              {[...Array(10)].map((_, index) => (
+                                formData[`chapter${index + 1}`] && (
+                                  <a
+                                    key={index}
+                                    href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block text-teal-500 hover:underline"
+                                  >
+                                    Chapter {index + 1} PDF
+                                  </a>
+                                )
+                              ))}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {activeTab === 'payments' && (
+          <section className="payments-section">
+            <h2 className="text-xl font-semibold text-purple-900 mb-4">Payment Details</h2>
+            <div className="overflow-x-auto">
+              <table className="min-w-full border-collapse block md:table">
+                <thead className="block md:table-header-group">
+                  <tr className="border-b-2 border-gray-200 block md:table-row">
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
+                    <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="block md:table-row-group">
+                  {payments.map((payment) => (
+                    <tr key={payment._id} className="block md:table-row">
+                      <td className="p-2 border-t block md:table-cell">{payment._id}</td>
+                      <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
+                      <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
+                      <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
+                      <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
                       <td className="p-2 border-t block md:table-cell">
-                        {formData.firstChapter && (
-                          <a
-                            href={`http://localhost:8712/pdfUploads/${formData.firstChapter}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline"
-                          >
-                            View First Chapter PDF
-                          </a>
-                        )}
+                        <button
+                          onClick={() => {
+                            console.log("Sending email to:", payment.instructorEmail); // Log email before sending
+                            sendEmailToInstructor(payment.instructorEmail);
+                          }}
+                          className="bg-teal-500 text-white px-2 py-1 rounded hover:bg-teal-600"
+                        >
+                          Mail to Instructor
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -721,452 +1127,9 @@ const AdminDashboard = () => {
             </div>
           </section>
         )}
-
-        {/* Payment Details Section */}
-        {activeSection === 'payments' && (
-          <section className="dashboard-section mt-8">
-          <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse block md:table">
-              <thead className="block md:table-header-group">
-                <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Product Name</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Amount</th>
-                  <th className="p-2 text-left bg-gray-50 md:table-cell">Stripe Charge ID</th>
-                </tr>
-              </thead>
-              <tbody className="block md:table-row-group">
-                {payments.map((payment) => (
-                  <tr key={payment._id} className="block md:table-row">
-                    <td className="p-2 border-t block md:table-cell">{payment._id}</td>
-                    <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
-                    <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
-                    <td className="p-2 border-t block md:table-cell">{payment.productName}</td>
-                    <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
-                    <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
-                    <td className="p-2 border-t block md:table-cell">${payment.instructorAmount}</td>
-                    <td className="p-2 border-t block md:table-cell">{payment.stripeId}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-        )}
       </div>
     </div>
   );
 };
 
 export default AdminDashboard;
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './AdminDashboard.css';
-
-// const AdminDashboard = () => {
-//   const [skills, setSkills] = useState([]);
-//   const [formDatas, setFormDatas] = useState([]);
-//   const [payments, setPayments] = useState([]); // State for payment details
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-//   const [activeSection, setActiveSection] = useState('formdata'); // State to track active section
-
-//   // Fetch skills, form data, and payment details
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         // Fetch form data
-//         const formDataResponse = await axios.get('http://localhost:8712/api/formdata');
-//         setFormDatas(formDataResponse.data);
-
-//         // Fetch skills
-//         const skillsResponse = await axios.get('http://localhost:8712/api/skills');
-//         setSkills(skillsResponse.data);
-
-//         // Fetch payment details
-//         const paymentResponse = await axios.get('http://localhost:8712/payment');
-//         setPayments(paymentResponse.data.payments); // Assuming the payments are in "payments" array
-//       } catch (error) {
-//         setError('Error fetching data');
-//         console.error(error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   // Handle email notification button click
-//   const handleSendEmail = async (payerEmail, instructorEmail) => {
-//     try {
-//       await axios.post('http://localhost:8712/api/sendEmail', {
-//         payerEmail,
-//         instructorEmail,
-//       });
-//       alert('Email notifications sent successfully!');
-//     } catch (error) {
-//       alert('Failed to send emails');
-//       console.error('Error sending email:', error);
-//     }
-//   };
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>{error}</p>;
-
-//   return (
-//     <div className="admin-dashboard-container flex">
-//       {/* Sidebar */}
-//       <div className="sidebar w-1/4 bg-gray-800 text-white h-screen p-4">
-//         <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
-//         <ul>
-//           <li 
-//             className={`p-2 mb-2 cursor-pointer ${activeSection === 'formdata' ? 'bg-blue-500' : 'bg-gray-700'}`} 
-//             onClick={() => setActiveSection('formdata')}
-//           >
-//             Form Data
-//           </li>
-//           <li 
-//             className={`p-2 mb-2 cursor-pointer ${activeSection === 'payments' ? 'bg-blue-500' : 'bg-gray-700'}`} 
-//             onClick={() => setActiveSection('payments')}
-//           >
-//             Payments
-//           </li>
-//         </ul>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="dashboard-content w-3/4 p-4">
-//         {/* Form Data Section */}
-//         {activeSection === 'formdata' && (
-//           <section className="dashboard-section">
-//             <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
-//             <div className="overflow-x-auto">
-//               <table className="min-w-full border-collapse block md:table">
-//                 <thead className="block md:table-header-group">
-//                   <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Roadmap PDF</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">First Chapter PDF</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody className="block md:table-row-group">
-//                   {formDatas.map((formData) => (
-//                     <tr key={formData._id} className="block md:table-row">
-//                       <td className="p-2 border-t block md:table-cell">{formData._id}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
-//                       <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
-//                       <td className="p-2 border-t block md:table-cell">
-//                         {formData.roadmapIntroduction && (
-//                           <a
-//                             href={`http://localhost:8712/pdfUploads/${formData.roadmapIntroduction}`}
-//                             target="_blank"
-//                             rel="noopener noreferrer"
-//                             className="text-blue-500 hover:underline"
-//                           >
-//                             View Roadmap PDF
-//                           </a>
-//                         )}
-//                       </td>
-//                       <td className="p-2 border-t block md:table-cell">
-//                         {formData.firstChapter && (
-//                           <a
-//                             href={`http://localhost:8712/pdfUploads/${formData.firstChapter}`}
-//                             target="_blank"
-//                             rel="noopener noreferrer"
-//                             className="text-blue-500 hover:underline"
-//                           >
-//                             View First Chapter PDF
-//                           </a>
-//                         )}
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </section>
-//         )}
-
-//         {/* Payment Details Section */}
-//         {activeSection === 'payments' && (
-//           <section className="dashboard-section mt-8">
-//             <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
-//             <div className="overflow-x-auto">
-//               <table className="min-w-full border-collapse block md:table">
-//                 <thead className="block md:table-header-group">
-//                   <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Product Name</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Amount</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Stripe Charge ID</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody className="block md:table-row-group">
-//                   {payments.map((payment) => (
-//                     <tr key={payment._id} className="block md:table-row">
-//                       <td className="p-2 border-t block md:table-cell">{payment._id}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.productName}</td>
-//                       <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
-//                       <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
-//                       <td className="p-2 border-t block md:table-cell">${payment.instructorAmount}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.stripeId}</td>
-//                       <td className="p-2 border-t block md:table-cell">
-//                         <button 
-//                           onClick={() => handleSendEmail(payment.payerEmail, payment.instructorEmail)} 
-//                           className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-//                         >
-//                           Send Email
-//                         </button>
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </section>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboard;
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './AdminDashboard.css';
-
-// const AdminDashboard = () => {
-//   const [skills, setSkills] = useState([]);
-//   const [formDatas, setFormDatas] = useState([]);
-//   const [payments, setPayments] = useState([]); // State for payment details
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-//   const [activeSection, setActiveSection] = useState('formdata'); // State to track active section
-
-//   // Fetch skills, form data, and payment details
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         // Fetch form data
-//         const formDataResponse = await axios.get('http://localhost:8712/api/formdata');
-//         setFormDatas(formDataResponse.data);
-
-//         // Fetch skills
-//         const skillsResponse = await axios.get('http://localhost:8712/api/skills');
-//         setSkills(skillsResponse.data);
-
-//         // Fetch payment details
-//         const paymentResponse = await axios.get('http://localhost:8712/payment');
-//         setPayments(paymentResponse.data.payments); // Assuming the payments are in "payments" array
-//       } catch (error) {
-//         setError('Error fetching data');
-//         console.error(error);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   // Handle email notification button click for payer
-//   const handleSendEmailToPayer = async (payerEmail) => {
-//     try {
-//       await axios.post('http://localhost:8712/api/sendEmailToPayer', {
-//         payerEmail,
-//       });
-//       alert('Email notification sent to the payer successfully!');
-//     } catch (error) {
-//       alert('Failed to send email to the payer');
-//       console.error('Error sending email to payer:', error);
-//     }
-//   };
-
-//   // Handle email notification button click for instructor
-//   const handleSendEmailToInstructor = async (instructorEmail) => {
-//     try {
-//       await axios.post('http://localhost:8712/api/sendEmailToInstructor', {
-//         instructorEmail,
-//       });
-//       alert('Email notification sent to the instructor successfully!');
-//     } catch (error) {
-//       alert('Failed to send email to the instructor');
-//       console.error('Error sending email to instructor:', error);
-//     }
-//   };
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>{error}</p>;
-
-//   return (
-//     <div className="admin-dashboard-container flex">
-//       {/* Sidebar */}
-//       <div className="sidebar w-1/4 bg-gray-800 text-white h-screen p-4">
-//         <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
-//         <ul>
-//           <li 
-//             className={`p-2 mb-2 cursor-pointer ${activeSection === 'formdata' ? 'bg-blue-500' : 'bg-gray-700'}`} 
-//             onClick={() => setActiveSection('formdata')}
-//           >
-//             Form Data
-//           </li>
-//           <li 
-//             className={`p-2 mb-2 cursor-pointer ${activeSection === 'payments' ? 'bg-blue-500' : 'bg-gray-700'}`} 
-//             onClick={() => setActiveSection('payments')}
-//           >
-//             Payments
-//           </li>
-//         </ul>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="dashboard-content w-3/4 p-4">
-//         {/* Form Data Section */}
-//         {activeSection === 'formdata' && (
-//           <section className="dashboard-section">
-//             <h2 className="text-xl font-semibold mb-4">Users with Form Data and Skills</h2>
-//             <div className="overflow-x-auto">
-//               <table className="min-w-full border-collapse block md:table">
-//                 <thead className="block md:table-header-group">
-//                   <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Form Data ID</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Name</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Skill Category</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Profile Name</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Preferred Language</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Educational Background</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Course Description</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">PDF Price</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Languages</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Roadmap PDF</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">First Chapter PDF</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody className="block md:table-row-group">
-//                   {formDatas.map((formData) => (
-//                     <tr key={formData._id} className="block md:table-row">
-//                       <td className="p-2 border-t block md:table-cell">{formData._id}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.skillCategory}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.profileName}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.preferredLanguage}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.skill?.educationalBackground}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.courseDescription}</td>
-//                       <td className="p-2 border-t block md:table-cell">${formData.pdfPrice}</td>
-//                       <td className="p-2 border-t block md:table-cell">{formData.languages}</td>
-//                       <td className="p-2 border-t block md:table-cell">
-//                         {formData.roadmapIntroduction && (
-//                           <a
-//                             href={`http://localhost:8712/pdfUploads/${formData.roadmapIntroduction}`}
-//                             target="_blank"
-//                             rel="noopener noreferrer"
-//                             className="text-blue-500 hover:underline"
-//                           >
-//                             View Roadmap PDF
-//                           </a>
-//                         )}
-//                       </td>
-//                       <td className="p-2 border-t block md:table-cell">
-//                         {formData.firstChapter && (
-//                           <a
-//                             href={`http://localhost:8712/pdfUploads/${formData.firstChapter}`}
-//                             target="_blank"
-//                             rel="noopener noreferrer"
-//                             className="text-blue-500 hover:underline"
-//                           >
-//                             View First Chapter PDF
-//                           </a>
-//                         )}
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </section>
-//         )}
-
-//         {/* Payment Details Section */}
-//         {activeSection === 'payments' && (
-//           <section className="dashboard-section mt-8">
-//             <h2 className="text-xl font-semibold mb-4">Payment Details</h2>
-//             <div className="overflow-x-auto">
-//               <table className="min-w-full border-collapse block md:table">
-//                 <thead className="block md:table-header-group">
-//                   <tr className="border-b-2 border-gray-200 block md:table-row absolute -top-full md:relative">
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payment ID</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Payer Email</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Email</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Product Name</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Total Amount</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Admin Amount</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Instructor Amount</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Stripe Charge ID</th>
-//                     <th className="p-2 text-left bg-gray-50 md:table-cell">Actions</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody className="block md:table-row-group">
-//                   {payments.map((payment) => (
-//                     <tr key={payment._id} className="block md:table-row">
-//                       <td className="p-2 border-t block md:table-cell">{payment._id}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.payerEmail}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.instructorEmail}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.productName}</td>
-//                       <td className="p-2 border-t block md:table-cell">${payment.totalAmount}</td>
-//                       <td className="p-2 border-t block md:table-cell">${payment.adminAmount}</td>
-//                       <td className="p-2 border-t block md:table-cell">${payment.instructorAmount}</td>
-//                       <td className="p-2 border-t block md:table-cell">{payment.stripeId}</td>
-//                       <td className="p-2 border-t block md:table-cell">
-//                         <button 
-//                           onClick={() => handleSendEmailToPayer(payment.payerEmail)} 
-//                           className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 mb-2"
-//                         >
-//                           Email Payer
-//                         </button>
-//                         <button 
-//                           onClick={() => handleSendEmailToInstructor(payment.instructorEmail)} 
-//                           className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-//                         >
-//                           Email Instructor
-//                         </button>
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </section>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AdminDashboard;
