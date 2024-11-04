@@ -1,3 +1,4 @@
+
 // import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
@@ -46,10 +47,7 @@
 //     setSelectedId(null);
 //   };
 
-//   const generateRandomColor = () => {
-//     const colors = ['bg-red-400', 'bg-green-400', 'bg-blue-400', 'bg-yellow-400', 'bg-purple-400'];
-//     return colors[Math.floor(Math.random() * colors.length)];
-//   };
+  
 
 //   useEffect(() => {
 //     if (searchTerm === '') {
@@ -74,10 +72,10 @@
 //     return result;
 //   };
 
-//   const chunkedUsersData = chunkArray(filteredData, [3, 4, 3]);
+//   const chunkedUsersData = chunkArray(filteredData, [3, 4, 2]);
 
 //   return (
-//     <div className="bg-white">
+//     <div className="bg-white p-12">
 //       <h1 className="text-4xl font-bold text-center mt-20 text-cyan-500">Explore Our Courses</h1>
 
 //       {/* Fixed Search Bar and Icon Grid Container */}
@@ -124,22 +122,18 @@
 //               <FaBook size={24} />
 //               <span>History</span>
 //             </div>
-//             <a href='http://localhost:3001' >
-
-//             <div
-//               className="flex flex-col items-center cursor-pointer"
-//               // onClick={() => navigate('/summarize')}
-//               >
-//               <FaFilePdf size={24} />
-//               <span>PDF Summarizer</span>
-//             </div>
-//               </a>
+//             <a href="http://localhost:3001">
+//               <div className="flex flex-col items-center cursor-pointer">
+//                 <FaFilePdf size={24} />
+//                 <span>PDF Summarizer</span>
+//               </div>
+//             </a>
 //           </div>
 //         </div>
 //       </div>
 
 //       {/* Adjust content padding to prevent overlap */}
-//       <div className="pt-48">
+//       <div className={`pt-48 ${selectedId ? 'blur-sm' : ''}`}>
 //         {chunkedUsersData.map((row, rowIndex) => (
 //           <div
 //             key={rowIndex}
@@ -149,15 +143,15 @@
 //               <div
 //                 key={user._id}
 //                 onClick={() => handleShowMore(user._id)}
-//                 className={`relative bg-gradient-to-r from-[#ebf8ff] to-[#e6f7ff] p-6 rounded-lg shadow-xl h-72`}
-//                 style={{ cursor: 'pointer' }}
+//                 className="relative bg-gradient-to-r from-[#ebf8ff] to-[#e6f7ff] p-6 rounded-lg shadow-xl h-72 cursor-pointer"
 //               >
-//                 <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-between p-4 rounded-lg">
-//                   <h2 className="text-white font-bold text-lg mb-2">
+//                 <div className="absolute inset-0 bg-black bg-opacity-25 flex flex-col justify-between  rounded-lg">
+//                 <h2 className="font-bold text-lg mb-4" style={{ background: 'linear-gradient(to right, purple 70%, black 30%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+
 //                     {user.courseDescription}
 //                   </h2>
 //                   <button
-//                     className={`absolute bottom-4 right-4 py-2 px-4 text-white rounded-full shadow-lg hover:shadow-2xl transition-all ${generateRandomColor()}`}
+//                   className={`absolute bottom-4 right-4 py-1 px-1  rounded-full shadow-lg hover:shadow-2xl transition-all bg-gradient-to-r from-purple-600 to-white`}
 //                     onClick={(e) => {
 //                       e.stopPropagation();
 //                       handleShowMore(user._id);
@@ -181,10 +175,8 @@
 
 //       {/* Modal for DisplayData */}
 //       {selectedId && (
-//         <div>
-//           <div>
-//             <DisplayData id={selectedId} onClose={handleClosePopup} />
-//           </div>
+//         <div className="fixed inset-0 bg-black bg-opacity-60 z-20 flex items-center justify-center">
+//           <DisplayData id={selectedId} onClose={handleClosePopup} />
 //         </div>
 //       )}
 //     </div>
@@ -204,6 +196,7 @@ import {
   FaBook,
   FaFilePdf,
   FaSearch,
+  FaArrowRight,
 } from 'react-icons/fa';
 
 const SkillList = () => {
@@ -240,8 +233,6 @@ const SkillList = () => {
     setSelectedId(null);
   };
 
-  
-
   useEffect(() => {
     if (searchTerm === '') {
       setFilteredData(usersData);
@@ -252,20 +243,6 @@ const SkillList = () => {
       setFilteredData(filtered);
     }
   }, [searchTerm, usersData]);
-
-  const chunkArray = (array, chunkSizes) => {
-    let i = 0;
-    const result = [];
-    while (i < array.length) {
-      for (const size of chunkSizes) {
-        result.push(array.slice(i, i + size));
-        i += size;
-      }
-    }
-    return result;
-  };
-
-  const chunkedUsersData = chunkArray(filteredData, [3, 4, 3]);
 
   return (
     <div className="bg-white p-12">
@@ -325,43 +302,43 @@ const SkillList = () => {
         </div>
       </div>
 
-      {/* Adjust content padding to prevent overlap */}
-      <div className={`pt-48 ${selectedId ? 'blur-sm' : ''}`}>
-        {chunkedUsersData.map((row, rowIndex) => (
+      {/* Course List with 3-Card Row Layout */}
+      <div className={`pt-48 grid grid-cols-1 md:grid-cols-3 gap-8`}>
+        {filteredData.map((user) => (
           <div
-            key={rowIndex}
-            className={`grid ${rowIndex % 2 === 1 ? 'grid-cols-4' : 'grid-cols-3'} gap-8 mb-8`}
+            key={user._id}
+            onClick={() => handleShowMore(user._id)}
+            className="relative bg-gradient-to-r from-[#ebf8ff] to-[#e6f7ff] p-6 rounded-lg shadow-xl h-72 cursor-pointer"
           >
-            {row.map((user) => (
-              <div
-                key={user._id}
-                onClick={() => handleShowMore(user._id)}
-                className="relative bg-gradient-to-r from-[#ebf8ff] to-[#e6f7ff] p-6 rounded-lg shadow-xl h-72 cursor-pointer"
+            <div className="absolute inset-0 bg-black bg-opacity-25 flex flex-col justify-between rounded-lg p-4">
+              <h2
+                className="font-bold text-lg ml-[28%] -mt-[5%]"
+                style={{
+                  background: 'linear-gradient(to right, purple 70%, black 30%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
               >
-                <div className="absolute inset-0 bg-black bg-opacity-25 flex flex-col justify-between  rounded-lg">
-                <h2 className="font-bold text-lg mb-4" style={{ background: 'linear-gradient(to right, purple 70%, black 30%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-
-                    {user.courseDescription}
-                  </h2>
-                  <button
-                  className={`absolute bottom-4 right-4 py-1 px-1  rounded-full shadow-lg hover:shadow-2xl transition-all bg-gradient-to-r from-purple-600 to-white`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleShowMore(user._id);
-                    }}
-                  >
-                    Show More
-                  </button>
-                </div>
-                {user.image && (
-                  <img
-                    src={`http://localhost:8713/imageUploads/${user.image}`}
-                    alt="Course"
-                    className="object-cover w-full h-full rounded-lg"
-                  />
-                )}
-              </div>
-            ))}
+                {user.courseDescription}
+              </h2>
+              <button
+  className="absolute bottom-4 right-1 p-2 -mb-[3%] rounded-full shadow-lg hover:shadow-2xl transition-all bg-purple-600 text-white"
+  onClick={(e) => {
+                  e.stopPropagation();
+                  handleShowMore(user._id);
+                }}
+              >
+                Show More
+              </button>
+             
+            </div>
+            {user.image && (
+              <img
+                src={`http://localhost:8713/imageUploads/${user.image}`}
+                alt="Course"
+                className="object-cover w-full h-full rounded-lg"
+              />
+            )}
           </div>
         ))}
       </div>
@@ -377,3 +354,4 @@ const SkillList = () => {
 };
 
 export default SkillList;
+

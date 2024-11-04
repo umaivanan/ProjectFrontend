@@ -203,7 +203,7 @@ const Navbar = ({ heroRef }) => {
   return (
     <div>
       { (
-        <nav className="flex justify-between items-center p-10 bg-white fixed top-0 left-0 w-full h-[8%] z-50">
+        <nav className="flex justify-between items-center p-6 bg-white fixed top-0 left-0 w-full h-[8%] z-50">
           <div className="navbar-logo">
             {/* Logo will always be visible */}
             <Link to="/" onClick={scrollToHome}>
@@ -261,13 +261,17 @@ const Navbar = ({ heroRef }) => {
             {location.pathname === '/' || location.pathname === '/learnmore' ? ( // Show setup button on home and learnmore page
               <li>
                 <button
-                  className="flex items-center bg-purple-900 text-white border-2 border-purple-900 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-purple-700 focus:outline-none focus:ring focus:ring-white"
-                  onClick={handlePopup}
-                  
-                >
-                  <FaCog className="mr-2" />
-                  SETUP
-                </button>
+  className="flex items-center text-purple border-2 border-purple-900 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-purple-700 focus:outline-none focus:ring focus:ring-white"
+  onClick={handlePopup}
+  style={{
+    width: '150px',
+    height: '50px',// Ensure border matches the left gradient color
+    backgroundColor:'purple'
+  }}
+>
+  <FaCog className="mr-2" />
+  SETUP
+</button>
               </li>
             ) : (
               <>
@@ -276,7 +280,7 @@ const Navbar = ({ heroRef }) => {
                     <button
                       className="flex items-center bg-purple-900 text-white border-2 border-purple-900 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-purple-700 focus:outline-none focus:ring focus:ring-white"
                       onClick={handlePopup}
-                      style={{ width: '150px', height: '50px' }} // Set same width and height
+                      style={{ width: '150px', height: '50px'}} // Set same width and height
 
                     >
                       <FaCog className="mr-2" />
@@ -299,6 +303,8 @@ const Navbar = ({ heroRef }) => {
                     <button
   className="flex items-center text-black mt-1 px-4 py-2 rounded-full transition-all duration-300 hover:bg-purple-900 hover:text-white hover:border hover:border-purple-900 focus:bg-purple-900 focus:text-white focus:border focus:border-purple-900"
   onClick={handleNavigation}
+ 
+  
 >
   <AiOutlineUser className="mr-2" />
   {!formSubmitted ? 'Create Profile' : 'Create Course'}
@@ -312,18 +318,36 @@ const Navbar = ({ heroRef }) => {
 >
 
 <button
-    onClick={toggleMenuOptions}
-    className="focus:outline-none hover:text-purple-600"
-  >
-    <AiOutlineMenu className="text-2xl text-purple-600" /> {/* Icon with toggle functionality */}
-  </button>
-  
-  <button
-    onClick={handleLogout}
-    className="focus:outline-none hover:text-purple-600"
-  >
-    <AiOutlineLogout className="text-2xl text-purple-600" /> {/* Icon with logout functionality */}
-  </button>
+  onClick={toggleMenuOptions}
+  className="focus:outline-none"
+  style={{
+    background: 'linear-gradient(to right, #5F1854 50%, #1ABB9C 100%)', // Gradient background
+    WebkitBackgroundClip: 'text', // Clip background to text (for gradient text effect)
+    WebkitTextFillColor: 'transparent', // Makes the gradient visible in text
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px', // Adjust padding if needed
+    borderRadius: '5px' // Optional: add border radius for rounded effect
+  }}
+>
+  <AiOutlineMenu className="text-2xl" /> {/* Icon with toggle functionality */}
+</button>
+
+<button
+  onClick={handleLogout}
+  className="focus:outline-none"
+  style={{
+    background: 'linear-gradient(to right, #5F1854 50%, #1ABB9C 100%)', // Gradient background
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px',
+    borderRadius: '5px'
+  }}
+>
+  <AiOutlineLogout className="text-2xl" /> {/* Icon with logout functionality */}
+</button>
 
 </div>
 

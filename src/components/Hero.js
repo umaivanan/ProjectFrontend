@@ -665,6 +665,8 @@
 
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Star } from "lucide-react";
+
 
 // Importing images
 import placeholder from '/home/ukijaffna/um/swapSmartFrontend/src/assets/a059ab83-26d8-459e-917a-b198bacd3999.webp';
@@ -678,8 +680,7 @@ import financingOptions from '/home/ukijaffna/um/swapSmartFrontend/src/assets/7-
 import teacher1 from '/home/ukijaffna/um/swapSmartFrontend/src/assets/7-11-19-story-time.png';
 import teacher2 from '/home/ukijaffna/um/swapSmartFrontend/src/assets/apus-574x420.jpg';
 import { FaFacebookF, FaLinkedinIn, FaTwitter, FaYoutube,  } from 'react-icons/fa';
-
-
+import heroImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaChalkboardTeacher, FaHeadset, FaQuestionCircle } from 'react-icons/fa';
 
 // Button component using Tailwind classes
@@ -706,7 +707,47 @@ const Badge = ({ children, className }) => (
     {children}
   </div>
 );
+const features = [
+  {
+    number: "01",
+    color: "bg-blue-50 text-blue-600",
+    title: "Simple Access to Knowledge",
+    description: "Gain instant access to valuable knowledge with our easy-to-buy PDF guides. Designed for convenience, these resources provide you with flexibility, privacy, and the freedom to learn at your own pace..",
+  },
+  {
+    number: "02",
+    color: "bg-purple-50 text-purple-600",
+    title: " Step into the Role of an Instructor",
+    description: "Empower yourself to become an instructor and share your expertise. Our materials help you inspire others, establish your authority, and build a community of learners—all while growing your professional presence.",
+  },
+  {
+    number: "03",
+    color: "bg-green-50 text-green-600",
+    title: "  Build a Stream of Passive Income",
+    description: "Turn your knowledge into an ongoing revenue stream. Whether it’s through content creation, guiding others, or selling educational resources, enjoy the benefit of earning income without active involvement..",
+  },
+];
 
+const reviews = [
+  {
+    name: "Kamelia Diana",
+    rating: "4.5",
+    avatar: heroImage,
+    position: "right-4 top-4",
+  },
+  {
+    name: "Wahid Adam",
+    rating: "4.8",
+    avatar: heroImage,
+    position: "right-4 top-1/2 -translate-y-1/2",
+  },
+  {
+    name: "Joe Salmano",
+    rating: "4.3",
+    avatar: heroImage,
+    position: "right-4 bottom-4",
+  },
+];
 const Hero = forwardRef((props, ref) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -823,85 +864,80 @@ const Hero = forwardRef((props, ref) => {
           </div>
         </div>
       </section>
-
-      {/* Ranked Tech Bootcamp */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Everyone learn something and earn something</h2>
-          <p className="text-gray-600 mb-8">Recognized for excellence in education</p>
-          <div className="flex justify-center space-x-4">
-            {['learn as a student, earn as a instructor'].map((badge) => (
-              <Badge key={badge} className="text-purple-600 bg-purple-100">
-                {badge}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-gray-100 lg:wr-[120%]">
-        <div className="w-[90%] lg:w-[50%] mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-4">
-            Reading enhances knowledge, sharpens skills, and opens doors to career advancement opportunities
-          </h2>
-          <p className="text-center text-gray-600 mb-12">
-            Our experienced instructors are dedicated to your success
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[1, 2].map((card) => (
-              <Card key={card}>
-                <CardHeader>
-                  <img
-                    src={card === 1 ? teacher1 : teacher2}
-                    alt={`Teacher ${card}`}
-                    className="w-full h-40 object-cover"
-                  />
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Learn from industry experts who are passionate about teaching and mentoring.
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white"
-                    onClick={handleNavigateLearnMore} // Navigate to /learnmore
-                  >
-                    Learn More
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Additional Sections */}
-      {/* Top Section: Find the Right Financing Options */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto md:flex items-center">
-          <div className="md:w-1/2 mb-8 md:mb-0">
-            <h2 className="text-3xl font-bold mb-4">Our goal is to make quality education accessible to everyone and affordable for everyone.</h2>
-            <p className="text-gray-600 mb-6">
-              Creating your own earnings.
+      <section className="mx-auto max-w-7xl px-4 py-20">
+      <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-8">
+        {/* Left Column */}
+        <div className="flex flex-col gap-12">
+          <div className="space-y-3">
+            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
+              Smart swap providing roadmaps
+            </h1>
+            <p className="text-lg text-gray-500">
+            Discover Learning Paths That Fit a Flexible Lifestyle
             </p>
-            <Button
-              className="border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white border"
-              onClick={handleNavigateLearnMore} // Navigate to /learnmore
-            >
-              Explore Financing
-            </Button>
           </div>
-          <div className="md:w-1/2">
+
+          <div className="flex flex-col gap-8">
+            {features.map((feature) => (
+              <div key={feature.number} className="space-y-3">
+                <span className={`inline-block rounded-full px-3 py-1 text-sm font-medium ${feature.color}`}>
+                  {feature.number}
+                </span>
+                <h3 className="text-xl font-semibold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-500">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <Button className="w-fit bg-blue-500 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-600">
+            Start your explore
+          </Button>
+        </div>
+
+        {/* Right Column */}
+        <div className="relative h-[600px] w-full">
+          <div className="h-full w-full overflow-hidden rounded-[24px]">
             <img
-              src={financingOptions}
-              alt="Financing Options"
-              className="w-full h-auto rounded-lg shadow-lg"
+              src={heroImage}
+              alt="Mountain landscape view"
+              className="h-full w-full object-cover"
             />
           </div>
-        </div>
-      </section>
 
+          {/* Review Cards */}
+          {reviews.map((review) => (
+            <div
+              key={review.name}
+              className={`absolute flex items-center gap-2 rounded-full bg-white p-1.5 shadow ${review.position}`}
+            >
+              <img
+                src={review.avatar}
+                alt={`${review.name}'s avatar`}
+                className="w-7 h-7 rounded-full"
+              />
+              <div className="pr-2">
+                <p className="text-xs font-medium text-gray-900">
+                  {review.name}
+                </p>
+                <div className="flex items-center gap-0.5">
+                  {/* <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" /> */}
+                  <span className="text-xs text-gray-500">
+                    {review.rating}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+     
+      {/* Ranked Tech Bootcamp */}
+      
       {/* Middle Section: Enterprise Looking for Tech Skills */}
       <section className="bg-purple-600 py-16 px-4">
         <div className="container mx-auto text-center">
