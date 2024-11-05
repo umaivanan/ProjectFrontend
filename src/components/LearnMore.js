@@ -11,22 +11,22 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Importing ico
 // import onlineLocation from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
 // import romeLocation from '/home/ukijaffna/um/swapSmartFrontend/src/assets/apus-574x420.jpg';
 
-import tableTennisImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import activityClubImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import internationalStudentsImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import photographerImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
+import tableTennisVideo from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/ce59a7cb-276b-4fb1-8f03-21a9d5c30505.mp4';
+import activityClubImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/71d7c9ea-8eea-4895-bf2e-af8ad2865c9c.webp';
+import internationalStudentsImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/71d7c9ea-8eea-4895-bf2e-af8ad2865c9c.webp';
+import photographerImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/afc2f1f8-4d0a-48c5-a615-3446bd73c3c9 (1).webp';
 import internationalClubImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
 import religiousClubImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import religiousEventImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
+import religiousEventImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-9052476.jpeg';
 import culturalClubImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
 
 
 
 
-import phdManagementImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp';
-import mbsMbaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp';
-import businessMgmtDiplomaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp';
-import hrMgmtDiplomaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp';
+import phdManagementImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-3861958.webp';
+import mbsMbaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-356040.webp';
+import businessMgmtDiplomaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-3760081.webp';
+import hrMgmtDiplomaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-1181474.webp';
 import compNetworksDiplomaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp';
 import msITImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp';
 import executiveMbaImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp';
@@ -36,21 +36,21 @@ import digitalMarketingCertImage from '/home/ukijaffna/um/swapSmartFrontend/src/
 
 
 
-import nsbmMasterPlan from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import constructionProgress from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import modernBuildingDesign from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import educationalFacilities from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import amphitheaterDesign from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
-import buildingConstruction from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
+import nsbmMasterPlan from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/free-photo-of-students-examining-in-classroom-with-uk-theme.jpeg';
+import constructionProgress from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-armin-rimoldi-5554303.jpg';
+import modernBuildingDesign from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-4050293.webp';
+import educationalFacilities from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-4144144.webp';
+import amphitheaterDesign from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-4144144.webp';
+import buildingConstruction from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-4144144.webp';
 
 
 
 import { FaSearch, FaArrowRight } from "react-icons/fa";
-import BusinessImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 18.40.13 - A detailed, full-screen background image filled with study materials on a clean, organized desk. Include items like open textbooks, notebooks with han.webp";
-import ComputingImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 18.40.13 - A detailed, full-screen background image filled with study materials on a clean, organized desk. Include items like open textbooks, notebooks with han.webp";
-import EngineeringImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 18.40.13 - A detailed, full-screen background image filled with study materials on a clean, organized desk. Include items like open textbooks, notebooks with han.webp";
-import ScienceImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 18.40.13 - A detailed, full-screen background image filled with study materials on a clean, organized desk. Include items like open textbooks, notebooks with han.webp";
-import NewsImage1 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 18.40.13 - A detailed, full-screen background image filled with study materials on a clean, organized desk. Include items like open textbooks, notebooks with han.webp";
+import BusinessImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/DALL·E 2024-11-05 07.10.53 - A friendly, professional young woman with dark curly hair, sitting comfortably in a bright, modern workspace, holding a laptop with colorful business .webp";
+import ComputingImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/DALL·E 2024-11-05 07.13.10 - A vibrant image of a diverse group of young, enthusiastic individuals gathered around a laptop in a modern learning or work environment. The individua.webp";
+import EngineeringImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/DALL·E 2024-11-05 07.14.29 - Two young men engaged in a hands-on engineering activity with a drone. One is holding a tablet while observing and analyzing, while the other adjusts .webp";
+import ScienceImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/e088ee8b-1125-4422-9455-5a5b741ee6d2.webp";
+import NewsImage1 from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/DALL·E 2024-11-05 07.47.58 - A modern login screen design with a bold red color scheme, featuring a unique background with dynamic abstract elements. The background includes smoot.webp";
 import NewsImage2 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 18.40.13 - A detailed, full-screen background image filled with study materials on a clean, organized desk. Include items like open textbooks, notebooks with han.webp";
 import NewsImage3 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 18.40.13 - A detailed, full-screen background image filled with study materials on a clean, organized desk. Include items like open textbooks, notebooks with han.webp";
 
@@ -58,10 +58,10 @@ import NewsImage3 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 
 
 
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import SlideImage1 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 20.41.52 - A full-screen image of a single person studying with a roadmap or study plan in front of them, inspired by the color palette of the provided hero imag.webp";
-import SlideImage2 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 20.41.52 - A full-screen image of a single person studying with a roadmap or study plan in front of them, inspired by the color palette of the provided hero imag.webp";
-import SlideImage3 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 20.41.52 - A full-screen image of a single person studying with a roadmap or study plan in front of them, inspired by the color palette of the provided hero imag.webp";
-import SlideImage4 from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 20.41.52 - A full-screen image of a single person studying with a roadmap or study plan in front of them, inspired by the color palette of the provided hero imag.webp";
+import SlideImage1 from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-armin-rimoldi-5554303.jpg";
+import SlideImage2 from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-4050293.webp";
+import SlideImage3 from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/free-photo-of-students-examining-in-classroom-with-uk-theme.jpeg";
+import SlideImage4 from "/home/ukijaffna/um/swapSmartFrontend/src/assets latest/pexels-photo-4144144.webp";
 import LogoPlymouth from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 20.41.52 - A full-screen image of a single person studying with a roadmap or study plan in front of them, inspired by the color palette of the provided hero imag.webp";
 import LogoVictoria from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 20.41.52 - A full-screen image of a single person studying with a roadmap or study plan in front of them, inspired by the color palette of the provided hero imag.webp";
 
@@ -126,25 +126,26 @@ const LearnMore = () => {
       title: "BUSINESS",
       color: "bg-[#98D133]",
       image: BusinessImage,
-      description: "We are a forward-thinking and innovative faculty striving to lead the way in business education and research.",
+      // description: "We are a forward-thinking and innovative faculty striving to lead the way in business education and research.",
+    
     },
     {
       title: "COMPUTING",
       color: "bg-[#4169E1]",
       image: ComputingImage,
-      description: "Turn into a skilled computer scientist by developing real-life projects while learning cutting-edge technologies.",
+      // description: "Turn into a skilled computer scientist by developing real-life projects while learning cutting-edge technologies.",
     },
     {
       title: "ENGINEERING",
       color: "bg-[#9370DB]",
       image: EngineeringImage,
-      description: "Step into the future of innovation engineering. Access to state-of-the-art equipment and learning facilities.",
+      // description: "Step into the future of innovation engineering. Access to state-of-the-art equipment and learning facilities.",
     },
     {
       title: "SCIENCE",
       color: "bg-[#00CED1]",
       image: ScienceImage,
-      description: "Discover scientific excellence and innovation in a thriving research environment with state-of-the-art facilities.",
+      // description: "Discover scientific excellence and innovation in a thriving research environment with state-of-the-art .",
     },
   ];
   
@@ -306,14 +307,14 @@ const LearnMore = () => {
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-3  lg:grid-cols-4 ml-[10%] mr-[10%]">
         {faculties.map((faculty, index) => (
           <div key={index} className="relative h-[300px] overflow-hidden">
-            <img src={faculty.image} alt={faculty.title} className="object-cover w-full h-full" />
+            <img src={faculty.image} alt={faculty.title} className="object-cover w-full h-full mt-[15%]" />
             <div className="absolute inset-0 flex flex-col">
               <div className={`${faculty.color} p-3 text-center text-white font-semibold`}>
                 {faculty.title}
               </div>
               <div className="flex-1 flex flex-col items-center justify-center p-6 text-center bg-black/40">
                 <p className="text-white mb-4">{faculty.description}</p>
-                <button className="px-4 py-2 bg-white text-black font-semibold rounded hover:bg-gray-100 flex items-center gap-2">
+                <button className="px-2 py-1 mt-[50%] bg-white text-black font-semibold rounded hover:bg-gray-100 flex items-center gap-2">
                   MORE <FaArrowRight />
                 </button>
               </div>
@@ -392,18 +393,20 @@ const LearnMore = () => {
 
       
       <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-[#2E51A2] text-4xl font-semibold mb-8">Student Life</h1>
+      <h1 className="text-[#2E51A2] text-4xl font-semibold mb-8 ">Student Life</h1>
       
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-12 gap-4 mr-9">
         {/* Sports Clubs - Spans 4 columns */}
         <div className="col-span-4 row-span-2">
           <div className="h-full flex flex-col">
             <div className="relative h-3/4">
-              <img 
-                src={tableTennisImage}
-                alt="Table Tennis Player"
-                className="w-full h-full object-cover"
-              />
+            <video 
+  src={tableTennisVideo} 
+  autoPlay 
+  loop 
+  muted 
+  className="w-full h-full object-cover"
+/>
             </div>
             <div className="bg-[#0A4D8C] text-white p-6 flex-1">
               <h2 className="text-2xl font-semibold mb-4">Sports Clubs</h2>
@@ -499,7 +502,7 @@ const LearnMore = () => {
 
 
 
-    <div className="relative w-full max-w-7xl mx-auto px-4 py-12">
+    <div className="relative w-full max-w-8xl mx-auto px-4 py-12 ">
       <div className="bg-[#000033] rounded-lg p-8 relative">
         <div className="relative overflow-hidden rounded-lg">
           <div
@@ -561,13 +564,13 @@ const LearnMore = () => {
 
 
 
-    
+
     <div className="container mx-auto px-4 py-12">
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Left Column - Text Content */}
         <div className="space-y-6">
           <h1 className="text-4xl font-bold text-[#2B4B96] lg:text-5xl">
-            NSBM BEYOND 2024
+             why students found swpsmart
           </h1>
           
           <p className="text-gray-700 leading-relaxed">
