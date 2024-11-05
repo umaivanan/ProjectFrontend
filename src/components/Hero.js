@@ -676,9 +676,6 @@ import dataEngineeringImage from '/home/ukijaffna/um/swapSmartFrontend/src/asset
 import dataAnalyticsImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets/Nalytics_Legal-Big-Data_Implementing-LegalTech_roadmap-1024x679.png';
 
 import growthMarketing from '/home/ukijaffna/um/swapSmartFrontend/src/assets/a-man-reads-a-book-1024x683.jpg';
-import financingOptions from '/home/ukijaffna/um/swapSmartFrontend/src/assets/7-11-19-story-time.png';
-import teacher1 from '/home/ukijaffna/um/swapSmartFrontend/src/assets/7-11-19-story-time.png';
-import teacher2 from '/home/ukijaffna/um/swapSmartFrontend/src/assets/apus-574x420.jpg';
 import { FaFacebookF, FaLinkedinIn, FaTwitter, FaYoutube,  } from 'react-icons/fa';
 import heroImage from "/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-31 12.02.10 - A visually captivating digital art image with a similar overlay style to the reference image, featuring a person studying a book in a serene and inspi.webp";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaChalkboardTeacher, FaHeadset, FaQuestionCircle } from 'react-icons/fa';
