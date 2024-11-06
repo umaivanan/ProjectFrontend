@@ -113,14 +113,14 @@ const AdditionalInformation = () => {
                     }
                 });
 
-                const response = await axios.post('http://localhost:8713/api/formdata', formDataObj, {
+                const response = await axios.post('http://localhost:8714/api/formdata', formDataObj, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
                 const formDataId = response.data.formData._id;
-                await axios.patch(`http://localhost:8713/api/skills/${currentSkillId}`, { formDataId });
+                await axios.patch(`http://localhost:8714/api/skills/${currentSkillId}`, { formDataId });
 
-                const skillResponse = await axios.get(`http://localhost:8713/api/skills/${currentSkillId}`);
+                const skillResponse = await axios.get(`http://localhost:8714/api/skills/${currentSkillId}`);
                 const submittedStatus = skillResponse.data.submittedStatus;
 
                 localStorage.setItem('submittedStatus', submittedStatus);

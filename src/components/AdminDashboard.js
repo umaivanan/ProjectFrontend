@@ -19,7 +19,7 @@
 // //   // Function to send email to Payer
 // //   const sendEmailToPayer = async (payerEmail) => {
 // //     try {
-// //       const response = await axios.post('http://localhost:8713/api/send-email/payer', { email: payerEmail });
+// //       const response = await axios.post('http://localhost:8714/api/send-email/payer', { email: payerEmail });
 // //       alert(response.data.message);
 // //     } catch (error) {
 // //       alert('Error sending email to payer');
@@ -30,7 +30,7 @@
 // //   // Function to send email to Instructor
 // //   const sendEmailToInstructor = async (instructorEmail) => {
 // //     try {
-// //       const response = await axios.post('http://localhost:8713/api/send-email/instructor', { email: instructorEmail });
+// //       const response = await axios.post('http://localhost:8714/api/send-email/instructor', { email: instructorEmail });
 // //       alert(response.data.message);
 // //     } catch (error) {
 // //       alert('Error sending email to instructor');
@@ -43,15 +43,15 @@
 // //     const fetchData = async () => {
 // //       try {
 // //         // Fetch form data
-// //         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+// //         const formDataResponse = await axios.get('http://localhost:8714/api/formdata');
 // //         setFormDatas(formDataResponse.data);
 
 // //         // Fetch skills
-// //         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+// //         const skillsResponse = await axios.get('http://localhost:8714/api/skills');
 // //         setSkills(skillsResponse.data);
 
 // //         // Fetch payment details
-// //         const paymentResponse = await axios.get('http://localhost:8713/payment');
+// //         const paymentResponse = await axios.get('http://localhost:8714/payment');
 // //         setPayments(paymentResponse.data.payments); // Assuming the payments are in "payments" array
 // //       } catch (error) {
 // //         setError('Error fetching data');
@@ -140,7 +140,7 @@
 // //                       <div className="mt-2 space-y-2">
 // //                         {formData.roadmapIntroduction && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.roadmapIntroduction}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.roadmapIntroduction}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -150,7 +150,7 @@
 // //                         )}
 // //                         {formData.firstChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.firstChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.firstChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -160,7 +160,7 @@
 // //                         )}
 // //                         {formData.secondChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.secondChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.secondChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -170,7 +170,7 @@
 // //                         )}
 // //                         {formData.thirdChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.thirdChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.thirdChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -180,7 +180,7 @@
 // //                         )}
 // //                         {formData.fourthChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.fourthChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.fourthChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -190,7 +190,7 @@
 // //                         )}
 // //                         {formData.fifthChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.fifthChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.fifthChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -200,7 +200,7 @@
 // //                         )}
 // //                         {formData.sixthChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.sixthChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.sixthChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -210,7 +210,7 @@
 // //                         )}
 // //                         {formData.seventhChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.seventhChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.seventhChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -220,7 +220,7 @@
 // //                         )}
 // //                         {formData.eighthChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.eighthChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.eighthChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -230,7 +230,7 @@
 // //                         )}
 // //                         {formData.ninthChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.ninthChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.ninthChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -240,7 +240,7 @@
 // //                         )}
 // //                         {formData.tenthChapter && (
 // //                           <a
-// //                             href={`http://localhost:8713/pdfUploads/${formData.tenthChapter}`}
+// //                             href={`http://localhost:8714/pdfUploads/${formData.tenthChapter}`}
 // //                             target="_blank"
 // //                             rel="noopener noreferrer"
 // //                             className="block text-blue-500 hover:underline"
@@ -369,13 +369,13 @@
 // //   useEffect(() => {
 // //     const fetchData = async () => {
 // //       try {
-// //         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+// //         const formDataResponse = await axios.get('http://localhost:8714/api/formdata');
 // //         setFormDatas(formDataResponse.data);
 
-// //         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+// //         const skillsResponse = await axios.get('http://localhost:8714/api/skills');
 // //         setSkills(skillsResponse.data);
 
-// //         const paymentResponse = await axios.get('http://localhost:8713/payment');
+// //         const paymentResponse = await axios.get('http://localhost:8714/payment');
 // //         setPayments(paymentResponse.data.payments);
 // //       } catch (error) {
 // //         setError('Error fetching data');
@@ -456,7 +456,7 @@
 // //                                 formData[`chapter${index + 1}`] && (
 // //                                   <a
 // //                                     key={index}
-// //                                     href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+// //                                     href={`http://localhost:8714/pdfUploads/${formData[`chapter${index + 1}`]}`}
 // //                                     target="_blank"
 // //                                     rel="noopener noreferrer"
 // //                                     className="block text-teal-500 hover:underline"
@@ -579,13 +579,13 @@
 // //   useEffect(() => {
 // //     const fetchData = async () => {
 // //       try {
-// //         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+// //         const formDataResponse = await axios.get('http://localhost:8714/api/formdata');
 // //         setFormDatas(formDataResponse.data);
 
-// //         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+// //         const skillsResponse = await axios.get('http://localhost:8714/api/skills');
 // //         setSkills(skillsResponse.data);
 
-// //         const paymentResponse = await axios.get('http://localhost:8713/payment');
+// //         const paymentResponse = await axios.get('http://localhost:8714/payment');
 // //         setPayments(paymentResponse.data.payments);
 // //       } catch (error) {
 // //         setError('Error fetching data');
@@ -666,7 +666,7 @@
 // //                                 formData[`chapter${index + 1}`] && (
 // //                                   <a
 // //                                     key={index}
-// //                                     href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+// //                                     href={`http://localhost:8714/pdfUploads/${formData[`chapter${index + 1}`]}`}
 // //                                     target="_blank"
 // //                                     rel="noopener noreferrer"
 // //                                     className="block text-teal-500 hover:underline"
@@ -781,13 +781,13 @@
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+//         const formDataResponse = await axios.get('http://localhost:8714/api/formdata');
 //         setFormDatas(formDataResponse.data);
 
-//         const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+//         const skillsResponse = await axios.get('http://localhost:8714/api/skills');
 //         setSkills(skillsResponse.data);
 
-//         const paymentResponse = await axios.get('http://localhost:8713/payment');
+//         const paymentResponse = await axios.get('http://localhost:8714/payment');
 //         setPayments(paymentResponse.data.payments);
 //       } catch (error) {
 //         setError('Error fetching data');
@@ -868,7 +868,7 @@
 //                                 formData[`chapter${index + 1}`] && (
 //                                   <a
 //                                     key={index}
-//                                     href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+//                                     href={`http://localhost:8714/pdfUploads/${formData[`chapter${index + 1}`]}`}
 //                                     target="_blank"
 //                                     rel="noopener noreferrer"
 //                                     className="block text-teal-500 hover:underline"
@@ -980,16 +980,16 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formDataResponse = await axios.get('http://localhost:8713/api/formdata');
+        const formDataResponse = await axios.get('http://localhost:8714/api/formdata');
         setFormDatas(formDataResponse.data);
 
-        const skillsResponse = await axios.get('http://localhost:8713/api/skills');
+        const skillsResponse = await axios.get('http://localhost:8714/api/skills');
         setSkills(skillsResponse.data);
 
-        const paymentResponse = await axios.get('http://localhost:8713/payment');
+        const paymentResponse = await axios.get('http://localhost:8714/payment');
         setPayments(paymentResponse.data.payments);
 
-        const userResponse = await axios.get('http://localhost:8713/api/auth/admin/users');
+        const userResponse = await axios.get('http://localhost:8714/api/auth/admin/users');
         setUsers(userResponse.data);
       } catch (error) {
         setError('Error fetching data');
@@ -1004,12 +1004,12 @@ const AdminDashboard = () => {
     try {
         // Toggle the blocking status based on the current status
         const newStatus = !currentStatus;
-        await axios.put(`http://localhost:8713/api/auth/admin/users/${userId}/block`, { isBlocked: newStatus });
+        await axios.put(`http://localhost:8714/api/auth/admin/users/${userId}/block`, { isBlocked: newStatus });
         
         alert(`User with ID ${userId} has been ${newStatus ? 'blocked' : 'unblocked'}!`);
 
         // Refresh user list after toggling block status
-        const userResponse = await axios.get('http://localhost:8713/api/auth/admin/users');
+        const userResponse = await axios.get('http://localhost:8714/api/auth/admin/users');
         setUsers(userResponse.data);
     } catch (error) {
         alert('Error toggling user block status');
@@ -1094,7 +1094,7 @@ const AdminDashboard = () => {
                                 formData[`chapter${index + 1}`] && (
                                   <a
                                     key={index}
-                                    href={`http://localhost:8713/pdfUploads/${formData[`chapter${index + 1}`]}`}
+                                    href={`http://localhost:8714/pdfUploads/${formData[`chapter${index + 1}`]}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="block text-teal-500 hover:underline"

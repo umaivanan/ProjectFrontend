@@ -39,7 +39,7 @@
 //       "Content-Type": "application/json"
 //     };
 
-//     return fetch("http://localhost:8713/payment", {
+//     return fetch("http://localhost:8714/payment", {
 //       method: "POST",
 //       headers,
 //       body: JSON.stringify(body)
@@ -78,7 +78,7 @@
 //     if (id) {  
 //       const fetchData = async () => {
 //         try {
-//           const response = await axios.get(`http://localhost:8713/api/formdata/${id}`);
+//           const response = await axios.get(`http://localhost:8714/api/formdata/${id}`);
 //           setData(response.data);  
 
 //           if (response.data.pdfPrice) {
@@ -105,7 +105,7 @@
 //   useEffect(() => {
 //     const fetchSkills = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:8713/api/skills'); 
+//         const response = await axios.get('http://localhost:8714/api/skills'); 
 //         setSkills(response.data);  
 //       } catch (error) {
 //         console.error('Error fetching skills:', error);
@@ -170,7 +170,7 @@
 //             <div className="image-section mt-4">
 //               <h3>Course Image</h3>
 //               <img
-//                 src={`http://localhost:8713/imageUploads/${data.image}`}
+//                 src={`http://localhost:8714/imageUploads/${data.image}`}
 //                 alt="Course uploaded"
 //                 className="rounded-lg w-full h-60 object-cover"
 //               />
@@ -185,7 +185,7 @@
 //           {data.roadmapIntroduction && (
 //             <div className="pdf-card mb-4">
 //               <a
-//                 href={`http://localhost:8713/pdfUploads/${data.roadmapIntroduction}`}
+//                 href={`http://localhost:8714/pdfUploads/${data.roadmapIntroduction}`}
 //                 target="_blank"
 //                 rel="noopener noreferrer"
 //                 className="bg-green-500 text-white p-2 rounded block text-center"
@@ -211,7 +211,7 @@
 //               <div className="pdf-card mb-4" key={index}>
 //                 {index < 3 || !isLocked ? (
 //                   <a
-//                     href={`http://localhost:8713/pdfUploads/${data[chapter]}`}
+//                     href={`http://localhost:8714/pdfUploads/${data[chapter]}`}
 //                     target="_blank"
 //                     rel="noopener noreferrer"
 //                     className="bg-green-500 text-white p-2 rounded block text-center"
@@ -250,7 +250,7 @@
 //               <p><strong>Educational Background:</strong> {userSkill.educationalBackground}</p>
 //               {userSkill.profilePicture && (
 //                 <img
-//                   src={`http://localhost:8713${userSkill.profilePicture}`}
+//                   src={`http://localhost:8714${userSkill.profilePicture}`}
 //                   alt={userSkill.profileName}
 //                   className="rounded-full mt-4 w-40 h-40 object-cover"
 //                 />
@@ -313,7 +313,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
       "Content-Type": "application/json"
     };
 
-    return fetch("http://localhost:8713/payment", {
+    return fetch("http://localhost:8714/payment", {
       method: "POST",
       headers,
       body: JSON.stringify(body)
@@ -352,7 +352,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
     if (id) {  
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://localhost:8713/api/formdata/${id}`);
+          const response = await axios.get(`http://localhost:8714/api/formdata/${id}`);
           setData(response.data);  
 
           if (response.data.pdfPrice) {
@@ -379,7 +379,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await axios.get('http://localhost:8713/api/skills'); 
+        const response = await axios.get('http://localhost:8714/api/skills'); 
         setSkills(response.data);  
       } catch (error) {
         console.error('Error fetching skills:', error);
@@ -428,7 +428,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
             <div className="image-section mt-4">
               <h3>Course Image</h3>
               <img
-                src={`http://localhost:8713/imageUploads/${data.image}`}
+                src={`http://localhost:8714/imageUploads/${data.image}`}
                 alt="Course uploaded"
                 className="rounded-lg w-full h-60 object-cover"
               />
@@ -443,7 +443,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
           {data.roadmapIntroduction && (
             <div className="pdf-card mb-4">
               <a
-                href={`http://localhost:8713/pdfUploads/${data.roadmapIntroduction}`}
+                href={`http://localhost:8714/pdfUploads/${data.roadmapIntroduction}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-green-500 text-white p-2 rounded block text-center"
@@ -469,7 +469,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
               <div className="pdf-card mb-4" key={index}>
                 {index < 3 || !isLocked ? (
                   <a
-                    href={`http://localhost:8713/pdfUploads/${data[chapter]}`}
+                    href={`http://localhost:8714/pdfUploads/${data[chapter]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-green-500 text-white p-2 rounded block text-center"
@@ -508,7 +508,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
               <p><strong>Educational Background:</strong> {userSkill.educationalBackground}</p>
               {userSkill.profilePicture && (
                 <img
-                  src={`http://localhost:8713${userSkill.profilePicture}`}
+                  src={`http://localhost:8714${userSkill.profilePicture}`}
                   alt={userSkill.profileName}
                   className="rounded-full mt-4 w-40 h-40 object-cover"
                 />

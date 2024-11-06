@@ -53,7 +53,7 @@ const LoginPage = ({ onSuccess }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8713/api/auth/login', {
+      const response = await fetch('http://localhost:8714/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputs),
@@ -69,7 +69,7 @@ const LoginPage = ({ onSuccess }) => {
         localStorage.setItem('token', encryptedToken);
 
         // Fetch the form submission status after login
-        const checkFormResponse = await fetch('http://localhost:8713/api/skills/check-form', {
+        const checkFormResponse = await fetch('http://localhost:8714/api/skills/check-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: inputs.email }),
@@ -83,7 +83,7 @@ const LoginPage = ({ onSuccess }) => {
 
         // If form is submitted, save Skill ID to localStorage
       if (submittedStatus) {
-        const skillIdResponse = await fetch(`http://localhost:8713/api/skills?email=${inputs.email}`, {
+        const skillIdResponse = await fetch(`http://localhost:8714/api/skills?email=${inputs.email}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });

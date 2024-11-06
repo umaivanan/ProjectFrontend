@@ -82,6 +82,8 @@ import FormDataDetails from './components/FormDataDetails';
 import FileDisplay from './components/FileDisplay'; // Import FileDisplay from components folder
 import UserDashboard from './components/UserDashboard';
 import LearnMore from './components/LearnMore';
+import {  FaFacebook,FaTwitter, FaYoutube } from "react-icons/fa";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State for handling login status
@@ -109,9 +111,103 @@ function App() {
           <Route path="/user-dashboard" element={<UserDashboard />} />
           
         </Routes>
+        <Footer />
       </Router>
     </SkillProvider>
   );
 }
+
+function Footer() {
+  return (
+    <footer className="w-full py-6 bg-gray-100 text-center">
+       <div className="w-full py-12 bg-white">
+      <div className="container px-4 md:px-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-5">
+          {/* Contact Info and Social Links */}
+          <div className="flex flex-col gap-4">
+            <a href="/" className="text-xl font-bold">
+              SwapSmart
+            </a>
+            <p className="text-sm text-muted-foreground">
+              jaffna, northern province,
+              <br />
+              Srilanka
+            </p>
+            <div className="flex gap-4 mr-10">
+              <a href="#" className="text-muted-foreground hover:text-primary">
+                <FaFacebook className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary">
+                <FaTwitter className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary">
+                <FaYoutube className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+
+          {/* About Links */}
+          <div className="flex flex-col gap-2">
+            <h3 className="font-semibold">About</h3>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Home</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Features</a>
+            <a href="" className="text-sm text-muted-foreground hover:text-primary">about</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">contact</a>
+          </div>
+
+          {/* Company Links */}
+          <div className="flex flex-col gap-2">
+            <h3 className="font-semibold">Company</h3>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Why Tripco</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Partner with us</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">FAQ</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Blog</a>
+          </div>
+
+          {/* Support Links */}
+          <div className="flex flex-col gap-2">
+            <h3 className="font-semibold">Support</h3>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Account</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Support center</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Feedback</a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-primary">Contact us</a>
+          </div>
+
+          {/* Newsletter Signup */}
+          <div className="flex flex-col gap-2">
+            <h3 className="font-semibold">Newsletter</h3>
+            <p className="text-sm text-muted-foreground">Subscribe to our newsletter and get exciting offers</p>
+            <form className="flex gap-2">
+              <input 
+                type="email" 
+                placeholder="Enter your email address" 
+                className="max-w-[300px] p-2 border border-gray-300 rounded"
+              />
+              <button type="submit" className="p-2 bg-primary text-white rounded">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+                <span className="sr-only">Subscribe</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </footer>
+  );
+}
+
 
 export default App;
