@@ -139,215 +139,7 @@ const AdditionalInformation = () => {
     };
 
     return (
-//      <div className="min-h-screen flex items-center justify-center p-12 bg-gray-100">
-//    <div
-//     className="bg-white shadow-3xl rounded-lg w-full h-auto overflow-auto my-10"
-//     style={{
-//         background: 'linear-gradient(to bottom, #9333EA 50%, #F7F7F7 100%)',
-//         padding: '10%', // Adjust padding as a percentage here
-//     }}
-// >
-//         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Course Submission Form</h2>
-//         <form className="space-y-6" onSubmit={handleSubmit}>
-//             {/* General Information Fields */}
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//                 <div className="form-group">
-//                     <label htmlFor="courseDescription" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faBook} />
-//                         <span>Course Description</span>
-//                     </label>
-//                     <textarea
-//                         id="courseDescription"
-//                         name="courseDescription"
-//                         value={formData.courseDescription}
-//                         onChange={handleChange}
-//                         className="block w-full mt-1 border border-gray-300 shadow-sm p-3 focus:ring focus:ring-blue-500 placeholder-gray-400"
-//                         style={{ borderRadius: '50px', height: '65px' }} // Set the border radius and a height
-//                         placeholder="Enter a brief description of the course"
-//                     />
-//                 </div>
-//                 <div className="form-group">
-//                     <label htmlFor="courseDuration" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faClock} />
-//                         <span>Course Duration</span>
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="courseDuration"
-//                         name="courseDuration"
-//                         value={formData.courseDuration}
-//                         onChange={handleChange}
-//                         className="block w-full mt-1 border border-gray-300 shadow-sm p-3 focus:ring focus:ring-blue-500 placeholder-gray-400"
-//                         style={{ borderRadius: '50px' }}
-//                         placeholder="e.g., 3 weeks"
-//                     />
-//                 </div>
-//             </div>
-
-//             {/* Additional Information Fields */}
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//                 <div className="form-group">
-//                     <label htmlFor="targetAudience" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faUser} />
-//                         <span>Target Audience</span>
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="targetAudience"
-//                         name="targetAudience"
-//                         value={formData.targetAudience}
-//                         onChange={handleChange}
-//                         className="block w-full mt-1 border border-gray-300 shadow-sm p-3 focus:ring focus:ring-blue-500 placeholder-gray-400"
-//                         style={{ borderRadius: '50px' }}
-//                         placeholder="e.g., Beginners, Professionals"
-//                     />
-//                 </div>
-//                 <div className="form-group">
-//                     <label htmlFor="courseCategory" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faTag} />
-//                         <span>Course Category</span>
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="courseCategory"
-//                         name="courseCategory"
-//                         value={formData.courseCategory}
-//                         onChange={handleChange}
-//                         className="block w-full mt-1 border border-gray-300 shadow-sm p-3 focus:ring focus:ring-blue-500 placeholder-gray-400"
-//                         style={{ borderRadius: '50px' }}
-//                         placeholder="e.g., Technology, Arts"
-//                     />
-//                 </div>
-//             </div>
-
-//             {/* Pricing and Language Fields */}
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//                 <div className="form-group">
-//                     <label htmlFor="languages" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faLanguage} />
-//                         <span>Languages I Speak</span>
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="languages"
-//                         name="languages"
-//                         value={formData.languages}
-//                         onChange={handleChange}
-//                         className="block w-full mt-1 border border-gray-300 shadow-sm p-3 focus:ring focus:ring-blue-500 placeholder-gray-400"
-//                         style={{ borderRadius: '50px' }}
-//                         placeholder="e.g., English, Spanish"
-//                     />
-//                 </div>
-//                 <div className="form-group">
-//                     <label htmlFor="pdfPrice" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faDollarSign} />
-//                         <span>Price for PDFs (in USD)</span>
-//                     </label>
-//                     <input
-//                         type="number"
-//                         id="pdfPrice"
-//                         name="pdfPrice"
-//                         value={formData.pdfPrice}
-//                         onChange={handlePriceChange}
-//                         min="1"
-//                         className="block w-full mt-1 border border-gray-300 shadow-sm p-3 focus:ring focus:ring-blue-500 placeholder-gray-400"
-//                         style={{ borderRadius: '50px' }}
-//                         placeholder="Enter price"
-//                     />
-//                 </div>
-//             </div>
-
-//             {/* File Upload Section */}
-//             <div className="grid grid-cols-1 gap-4">
-//                 <div className="form-group">
-//                     <label htmlFor="image" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faImage} />
-//                         <span>Upload Image</span>
-//                     </label>
-//                     <input
-//                         type="file"
-//                         id="image"
-//                         name="image"
-//                         accept="image/*"
-//                         onChange={handleFileChange}
-//                         className="block w-full mt-2"
-//                         style={{ borderRadius: '50px' }} // Add radius for file input
-//                     />
-//                     {fileNames.image && (
-//                         <span className="text-green-500 text-sm">{fileNames.image} uploaded successfully!</span>
-//                     )}
-//                 </div>
-//                 <div className="form-group">
-//                     <label htmlFor="roadmapIntroduction" className="text-xl font-medium text-purple-900 flex items-center space-x-2">
-//                         <FontAwesomeIcon icon={faBook} />
-//                         <span>Roadmap Introduction (PDF)</span>
-//                     </label>
-//                     <input
-//                         type="file"
-//                         id="roadmapIntroduction"
-//                         name="roadmapIntroduction"
-//                         accept="application/pdf"
-//                         onChange={handleFileChange}
-//                         className="block w-full mt-2"
-//                         style={{ borderRadius: '50px' }} // Add radius for file input
-//                     />
-//                     {fileNames.roadmapIntroduction && (
-//                         <span className="text-green-500 text-sm">{fileNames.roadmapIntroduction} uploaded successfully!</span>
-//                     )}
-//                 </div>
-//             </div>
-
-//             {/* Scrollable PDF Section */}
-//             <div className="max-h-60 overflow-y-auto border p-6 rounded-lg bg-gradient-to-r from-gray-50 to-gray-100 shadow-md mt-1 space-y-4">
-//                 {/* Display chapters up to the chapterCount */}
-//                 {chapterNames.slice(0, Math.min(chapterCount, 10)).map((fieldName, index) => (
-//                     <div key={index} className="bg-white rounded-lg shadow-lg p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300">
-//                         <label htmlFor={fieldName} className="block text-md font-medium text-gray-800 mb-2">
-//                             Chapter {index + 1} (PDF)
-//                         </label>
-//                         <input
-//                             type="file"
-//                             id={fieldName}
-//                             name={fieldName}
-//                             accept="application/pdf"
-//                             onChange={handleFileChange}
-//                             className="block w-full mt-1 border border-gray-300 rounded-md p-2 focus:ring focus:ring-blue-500"
-//                             style={{ borderRadius: '50px' }} // Add radius for chapter file input
-//                         />
-//                         {fileNames[fieldName] && (
-//                             <span className="text-green-600 text-sm mt-1 block">{fileNames[fieldName]} uploaded successfully!</span>
-//                         )}
-//                     </div>
-//                 ))}
-
-//                 {/* Display "Add Chapter" button only if less than 10 chapters are shown */}
-//                 {chapterCount < 10 && (
-//                     <div className="flex justify-end mt-2">
-//                         <button
-//                             type="button"
-//                             onClick={handleShowNextChapter}
-//                             className="bg-purple-500 text-white rounded-full px-6 py-2 shadow-lg hover:bg-blue-600 hover:scale-105 transition-all duration-300 ease-in-out flex items-center space-x-2"
-//                         >
-//                             <FontAwesomeIcon icon={faPlus} />
-//                             <span>Add Chapter</span>
-//                         </button>
-//                     </div>
-//                 )}
-//             </div>
-
-//             {/* Submit Button */}
-//             <button
-//                 type="submit"
-//                 disabled={isLoading}
-//                 className="w-full bg-gradient-to-r from-purple-500 to-purple-700 text-white py-3 rounded-lg hover:from-white-600 hover:to-white-800 transition duration-300 font-semibold mt-8"
-//             >
-//                 {isLoading ? 'Submitting...' : 'Submit'}
-//             </button>
-//         </form>
-//     </div>
-// </div>
-
-<div className="min-h-screen flex items-center justify-center p-12 ">
+<div className="min-h-screen flex items-center justify-center p-10  mr-8 ml-9">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-0 w-full">
         {/* Welcome Section */}
         <div className="flex h-screen items-center shadow-1xl rounded-lg w-full">
@@ -359,11 +151,13 @@ const AdditionalInformation = () => {
         loop 
         muted 
         className="w-full h-full object-cover"
+        style={{ width: '120%', height: '120%' }} // Increase dimensions by 20%
+
     />
     {/* Overlay text on the video */}
     <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white p-8">
     <h2 className="text-8xl font-bold mt-[30%]">swapSmart</h2>
-    <p className="text-lg text-center mb-[50%] mt-2">
+    <p className="text-xl text-center mb-[50%] mt-2">
         Welcome to the Course Submission Portal! Here, you can submit your course details, including descriptions, 
         audience, and pricing. Please follow the instructions and fill in all required fields. We’re excited to help 
         you share your knowledge!
@@ -373,7 +167,7 @@ const AdditionalInformation = () => {
 </div>
         {/* Form Section */}
         <div
-    className="bg-white shadow-3xl rounded-lg w-full h-auto mt-[10%] overflow-auto my-10"
+    className="bg-white shadow-1xl rounded-lg w-full h-auto mt-[10%] mb-[20%]overflow-auto my-10"
     style={{
         paddingTop: '5%',
         paddingBottom: '1%',
@@ -531,7 +325,7 @@ const AdditionalInformation = () => {
                         )}
                     </div>
                 </div>
-                <div className="max-h-48 overflow-y-auto border rounded-md bg-gradient-to-r from-gray-50 to-gray-100 shadow-md mt-1 space-y-3 p-4">
+                <div className="max-h-24 overflow-y-auto border rounded-md bg-gradient-to-r from-gray-50 to-gray-100 shadow-md mt-1 space-y-3 p-4">
     {/* Display chapters up to the chapterCount */}
     {chapterNames.slice(0, Math.min(chapterCount, 10)).map((fieldName, index) => (
         <div key={index} className="bg-white rounded-lg shadow-sm p-3 border border-gray-200 hover:shadow-md transition-shadow duration-200">

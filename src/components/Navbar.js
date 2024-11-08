@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AiOutlineUser, AiOutlineLogout, AiOutlineMenu ,AiOutlineHome, AiOutlineInfoCircle, AiOutlineMail } from 'react-icons/ai'; // Import necessary icons
 import { FaCog } from 'react-icons/fa'; // Import settings icon
-import logo from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-20 22.16.59 - An abstract geometric logo design, similar to the uploaded image, featuring a complex diamond pattern with directional arrows. Replace the green tones.webp'; // Update the path to your logo
+import logo from '/home/ukijaffna/um/swapSmartFrontend/src/assets/White_and_Blue_Illustrative_Class_Logo-removebg-preview.png'; // Update the path to your logo
 import Popup from './Popup'; // Import Popup component
 import CryptoJS from 'crypto-js'; // Import CryptoJS
 
@@ -203,11 +203,11 @@ const Navbar = ({ heroRef }) => {
   return (
     <div>
       { (
-        <nav className="flex justify-between items-center p-6 bg-white fixed top-0 left-0 w-full h-[8%] z-50">
+        <nav className="flex justify-between items-center p-6 bg-gradient-to-br bg-white fixed top-0 left-0 w-full h-[8%] z-50">
           <div className="navbar-logo">
             {/* Logo will always be visible */}
             <Link to="/" onClick={scrollToHome}>
-              <img src={logo} alt="Logo" className="h-12" />
+              <img src={logo} alt="Logo" className="h-28" />
             </Link>
           </div>
            
@@ -261,12 +261,11 @@ const Navbar = ({ heroRef }) => {
             {location.pathname === '/' || location.pathname === '/learnmore' ? ( // Show setup button on home and learnmore page
               <li>
                 <button
-  className="flex items-center text-purple border-2 border-purple-900 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-purple-700 focus:outline-none focus:ring focus:ring-white"
+  className="flex items-center  bg-pink-600 text-white border-2 border-pink-600 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-pink-600 focus:outline-none focus:ring focus:ring-white"
   onClick={handlePopup}
   style={{
     width: '150px',
     height: '50px',// Ensure border matches the left gradient color
-    backgroundColor:'purple'
   }}
 >
   <FaCog className="mr-2" />
@@ -278,7 +277,7 @@ const Navbar = ({ heroRef }) => {
                 {!isLoggedIn ? (
                   <li>
                     <button
-                      className="flex items-center bg-purple-900 text-white border-2 border-purple-900 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-purple-700 focus:outline-none focus:ring focus:ring-white"
+                      className="flex items-center bg-pink-600 text-white border-2 border-pink-600 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-pink-600 focus:outline-none focus:ring focus:ring-white"
                       onClick={handlePopup}
                       style={{ width: '150px', height: '50px'}} // Set same width and height
 

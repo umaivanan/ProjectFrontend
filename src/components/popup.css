@@ -14,7 +14,7 @@
 
 /* Popup content container */
 .popup-content {
-background-color: rgba(75, 0, 130, 0.5); 
+background-color: rgba(75, 0, 130, 0.1); 
 padding: 20px;
 border-radius: 40px;
 width: 550px;
@@ -35,25 +35,27 @@ border-radius: 10%;
   border: none;
   font-size: 18px;
   cursor: pointer;
-  color:#9333EA;
+  color: rgba(0, 0, 0, 0.1); 
+
 }
 
 /* Toggle button for switching between login and register */
 .toggle-btn {
-  margin-top: 20px;
-  width: 75%;
-  background-color: #9333EA;
-  /* color: white; */
+  margin-bottom: 180px;
+  width: 75%; 
+  color: rgba(0, 0, 0, 0.1); 
+  
+  color:black;
   padding: 10px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  margin-left: 58px; /* Centering */
-  margin-right: auto; /* Centering */
-  height: 57px; /* Added height */
+  margin-left: 158px; 
+  margin-right: auto; 
+  height: 57px; 
 
 }
 
 .toggle-btn:hover {
-  background-color: #9333EA;
+
 }

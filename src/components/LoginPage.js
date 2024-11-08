@@ -117,11 +117,10 @@ const LoginPage = ({ onSuccess }) => {
     style={{ backgroundColor: 'rgba(255, 255, 250, 0.8)',borderRadius: '40px' }} // 50% opacity
     
     >
-    <h2 className="text-4xl  mb-6 text-center font-bold"
-    style={{ color: 'rgba(70, 30, 120, 20)' }}>Login</h2>
+    <h2 className="text-4xl  mb-6 text-center font-bold">Login</h2>
     <form className="w-full" onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block  text-lg mb-1" style={{ color: 'rgba(70, 30, 120, 20)' }}>Email</label>
+        <label className="block  text-lg mb-1" >Email</label>
         <input
         style={{ borderRadius: '30px' }}
           type="email"
@@ -136,7 +135,7 @@ const LoginPage = ({ onSuccess }) => {
         )}
       </div>
       <div className="mb-4">
-        <label className="block  text-lg mb-1" style={{ color: 'rgba(70, 30, 120, 20)' }}>Password</label>
+        <label className="block  text-lg mb-1">Password</label>
         <input
         style={{ borderRadius: '30px' }}
           type="password"
@@ -158,11 +157,12 @@ const LoginPage = ({ onSuccess }) => {
       <button
   type="submit"
   disabled={loading}
-  className="w-full mt-4 py-3 bg-purple-600 text-white text-lg font-semibold rounded-md hover:bg-purple-500 transition duration-300"
+  className="w-full mt-4 py-3 bg-pink-400 text-white text-lg font-semibold rounded-md "
   style={{ borderRadius: '30px' }}
 >
   Login
 </button>
+
     </form>
   </div>
 </div>

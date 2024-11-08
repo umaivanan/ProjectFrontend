@@ -81,10 +81,10 @@ const RegisterPage = ({ onSuccess }) => {
  
 >
   <div className="max-w-md w-full h-auto p-6 rounded-xl shadow-lg backdrop-blur-md"style={{ backgroundColor: 'rgba(255, 255, 250, 0.8)',borderRadius: '30px' }}>
-    <h2 className="text-4xl mb-6 text-center font-bold" style={{ color: 'rgba(70, 30, 120, 20)' }}>Register</h2>
+    <h2 className="text-4xl mb-6 text-center font-bold">Register</h2>
     <form className="w-full" onSubmit={handleSubmit}>
       <div className="mb-4">
-        <label className="block  text-lg mb-2" style={{ color: 'rgba(70, 30, 120, 20)' }}>Name</label>
+        <label className="block  text-lg mb-2">Name</label>
         <input
         style={{ borderRadius: '30px' }}
           type="text"
@@ -97,7 +97,7 @@ const RegisterPage = ({ onSuccess }) => {
         {errors.name.required && <span className="">Name is required.</span>}
       </div>
       <div className="mb-4">
-        <label className="block  text-lg mb-2" style={{ color: 'rgba(70, 30, 120, 20)' }}>Email</label>
+        <label className="block  text-lg mb-2">Email</label>
         <input
         style={{ borderRadius: '30px' }}
           type="email"
@@ -111,7 +111,7 @@ const RegisterPage = ({ onSuccess }) => {
         {errors.email.required && <span className="">Email is required.</span>}
       </div>
       <div className="mb-4">
-        <label className="block text-lg mb-2" style={{ color: 'rgba(70, 30, 120, 20)' }}>Password</label>
+        <label className="block text-lg mb-2">Password</label>
         <input
         style={{ borderRadius: '30px' }}
           type="password"
@@ -136,7 +136,7 @@ const RegisterPage = ({ onSuccess }) => {
       <button
   type="submit"
   disabled={loading}
-  className="w-full h-12 bg-purple-600 text-white border border-purple-600 py-2 mt-6  hover:text-purple-600 transition duration-300"
+  className="w-full h-12 bg-pink-600 text-white border py-2 mt-6 "
   style={{ borderRadius: '30px' }}
 >
   Register

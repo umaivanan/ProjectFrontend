@@ -24,9 +24,9 @@ const Popup = ({ onClose }) => {
         )}
         
         {/* Toggle between Login and Register */}
-        <button className="toggle-btn" onClick={() => setIsLogin(!isLogin)}>
+        < btn className="toggle-btn" onClick={() => setIsLogin(!isLogin)}>
           {isLogin ? 'No account? Register' : 'Have an account? Login'}
-        </button>
+        </btn>
       </div>
     </div>
   );

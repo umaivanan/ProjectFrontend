@@ -1024,31 +1024,49 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard flex flex-col items-center bg-gray-100 min-h-screen p-6">
-      <div className="header bg-purple-900 text-white w-full py-4 px-5 rounded-lg mt-20 shadow-lg flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+      <div className="header bg-purple-900 text-white  w-full py-3 px-5 rounded-lg mt-20 shadow-lg flex justify-between items-center">
+        <h1 className="text-2xl font-bold ">Admin Dashboard</h1>
         <div className="tabs flex">
-          <button
-            className={`px-4 py-2 rounded-l-lg ${activeTab === 'formdata' ? 'bg-teal-500' : 'bg-purple-700'}`}
+          {/* <button
+            className={`px-4 py-2 mr-5 rounded-l-lg ${activeTab === 'formdata' ? 'bg-teal-500' : 'bg-purple-700'}`}
             onClick={() => setActiveTab('formdata')}
           >
             Form Data
           </button>
           <button
-            className={`px-4 py-2 rounded-r-lg ${activeTab === 'payments' ? 'bg-teal-500' : 'bg-purple-700'}`}
+            className={`px-4 py-2  mr-5 rounded-r-lg ${activeTab === 'payments' ? 'bg-teal-500' : 'bg-purple-700'}`}
             onClick={() => setActiveTab('payments')}
           >
             Payments
           </button>
           <button
-            className={`px-4 py-2 rounded-r-lg ${activeTab === 'users' ? 'bg-teal-500' : 'bg-purple-700'}`}
+            className={`px-4 py-2 rounded-r-lg mr-5 ${activeTab === 'users' ? 'bg-teal-500' : 'bg-purple-700'}`}
             onClick={() => setActiveTab('users')}
           >
             Users
-          </button>
+          </button> */}
+          <button
+  className={`px-4 py-1 w-32 mr-5  bg-teal-500`}
+  onClick={() => setActiveTab('formdata')}
+>
+  Form Data
+</button>
+<button
+  className={`px-4 py-2 w-32 mr-5  bg-teal-500`}
+  onClick={() => setActiveTab('payments')}
+>
+  Payments
+</button>
+<button
+  className={`px-4 py-2 w-32 mr-5  bg-teal-500`}
+  onClick={() => setActiveTab('users')}
+>
+  Users
+</button>
         </div>
       </div>
 
-      <div className="content w-full max-w-6xl bg-white rounded-lg shadow-lg p-6">
+      <div className="content w-full max-w-6xl mt- bg-white rounded-lg shadow-lg p-6">
         {activeTab === 'formdata' && (
           <section className="formdata-section">
             <h2 className="text-xl font-semibold text-purple-900 mb-4">Users with Form Data and Skills</h2>

@@ -245,13 +245,13 @@ const SkillList = () => {
   }, [searchTerm, usersData]);
 
   return (
-    <div className="bg-white p-12">
+    <div className="bg-white -p-[1%]">
       <h1 className="text-4xl font-bold text-center mt-20 text-cyan-500">Explore Our Courses</h1>
 
       {/* Fixed Search Bar and Icon Grid Container */}
       <div className="fixed top-0 left-0 w-full mt-20 bg-white shadow-md z-10">
         {/* Search Bar with Icon */}
-        <div className="flex justify-center mb-6 pt-4">
+        <div className="flex justify-center mb-8 pt-4">
           <div className="w-2/3 md:w-1/2 relative">
             <input
               type="text"
@@ -303,14 +303,15 @@ const SkillList = () => {
       </div>
 
       {/* Course List with 3-Card Row Layout */}
-      <div className={`pt-48 grid grid-cols-1 md:grid-cols-3 gap-8`}>
+      <div className={`pt-48 grid grid-cols-1 md:grid-cols-3 gap-8 ml-[5%] mr-[4%]`} >
         {filteredData.map((user) => (
           <div
             key={user._id}
             onClick={() => handleShowMore(user._id)}
-            className="relative bg-gradient-to-r from-[#ebf8ff] to-[#e6f7ff] p-6 rounded-lg shadow-xl h-72 cursor-pointer"
+            className="relative bg-white p-6 rounded-lg shadow-xl h-72 cursor-pointer"
+
           >
-            <div className="absolute inset-0 bg-black bg-opacity-25 flex flex-col justify-between rounded-lg p-4">
+            <div className="absolute inset-0 bg-black bg-opacity-5 flex flex-col justify-between rounded-lg p-4">
               <h2
                 className="font-bold text-lg ml-[28%] -mt-[5%]"
                 style={{
@@ -322,7 +323,7 @@ const SkillList = () => {
                 {user.courseDescription}
               </h2>
               <button
-  className="absolute bottom-4 right-1 p-2 -mb-[3%] rounded-full shadow-lg hover:shadow-2xl transition-all bg-purple-600 text-white"
+  className="absolute bottom-4 right-1 p-1 -mb-[3%] rounded-full shadow-lg hover:shadow-1xl transition-all bg-purple-600 text-white"
   onClick={(e) => {
                   e.stopPropagation();
                   handleShowMore(user._id);
@@ -345,7 +346,7 @@ const SkillList = () => {
 
       {/* Modal for DisplayData */}
       {selectedId && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 z-20 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-80 z-20 flex items-center justify-center">
           <DisplayData id={selectedId} onClose={handleClosePopup} />
         </div>
       )}
