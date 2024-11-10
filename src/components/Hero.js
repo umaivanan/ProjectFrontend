@@ -1,9 +1,8 @@
 // Import necessary modules and images
 import React from 'react';
 import StudentImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/Screenshot_from_2024-11-08_15-30-22-removebg-preview.png'; // Replace with the correct path to your student image
-import PlayIcon from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/Screenshot_from_2024-11-08_15-30-22-removebg-preview.png'; // Replace with the correct path to your play icon
 import { AiOutlineFilePdf, AiOutlineAppstore, AiOutlineRead } from "react-icons/ai"; // Importing React Icons
-import { AiOutlineUserAdd, AiOutlineCheckSquare, AiOutlineMail, AiOutlineStar } from "react-icons/ai"; // Importing React Icons
+import { AiOutlineUserAdd, AiOutlineCheckSquare, AiOutlineMail, AiOutlineStar,AiOutlineClockCircle } from "react-icons/ai"; // Importing React Icons
 
 
 
@@ -23,8 +22,6 @@ import Student from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/Scre
 
 
 
-import ClockIcon from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/b92488a6d184c618d8102da1550dc210-removebg-preview.png'; // Replace with the correct paths to your local icons
-import BookOpenIcon from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/b92488a6d184c618d8102da1550dc210-removebg-preview.png';
 import BarChartIcon from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/b92488a6d184c618d8102da1550dc210-removebg-preview.png';
 // import ArrowRight from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/Screenshot_from_2024-11-08_15-30-22-removebg-preview.png';
 import ui from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/b71518604c4aa067e67eaf49d62d431b.jpg'; // Placeholder image for courses
@@ -49,32 +46,32 @@ export default function Hero() {
   const courses = [
     {
       title: "UI Design",
-      description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: ui,
     },
     {
       title: "UX Design",
-      description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: ux,
     },
     {
       title: "Digital Marketing",
-      description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: digital,
     },
     {
       title: "Graphic Design",
-      description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: graphic,
     },
     {
       title: "Web Development",
-      description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: web,
     },
     {
       title: "API Development",
-      description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: api,
     },
   ];
@@ -87,7 +84,7 @@ export default function Hero() {
       </div>
       
     {/* Outer container for horizontal layout on larger screens */}
-    <div className="container mx-auto px-4 py-20 lg:px-10 lg:py-32 flex flex-col lg:flex-row items-center lg:space-x-16">
+    <div id="home" className="container mx-auto px-4 mt-[4%] py-20 lg:px-10 lg:py-32 flex flex-col lg:flex-row items-center lg:space-x-16">
   
   {/* Container for Text and Buttons */}
   <div className="max-w-2xl mx-auto lg:w-1/2 flex flex-col justify-center text-center lg:text-left lg:pr-10 space-y-8">
@@ -96,29 +93,26 @@ export default function Hero() {
       New
     </span> */}
     
-    <h1 className="text-6xl font-bold tracking-tight text-gray-900 lg:text-7xl">
+    <h1 className="text-6xl font-bold mr-4 tracking-tight text-black-900 lg:text-7xl">
       Find your <span className="text-purple-500">Course</span> & make sure <span className="text-purple-500">goal.</span>
     </h1>
 
-    <p className="text-3xl text-gray-600">
+    <p className="text-3xl text-black-600">
       Your dream course is waiting for you 👋. Unlock the knowledge and skills you've always wanted.
     </p>
     
-    {/* <p className="text-lg text-gray-700 leading-relaxed">
+    {/* <p className="text-lg text-black-700 leading-relaxed">
       Whether you're looking to advance your career, learn something new, or achieve your personal goals, we offer a wide range of courses designed to help you succeed. Join us today and take the first step towards a brighter future.
     </p> */}
     
     <div className="flex justify-center lg:justify-start gap-6 mt-10">
       {/* Get Started Button */}
-      <button className="px-3 py-2 bg-purple-500 text-white text-lg font-medium rounded-md hover:bg-purple-600 transition duration-200">
+      <button className="px-3 py-2 ml-[40%] bg-purple-500 text-white text-lg font-medium rounded-md hover:bg-purple-600 transition duration-200">
   Get Started
 </button>
 
 {/* Play Video Button */}
-<button className="flex items-center px-6 py-3 border border-gray-300 text-gray-700 text-lg font-medium rounded-md hover:bg-gray-100 transition duration-200">
-  <img src={PlayIcon} alt="Play icon" className="mr-2 h-5 w-5" />
-  Play Video
-</button>
+
     </div>
   </div>
 
@@ -147,14 +141,14 @@ export default function Hero() {
 
 
 
-<section className="py-16">
+<section  id="about"className="py-16">
   <div className="container px-4 md:px-6 mb-[7%]">
     <div className="space-y-12">
       {/* Header Section */}
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-4">
           <h2 className="text-5xl font-medium text-purple-500">What we do</h2>
-          <h3 className="text-3xl font-bold tracking-tighter text-gray-900 lg:text-4xl">
+          <h3 className="text-3xl font-bold tracking-tighter text-black-900 lg:text-4xl">
             Our education system will give<br />you the perfect solution
           </h3>
         </div>
@@ -167,17 +161,13 @@ export default function Hero() {
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-lg bg-purple-100 transition duration-300 group-hover:bg-purple-200">
             <AiOutlineFilePdf className="h-12 w-12 text-purple-500 transition-transform duration-300 group-hover:scale-110 group-hover:text-purple-600 group-hover:shadow-lg group-hover:shadow-purple-500" />
           </div>
-          <h4 className="text-xl font-semibold text-gray-900">PDF Summarizer</h4>
-          <p className="text-sm text-gray-500">
+          <h4 className="text-xl font-semibold text-black-900">PDF Summarizer</h4>
+          <p className="text-sm text-black-500">
             Quickly summarize PDF documents for easy understanding and review.
           </p>
-          <a
-            className="inline-flex items-center space-x-1 text-sm font-medium text-purple-500 hover:text-purple-600"
-            href="#"
-          >
-            <span>Learn More</span>
-            <AiOutlineRead className="h-4 w-4" />
-          </a>
+          <button className="px-3 py-2 ml-[1%] bg-purple-500 text-white text-lg font-medium rounded-md hover:bg-purple-600 transition duration-200">
+  Learn more
+</button>
         </div>
 
         {/* Variety of Courses Card */}
@@ -185,17 +175,14 @@ export default function Hero() {
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-lg bg-purple-100 transition duration-300 group-hover:bg-purple-200">
             <AiOutlineAppstore className="h-12 w-12 text-purple-500 transition-transform duration-300 group-hover:scale-110 group-hover:text-purple-600 group-hover:shadow-lg group-hover:shadow-purple-500" />
           </div>
-          <h4 className="text-xl font-semibold text-gray-900">Variety of Courses</h4>
-          <p className="text-sm text-gray-500">
+          <h4 className="text-xl font-semibold text-black-900">Variety of Courses</h4>
+          <p className="text-sm text-black-500">
             Explore a range of courses designed to suit various learning needs and goals.
           </p>
-          <a
-            className="inline-flex items-center space-x-1 text-sm font-medium text-purple-500 hover:text-purple-600"
-            href="#"
-          >
-            <span>Learn More</span>
-            <AiOutlineRead className="h-4 w-4" />
-          </a>
+          <button className="px-3 py-2  bg-purple-500 text-white text-lg font-medium rounded-md hover:bg-purple-600 transition duration-200">
+          Learn more
+
+</button>
         </div>
 
         {/* Learning Easily Card */}
@@ -203,17 +190,14 @@ export default function Hero() {
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-lg bg-purple-100 transition duration-300 group-hover:bg-purple-200">
             <AiOutlineRead className="h-12 w-12 text-purple-500 transition-transform duration-300 group-hover:scale-110 group-hover:text-purple-600 group-hover:shadow-lg group-hover:shadow-purple-500" />
           </div>
-          <h4 className="text-xl font-semibold text-gray-900">Learning Easily</h4>
-          <p className="text-sm text-gray-500">
+          <h4 className="text-xl font-semibold text-black-900">Learning Easily</h4>
+          <p className="text-sm text-black-500">
             Simplify the learning process with user-friendly resources and support.
           </p>
-          <a
-            className="inline-flex items-center space-x-1 text-sm font-medium text-purple-500 hover:text-purple-600"
-            href="#"
-          >
-            <span>Learn More</span>
-            <AiOutlineRead className="h-4 w-4" />
-          </a>
+          <button className="px-3 py-2  bg-purple-500 text-white text-lg font-medium rounded-md hover:bg-purple-600 transition duration-200">
+          Learn more
+
+</button>
         </div>
       </div>
     </div>
@@ -285,9 +269,9 @@ export default function Hero() {
               <AiOutlineStar className="h-10 w-10 text-yellow-500" /> {/* React Icon */}
             </div>
             <h3 className="mb-2 text-xl font-semibold">Enjoy your Course</h3>
-            <p className="text-lg text-black-500">
+            {/* <p className="text-lg text-black-500">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>
@@ -316,14 +300,14 @@ export default function Hero() {
 
 
 
-    <section className="py-12">
-  <div className="container px-4 md:px-6">
+    <section className="py-5 ">
+  <div className="container px-3 md:px-6">
     <div className="space-y-12">
       {/* Header Section */}
       <div className="grid gap-4 lg:grid-cols-[2fr,1fr]">
         <div className="space-y-4">
           <h2 className="text-lg font-medium text-purple-500">Popular courses</h2>
-          <h3 className="text-3xl font-bold tracking-tighter text-gray-900 lg:text-4xl">
+          <h3 className="text-3xl mb-7 font-bold tracking-tighter text-black-900 lg:text-4xl">
             Our most popular courses in students
           </h3>
         </div>
@@ -331,10 +315,10 @@ export default function Hero() {
       </div>
 
       {/* Courses Grid */}
-      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid -py-[5%] sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {courses.map((course, index) => (
-          <div key={index} className="w-full max-w-xs overflow-hidden border-none shadow-lg rounded-lg mx-auto">
-            <div className="aspect-[3/3] relative h-80">
+          <div key={index} className="w-full  max-w-xs h-[70%] overflow-hidden border-none shadow-lg rounded-lg mx-auto">
+            <div className="aspect-[3/3] relative h-30">
               <img
                 src={course.image}
                 alt={course.title}
@@ -343,30 +327,22 @@ export default function Hero() {
             </div>
             <div className="p-4 space-y-2">
               <h4 className="text-lg font-semibold">{course.title}</h4>
-              <p className="text-sm text-gray-500">{course.description}</p>
-              <div className="flex items-center gap-3 text-sm text-gray-500">
+              <p className="text-sm text-black-500">{course.description}</p>
+              <div className="flex items-center gap-3 text-sm text-black-500">
                 <div className="flex items-center gap-1">
-                  <img src={ClockIcon} alt="Duration" className="h-4 w-4" />
+                <AiOutlineClockCircle className="h-4 w-4" aria-label="Duration" />
+
                   <span>20h</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <img src={BookOpenIcon} alt="Lectures" className="h-4 w-4" />
-                  <span>24 lectures</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <img src={BarChartIcon} alt="Progress" className="h-4 w-4" />
-                  <span>Progress</span>
-                </div>
+                
+                
               </div>
             </div>
-            <div className="p-4 pt-0">
-              <a
-                className="inline-flex items-center space-x-1 text-sm font-medium text-purple-500 hover:text-purple-600"
-                href="#"
-              >
-                <span>Learn More</span>
-                <img src={ArrowRightIcon} alt="Arrow Right" className="h-4 w-4" />
-              </a>
+            <div className="px-12 pt-2 mb-[80%]">
+            <button className="px-2 -py-2  bg-purple-500 text-white text-lg font-medium rounded-md hover:bg-purple-600 transition duration-200">
+            Learn more
+
+</button>
             </div>
           </div>
         ))}

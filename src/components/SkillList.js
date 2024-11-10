@@ -351,6 +351,7 @@ const SkillList = () => {
         </div>
       )}
     </div>
+    
   );
 };
 
