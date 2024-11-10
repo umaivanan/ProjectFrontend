@@ -157,7 +157,7 @@ const LoginPage = ({ onSuccess }) => {
       <button
   type="submit"
   disabled={loading}
-  className="w-full mt-4 py-3 bg-pink-400 text-white text-lg font-semibold rounded-md "
+  className="w-full mt-4 py-3 bg-purple-400 text-white text-lg font-semibold rounded-md "
   style={{ borderRadius: '30px' }}
 >
   Login

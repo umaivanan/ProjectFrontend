@@ -4,7 +4,7 @@ import { FaGraduationCap, FaBook, FaChalkboardTeacher, FaFilePdf, FaLaptopCode, 
 // Importing images directly
 import learnfirst from '/home/ukijaffna/um/swapSmartFrontend/src/assets/Roadmap_Process_Inspiration_PDF_Slide_1.jpg';
 import peopleCollaborating from '/home/ukijaffna/um/swapSmartFrontend/src/assets/57602174-53a8-44eb-b64a-1e7d1fea7070.webp';
-import onlineLocation from '/home/ukijaffna/um/swapSmartFrontend/src/assets/DALL·E 2024-10-18 19.32.11 - A simple, full-screen road map image with clear points numbered from 1 to 10, each point representing a chapter or milestone. The road stretches from  (1).webp';
+import onlineLocation from '/home/ukijaffna/um/swapSmartFrontend/src/assets/Roadmap_Process_Inspiration_PDF_Slide_1.jpg';
 import romeLocation from '/home/ukijaffna/um/swapSmartFrontend/src/assets/apus-574x420.jpg';
 
 const LearnMore = () => {

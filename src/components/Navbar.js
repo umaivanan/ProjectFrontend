@@ -261,7 +261,7 @@ const Navbar = ({ heroRef }) => {
             {location.pathname === '/' || location.pathname === '/learnmore' ? ( // Show setup button on home and learnmore page
               <li>
                 <button
-  className="flex items-center  bg-pink-600 text-white border-2 border-pink-600 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-pink-600 focus:outline-none focus:ring focus:ring-white"
+  className="flex items-center  bg-purple-600 text-white border-2 border-purple-600 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-purple-600 focus:outline-none focus:ring focus:ring-white"
   onClick={handlePopup}
   style={{
     width: '150px',
@@ -277,7 +277,7 @@ const Navbar = ({ heroRef }) => {
                 {!isLoggedIn ? (
                   <li>
                     <button
-                      className="flex items-center bg-pink-600 text-white border-2 border-pink-600 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-pink-600 focus:outline-none focus:ring focus:ring-white"
+                      className="flex items-center bg-purple-600 text-white border-2 border-purple-600 py-3 px-6 rounded-full transition-transform duration-300 transform hover:bg-purple-600 focus:outline-none focus:ring focus:ring-white"
                       onClick={handlePopup}
                       style={{ width: '150px', height: '50px'}} // Set same width and height
 

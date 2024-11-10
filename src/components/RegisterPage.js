@@ -136,7 +136,7 @@ const RegisterPage = ({ onSuccess }) => {
       <button
   type="submit"
   disabled={loading}
-  className="w-full h-12 bg-pink-600 text-white border py-2 mt-6 "
+  className="w-full h-12 bg-purple-600 text-white border py-2 mt-6 "
   style={{ borderRadius: '30px' }}
 >
   Register
