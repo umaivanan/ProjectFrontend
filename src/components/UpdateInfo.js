@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './UpdateInfo.css'; // CSS for styling
 import { SkillContext } from '../context/SkillContext'; // Import the SkillContext
 
 const UpdateInfo = () => {

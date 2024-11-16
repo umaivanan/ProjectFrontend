@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import emailjs from 'emailjs-com';
-import './AdminDashboard.css';
+// import './AdminDashboard.css';
 import { FaEnvelope } from 'react-icons/fa';
 
 const AdminDashboard = () => {

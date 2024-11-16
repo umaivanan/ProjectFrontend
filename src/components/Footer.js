@@ -32,7 +32,7 @@ const Footer = forwardRef(({ heroRef }, ref) => {
 
             {/* Navigation Links */}
             <nav className="flex gap-6 text-lg">
-              <button
+              {/* <button
                 className="text-gray-700 hover:text-purple-500"
                 onClick={scrollToHome}
               >
@@ -49,35 +49,38 @@ const Footer = forwardRef(({ heroRef }, ref) => {
                 onClick={scrollToContact}
               >
                 Contact
-              </button>
+              </button> */}
             </nav>
           </div>
 
           {/* Social Media Links */}
           <div className="flex items-center gap-6">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-purple-500 hover:text-purple-700"
-            >
-              <FaFacebookF size={24} />
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-purple-500 hover:text-purple-700"
-            >
-              <FaTwitter size={24} />
-            </a>
-            <a
-              href="mailto:swapsmartpro@yourcompany.com"
-              className="text-purple-500 hover:text-purple-700"
-            >
-              <FaEnvelope size={24} />
-            </a>
-          </div>
+  {/* Facebook Link */}
+  <button
+    onClick={() => window.open('https://facebook.com', '_blank')}
+    className="text-purple-500 hover:text-purple-700"
+  >
+    <FaFacebookF size={24} />
+  </button>
+
+  {/* Twitter Link */}
+  <button
+    onClick={() => window.open('https://twitter.com', '_blank')}
+    className="text-purple-500 hover:text-purple-700"
+  >
+    <FaTwitter size={24} />
+  </button>
+
+  {/* Email Link */}
+  <button
+  onClick={() => 
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=swapsmartpro@gmail.com', '_blank')
+  }
+  className="text-purple-500 hover:text-purple-700"
+>
+  <FaEnvelope size={24} />
+</button>
+</div>
         </div>
 
         {/* Footer Bottom Row */}

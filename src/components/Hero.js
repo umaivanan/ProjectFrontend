@@ -52,44 +52,28 @@ const Hero = React.forwardRef((props, ref) => {
   const courses = [
     {
       title: "UI Design",
-      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: ui,
     },
     {
-      title: "UX Design",
-      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      title: "Media Design",
       image: ux,
     },
     {
       title: "Digital Marketing",
-      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
       image: digital,
     },
     {
-      title: "Graphic Design",
-      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      title: "Content Design",
       image: graphic,
     },
     {
-      title: "Web Development",
-      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      title: "Mobile Appdevelopment",
       image: web,
     },
     {
-      title: "API Development",
-      // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
+      title: "UI UX Design",
       image: api,
     },
-    // {
-    //   title: "API Development",
-    //   // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
-    //   image: api,
-    // },
-    // {
-    //   title: "API Development",
-    //   // description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.",
-    //   image: api,
-    // },
   ];
   return (
     <div className="min-h-[600px] bg-white">

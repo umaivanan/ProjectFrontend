@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './SkillForm.css';
 import CryptoJS from 'crypto-js';
 import bookImage from '../assets/a-man-reads-a-book-1024x683.jpg'; // Import the image
 
@@ -155,7 +154,7 @@ const SkillForm = () => {
               onChange={(e) => setEducationalBackground(e.target.value)}
             />
           </div>
-          <button type="submit" className="w-full p-3 bg-red-500 text-white rounded-md hover:bg-red-600">
+          <button type="submit" className="w-full p-3 text-2xl bg-purple-500 text-white rounded-md hover:bg-purple-600">
             Submit
           </button>
         </form>
