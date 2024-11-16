@@ -4,12 +4,11 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBook, faClock, faUser, faTag,
-    faLanguage, faDollarSign, faImage, faPlus
+    faLanguage, faDollarSign, faImage, 
 } from '@fortawesome/free-solid-svg-icons';
 import welcomeVideo from '/home/ukijaffna/um/swapSmartFrontend/src/assets/66387c8b-f554-45bd-b813-6b4b940a610b.mp4';
 
 
-import backgroundImage from '../assets/a-man-reads-a-book-1024x683.jpg';  // Import the background image
 
 const AdditionalInformation = () => {
     const location = useLocation();
@@ -113,14 +112,14 @@ const AdditionalInformation = () => {
                     }
                 });
 
-                const response = await axios.post('http://localhost:8714/api/formdata', formDataObj, {
+                const response = await axios.post('http://localhost:8715/api/formdata', formDataObj, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
                 const formDataId = response.data.formData._id;
-                await axios.patch(`http://localhost:8714/api/skills/${currentSkillId}`, { formDataId });
+                await axios.patch(`http://localhost:8715/api/skills/${currentSkillId}`, { formDataId });
 
-                const skillResponse = await axios.get(`http://localhost:8714/api/skills/${currentSkillId}`);
+                const skillResponse = await axios.get(`http://localhost:8715/api/skills/${currentSkillId}`);
                 const submittedStatus = skillResponse.data.submittedStatus;
 
                 localStorage.setItem('submittedStatus', submittedStatus);
@@ -156,7 +155,7 @@ const AdditionalInformation = () => {
     />
     {/* Overlay text on the video */}
     <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 text-white p-8">
-    <h2 className="text-8xl font-bold mt-[30%]">swapSmart</h2>
+    <h2 className="text-8xl font-bold mt-[30%]">SwapSmart</h2>
     <p className="text-xl text-center mb-[50%] mt-2">
         Welcome to the Course Submission Portal! Here, you can submit your course details, including descriptions, 
         audience, and pricing. Please follow the instructions and fill in all required fields. We’re excited to help 
@@ -287,7 +286,7 @@ const AdditionalInformation = () => {
 
 
                 {/* File Upload Section */}
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                     <div className="form-group">
                         <label htmlFor="image" className="text-xl font-medium text-purple-900 flex items-center space-x-2 font-serif">
                             <FontAwesomeIcon icon={faImage} />
@@ -306,7 +305,7 @@ const AdditionalInformation = () => {
                             <span className="text-gray-500 text-sm">{fileNames.image} uploaded successfully!</span>
                         )}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label htmlFor="roadmapIntroduction" className="text-xl font-medium text-purple-900 flex items-center space-x-2 font-serif">
                             <FontAwesomeIcon icon={faBook} />
                             <span>Roadmap Introduction (PDF)</span>
@@ -325,41 +324,30 @@ const AdditionalInformation = () => {
                         )}
                     </div>
                 </div>
-                <div className="max-h-24 overflow-y-auto border rounded-md bg-gradient-to-r from-gray-50 to-gray-100 shadow-md mt-1 space-y-3 p-4">
-    {/* Display chapters up to the chapterCount */}
-    {chapterNames.slice(0, Math.min(chapterCount, 10)).map((fieldName, index) => (
-        <div key={index} className="bg-white rounded-lg shadow-sm p-3 border border-gray-200 hover:shadow-md transition-shadow duration-200">
-            <label htmlFor={fieldName} className="block text-sm font-medium text-gray-800 mb-1">
-                Chapter {index + 1} (PDF)
-            </label>
-            <input
-                type="file"
-                id={fieldName}
-                name={fieldName}
-                accept="application/pdf"
-                onChange={handleFileChange}
-                className="block w-full mt-1 border border-gray-300 rounded-full p-2 focus:ring focus:ring-blue-400"
-            />
-            {fileNames[fieldName] && (
-                <span className="text-gray-500 text-xs mt-1 block">{fileNames[fieldName]} uploaded successfully!</span>
-            )}
-        </div>
-    ))}
-
-    {/* Display "Add Chapter" button only if less than 10 chapters are shown */}
-    {chapterCount < 10 && (
-        <div className="flex justify-end mt-3">
-            <button
-                type="button"
-                onClick={handleShowNextChapter}
-                className="bg-purple-500 text-white rounded-full px-4 py-1.5 shadow-md hover:bg-purple-600 transform hover:scale-105 transition-transform duration-200 ease-in-out flex items-center space-x-1 text-sm font-medium"
-            >
-                <FontAwesomeIcon icon={faPlus} />
-                <span>Add Chapter</span>
-            </button>
-        </div>
-    )}
+                <div className="border rounded-md bg-gradient-to-r from-gray-50 to-gray-100 shadow-md mt-1 p-4">
+    {/* Display chapters up to the chapterCount in a grid layout with 5 columns */}
+    <div className="grid grid-cols-5 gap-4">
+        {chapterNames.slice(0, 10).map((fieldName, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-sm p-2 border border-gray-200 hover:shadow-md transition-shadow duration-200">
+                <label htmlFor={fieldName} className="block text-xs font-medium text-gray-800 mb-1 text-center">
+                    Chapter {index + 1} (PDF)
+                </label>
+                <input
+                    type="file"
+                    id={fieldName}
+                    name={fieldName}
+                    accept="application/pdf"
+                    onChange={handleFileChange}
+                    className="block w-full border border-gray-300 rounded-full p-1 text-xs focus:ring focus:ring-blue-400"
+                />
+                {fileNames[fieldName] && (
+                    <span className="text-gray-500 text-xs mt-1 block text-center">{fileNames[fieldName]} uploaded successfully!</span>
+                )}
+            </div>
+        ))}
+    </div>
 </div>
+
 
                 {/* Submit Button */}
                 <button

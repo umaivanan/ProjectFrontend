@@ -7,7 +7,7 @@ import logo from '/home/ukijaffna/um/swapSmartFrontend/src/assets/White_and_Blue
 import Popup from './Popup'; // Import Popup component
 import CryptoJS from 'crypto-js'; // Import CryptoJS
 
-const Navbar = ({ heroRef }) => {
+const Navbar = ({ heroRef, footerRef }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ const Navbar = ({ heroRef }) => {
 
   const fetchUserProfile = async (email) => {
     try {
-      const response = await fetch(`http://localhost:8714/api/skills?email=${email}`);
+      const response = await fetch(`http://localhost:8715/api/skills?email=${email}`);
       const data = await response.json();
       setUserProfile(data);
     } catch (error) {
@@ -124,6 +124,7 @@ const Navbar = ({ heroRef }) => {
 
   const handlePopupClose = () => {
     setShowPopup(false);
+    
     const encryptedUserEmail = localStorage.getItem('userEmail');
     if (encryptedUserEmail) {
       const userEmail = decryptEmail(encryptedUserEmail);
@@ -134,7 +135,7 @@ const Navbar = ({ heroRef }) => {
       } else {
         const checkFormSubmissionStatus = async () => {
           try {
-            const response = await fetch('http://localhost:8714/api/skills/check-form', {
+            const response = await fetch('http://localhost:8715/api/skills/check-form', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: userEmail }),
@@ -173,15 +174,9 @@ const Navbar = ({ heroRef }) => {
   };
 
   const scrollToContact = () => {
-    if (location.pathname !== '/') {
-      navigate('/');
-      setTimeout(() => {
-        heroRef.current?.scrollToContact();
-      }, 100);
-    } else {
-      heroRef.current?.scrollToContact();
-    }
+    footerRef?.current?.scrollIntoView({ behavior: 'smooth' }); // Scroll to Footer
   };
+
 
   // Show or hide buttons based on page location
   useEffect(() => {
@@ -236,22 +231,25 @@ const Navbar = ({ heroRef }) => {
   {(location.pathname === '/' || location.pathname === '/learnmore') && (
     <>
       <button
-        className="flex items-center text-purple-900 border border-transparent px-4 py-2 rounded-md hover:text-purple-600 hover:border-purple-600 transition-colors duration-300"
+        className="flex items-center text-purple-900 border border-purple-400 px-4 py-2 rounded-md hover:text-white hover:bg-purple-600 hover:border-purple-600 transition-colors duration-300 shadow-md shadow-purple-500/50 hover:shadow-purple-700/70 animate-pulse"
         onClick={scrollToHome}
       >
         <AiOutlineHome className="text-2xl mr-2" />
+        <span className="font-semibold">Home</span>
       </button>
       <button
-        className="flex items-center text-purple-900 border border-transparent px-4 py-2 rounded-md hover:text-purple-600 hover:border-purple-600 transition-colors duration-300"
+        className="flex items-center text-purple-900 border border-purple-400 px-4 py-2 rounded-md hover:text-white hover:bg-purple-600 hover:border-purple-600 transition-colors duration-300 shadow-md shadow-purple-500/50 hover:shadow-purple-700/70 animate-pulse"
         onClick={scrollToAbout}
       >
         <AiOutlineInfoCircle className="text-2xl mr-2" />
+        <span className="font-semibold">About</span>
       </button>
       <button
-        className="flex items-center text-purple-900 border border-transparent px-4 py-2 rounded-md hover:text-purple-600 hover:border-purple-600 transition-colors duration-300"
+        className="flex items-center text-purple-900 border border-purple-400 px-4 py-2 rounded-md hover:text-white hover:bg-purple-600 hover:border-purple-600 transition-colors duration-300 shadow-md shadow-purple-500/50 hover:shadow-purple-700/70 animate-pulse"
         onClick={scrollToContact}
       >
         <AiOutlineMail className="text-2xl mr-2" />
+        <span className="font-semibold">Contact</span>
       </button>
     </>
   )}
@@ -291,7 +289,7 @@ const Navbar = ({ heroRef }) => {
                     {userProfile && userProfile.profilePicture && (
                       <li className="flex items-center ml-5">
                         <img
-                          src={`http://localhost:8714${userProfile.profilePicture}`}
+                          src={`http://localhost:8715${userProfile.profilePicture}`}
                           alt="Profile"
                           className="w-10 h-10 rounded-full cursor-pointer"
                           onClick={handleDashboardNavigation}

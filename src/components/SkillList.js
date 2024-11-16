@@ -25,7 +25,7 @@
 //   useEffect(() => {
 //     const fetchAllData = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:8714/api/formdata');
+//         const response = await axios.get('http://localhost:8715/api/formdata');
 //         setUsersData(response.data);
 //         setFilteredData(response.data);
 //       } catch (error) {
@@ -54,7 +54,7 @@
 //       setFilteredData(usersData);
 //     } else {
 //       const filtered = usersData.filter((user) =>
-//         user.courseDescription.toLowerCase().includes(searchTerm.toLowerCase())
+//         user.courseCategory.toLowerCase().includes(searchTerm.toLowerCase())
 //       );
 //       setFilteredData(filtered);
 //     }
@@ -148,7 +148,7 @@
 //                 <div className="absolute inset-0 bg-black bg-opacity-25 flex flex-col justify-between  rounded-lg">
 //                 <h2 className="font-bold text-lg mb-4" style={{ background: 'linear-gradient(to right, purple 70%, black 30%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
 
-//                     {user.courseDescription}
+//                     {user.courseCategory}
 //                   </h2>
 //                   <button
 //                   className={`absolute bottom-4 right-4 py-1 px-1  rounded-full shadow-lg hover:shadow-2xl transition-all bg-gradient-to-r from-purple-600 to-white`}
@@ -162,7 +162,7 @@
 //                 </div>
 //                 {user.image && (
 //                   <img
-//                     src={`http://localhost:8714/imageUploads/${user.image}`}
+//                     src={`http://localhost:8715/imageUploads/${user.image}`}
 //                     alt="Course"
 //                     className="object-cover w-full h-full rounded-lg"
 //                   />
@@ -211,7 +211,7 @@ const SkillList = () => {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const response = await axios.get('http://localhost:8714/api/formdata');
+        const response = await axios.get('http://localhost:8715/api/formdata');
         setUsersData(response.data);
         setFilteredData(response.data);
       } catch (error) {
@@ -238,14 +238,19 @@ const SkillList = () => {
       setFilteredData(usersData);
     } else {
       const filtered = usersData.filter((user) =>
-        user.courseDescription.toLowerCase().includes(searchTerm.toLowerCase())
+        user.courseCategory.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredData(filtered);
     }
   }, [searchTerm, usersData]);
 
+  const handleIconClick = (category) => {
+    setSearchTerm(category);
+  };
+
+
   return (
-    <div className="bg-white -p-[1%]">
+    <div className="bg-white -p-[1%] mb-3">
       <h1 className="text-4xl font-bold text-center mt-20 text-cyan-500">Explore Our Courses</h1>
 
       {/* Fixed Search Bar and Icon Grid Container */}
@@ -272,23 +277,23 @@ const SkillList = () => {
         {/* Icon Grid under Search Bar */}
         <div className="flex justify-center mb-4">
           <div className="grid grid-cols-6 gap-4 text-center text-gray-600">
-            <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center cursor-pointer" onClick={() => handleIconClick('programming')}>
               <FaCode size={24} />
-              <span>Programming</span>
+              <span>programming</span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center cursor-pointer" onClick={() => handleIconClick('engineerig')}>
               <FaCogs size={24} />
-              <span>Engineering</span>
+              <span>engineerig</span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center cursor-pointer" onClick={() => handleIconClick('Science')}>
               <FaFlask size={24} />
               <span>Science</span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center cursor-pointer" onClick={() => handleIconClick('Mathematics')}>
               <FaCalculator size={24} />
               <span>Mathematics</span>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center cursor-pointer" onClick={() => handleIconClick('History')}>
               <FaBook size={24} />
               <span>History</span>
             </div>
@@ -320,7 +325,7 @@ const SkillList = () => {
                   WebkitTextFillColor: 'transparent',
                 }}
               >
-                {user.courseDescription}
+                {user.courseCategory}
               </h2>
               <button
   className="absolute bottom-4 right-1 p-1 -mb-[3%] rounded-full shadow-lg hover:shadow-1xl transition-all bg-purple-600 text-white"
@@ -335,7 +340,7 @@ const SkillList = () => {
             </div>
             {user.image && (
               <img
-                src={`http://localhost:8714/imageUploads/${user.image}`}
+                src={`http://localhost:8715/imageUploads/${user.image}`}
                 alt="Course"
                 className="object-cover w-full h-full rounded-lg"
               />

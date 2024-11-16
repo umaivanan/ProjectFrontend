@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
-import { motion } from 'framer-motion';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const secretKey = '12345'; // Encryption key
 
@@ -24,11 +24,6 @@ const LoginPage = ({ onSuccess }) => {
 
   const encrypt = (data) => {
     return CryptoJS.AES.encrypt(data, secretKey).toString();
-  };
-
-  const decrypt = (data) => {
-    const bytes = CryptoJS.AES.decrypt(data, secretKey);
-    return bytes.toString(CryptoJS.enc.Utf8);
   };
 
   const handleSubmit = async (event) => {
@@ -53,7 +48,7 @@ const LoginPage = ({ onSuccess }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8714/api/auth/login', {
+      const response = await fetch('http://localhost:8715/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputs),
@@ -68,8 +63,7 @@ const LoginPage = ({ onSuccess }) => {
         const encryptedToken = encrypt(data.token);
         localStorage.setItem('token', encryptedToken);
 
-        // Fetch the form submission status after login
-        const checkFormResponse = await fetch('http://localhost:8714/api/skills/check-form', {
+        const checkFormResponse = await fetch('http://localhost:8715/api/skills/check-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: inputs.email }),
@@ -78,29 +72,37 @@ const LoginPage = ({ onSuccess }) => {
         const formStatusData = await checkFormResponse.json();
         const submittedStatus = formStatusData.formSubmitted;
 
-        // Store the submittedStatus in localStorage
         localStorage.setItem('submittedStatus', JSON.stringify(submittedStatus));
 
-        // If form is submitted, save Skill ID to localStorage
-      if (submittedStatus) {
-        const skillIdResponse = await fetch(`http://localhost:8714/api/skills?email=${inputs.email}`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
+        if (submittedStatus) {
+          const skillIdResponse = await fetch(`http://localhost:8715/api/skills?email=${inputs.email}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          const skillData = await skillIdResponse.json();
+          if (skillData?._id) {
+            localStorage.setItem('skillId', skillData._id);
+            const encryptedSkillId = encrypt(skillData._id);
+            localStorage.setItem(`skillId_${inputs.email}`, encryptedSkillId);
+          }
+        }
+
+        // Show success toast after successful login
+        toast.success('Login successful!', {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
         });
 
-        const skillData = await skillIdResponse.json();
-        // console.log(skillData._id);
-        localStorage.setItem('skillId', skillData._id);
-
-        if (skillData?._id) {
-          const encryptedSkillId = encrypt(skillData._id);
-          localStorage.setItem(`skillId_${inputs.email}`, encryptedSkillId);
-        }
-      } 
-
-        // Navigate based on role (admin or user)
-        navigate(data.role === 'admin' ? '/admin-dashboard' : '/list');
-        onSuccess();
+        // Delay navigation to let the toast display
+        setTimeout(() => {
+          navigate(data.role === 'admin' ? '/admin-dashboard' : '/list');
+          onSuccess();
+        }, 3000); // Adjust time as per toast autoClose time
       } else {
         setErrors({ ...errors, custom_error: data.error || 'Something went wrong' });
       }
@@ -112,61 +114,51 @@ const LoginPage = ({ onSuccess }) => {
   };
 
   return (
-    <div className="flex justify-center items-center h-auto w-[500px] bg-transparent">
-  <div className="flex flex-col max-w-md w-full h-auto p-8 rounded-xl shadow-lg  backdrop-blur-md"
-    style={{ backgroundColor: 'rgba(255, 255, 250, 0.8)',borderRadius: '40px' }} // 50% opacity
-    
-    >
-    <h2 className="text-4xl  mb-6 text-center font-bold">Login</h2>
-    <form className="w-full" onSubmit={handleSubmit}>
-      <div className="mb-4">
-        <label className="block  text-lg mb-1" >Email</label>
-        <input
-        style={{ borderRadius: '30px' }}
-          type="email"
-          name="email"
-          value={inputs.email}
-          onChange={handleInput}
-          placeholder="example@example.com"  // Added placeholder here
-          className={`w-full p-3 text-lg bg-gray-100 rounded-md ${errors.email.required ? 'border border-red-500' : ''}`}
-        />
-        {errors.email.required && (
-          <span className="">Email is required.</span>
-        )}
+    <div className="flex justify-center items-center h-[550px] w-[500px] bg-transparent">
+      <ToastContainer /> {/* Toast container for notifications */}
+      <div className="flex flex-col max-w-md w-full h-auto p-8 rounded-xl shadow-lg backdrop-blur-md"
+           style={{ backgroundColor: 'rgba(255, 255, 250, 0.8)', borderRadius: '40px' }}>
+        <h2 className="text-4xl mb-6 text-center  font-bold">Login</h2>
+        <form className="w-full" onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-lg mb-1">Email</label>
+            <input
+              style={{ borderRadius: '30px' }}
+              type="email"
+              name="email"
+              value={inputs.email}
+              onChange={handleInput}
+              placeholder="example@example.com"
+              className={`w-full p-3 text-lg bg-gray-100 rounded-md ${errors.email.required ? 'border border-red-500' : ''}`}
+            />
+            {errors.email.required && <span className="text-red-500">Email is required.</span>}
+          </div>
+          <div className="mb-4">
+            <label className="block text-lg mb-1">Password</label>
+            <input
+              style={{ borderRadius: '30px' }}
+              type="password"
+              name="password"
+              value={inputs.password}
+              onChange={handleInput}
+              placeholder="Enter your password"
+              className={`w-full p-3 text-lg bg-gray-100 rounded-md ${errors.password.required ? 'border border-red-500' : ''}`}
+            />
+            {errors.password.required && <span className="text-red-500">Password is required.</span>}
+          </div>
+          {errors.custom_error && <span className="text-red-500 text-sm">{errors.custom_error}</span>}
+          {loading && <div className="text-center text-lg text-purple-600">Loading...</div>}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full mt-4 py-3 bg-purple-600 text-white text-lg font-semibold rounded-md"
+            style={{ borderRadius: '30px' }}
+          >
+            Login
+          </button>
+        </form>
       </div>
-      <div className="mb-4">
-        <label className="block  text-lg mb-1">Password</label>
-        <input
-        style={{ borderRadius: '30px' }}
-          type="password"
-          name="password"
-          value={inputs.password}
-          onChange={handleInput}
-          placeholder="Enter your password"
-
-          className={`w-full p-3 text-lg bg-gray-100 rounded-md ${errors.password.required ? 'border border-red-500' : ''}`}
-        />
-        {errors.password.required && (
-          <span className="">Password is required.</span>
-        )}
-      </div>
-      {errors.custom_error && (
-        <span className="text-red-500 text-sm">{errors.custom_error}</span>
-      )}
-      {loading ? <div className="text-center text-lg text-purple-600">Loading...</div> : null}
-      <button
-  type="submit"
-  disabled={loading}
-  className="w-full mt-4 py-3 bg-purple-400 text-white text-lg font-semibold rounded-md "
-  style={{ borderRadius: '30px' }}
->
-  Login
-</button>
-
-    </form>
-  </div>
-</div>
-
+    </div>
   );
 };
 
