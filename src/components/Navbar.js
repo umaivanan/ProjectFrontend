@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AiOutlineUser, AiOutlineLogout, AiOutlineMenu ,AiOutlineHome, AiOutlineInfoCircle, AiOutlineMail } from 'react-icons/ai'; // Import necessary icons
 import { FaCog } from 'react-icons/fa'; // Import settings icon
-import logo from '/home/ukijaffna/um/swapSmartFrontend/src/assets/White_and_Blue_Illustrative_Class_Logo-removebg-preview.png'; // Update the path to your logo
+import logo from '../assets/White_and_Blue_Illustrative_Class_Logo-removebg-preview.png'; // Update the path to your logo
 import Popup from './Popup'; // Import Popup component
 import CryptoJS from 'crypto-js'; // Import CryptoJS
 
@@ -191,6 +191,8 @@ const Navbar = ({ heroRef, footerRef }) => {
     setShowMenuOptions(!showMenuOptions);
   };
 
+
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -205,28 +207,6 @@ const Navbar = ({ heroRef, footerRef }) => {
               <img src={logo} alt="Logo" className="h-28" />
             </Link>
           </div>
-           
-          {/* Show Home, About, Contact buttons on all pages */}
-          {/* <div className="flex space-x-6 flex-grow justify-center">
-            <button
-              className="flex items-center text-purple-900 border border-transparent px-4 py-2 rounded-md hover:text-purple-600 hover:border-purple-600 transition-colors duration-300"
-              onClick={scrollToHome}
-            >
-              <AiOutlineHome className="text-2xl mr-2" />
-            </button>
-            <button
-              className="flex items-center text-purple-900 border border-transparent px-4 py-2 rounded-md hover:text-purple-600 hover:border-purple-600 transition-colors duration-300"
-              onClick={scrollToAbout}
-            >
-              <AiOutlineInfoCircle className="text-2xl mr-2" />
-            </button>
-            <button
-              className="flex items-center text-purple-900 border border-transparent px-4 py-2 rounded-md hover:text-purple-600 hover:border-purple-600 transition-colors duration-300"
-              onClick={scrollToContact}
-            >
-              <AiOutlineMail className="text-2xl mr-2" />
-            </button>
-          </div> */}
           <div className="flex space-x-6 flex-grow justify-center">
   {(location.pathname === '/' || location.pathname === '/learnmore') && (
     <>
@@ -287,13 +267,18 @@ const Navbar = ({ heroRef, footerRef }) => {
                 ) : (
                   <>
                     {userProfile && userProfile.profilePicture && (
-                      <li className="flex items-center ml-5">
+                      <li className="flex items-center ml-5 ">
                         <img
                           src={`http://localhost:8715${userProfile.profilePicture}`}
                           alt="Profile"
                           className="w-10 h-10 rounded-full cursor-pointer"
                           onClick={handleDashboardNavigation}
-                        />
+                        /> 
+                        
+                              {/* <span className="text-xl text-gray-900 mb-3">
+                  {userProfile.profileName}
+                </span>  */}
+
                       </li>
                     )}
                     <li>
@@ -391,3 +376,6 @@ const Navbar = ({ heroRef, footerRef }) => {
 };
 
 export default Navbar;
+
+
+

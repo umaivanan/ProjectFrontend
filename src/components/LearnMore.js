@@ -2,10 +2,10 @@ import { Star, ChevronRight } from 'lucide-react';
 import { FaGraduationCap, FaBook, FaChalkboardTeacher, FaFilePdf, FaLaptopCode, FaTiktok, FaFacebookF } from 'react-icons/fa';
 
 // Importing images directly
-import learnfirst from '/home/ukijaffna/um/swapSmartFrontend/src/assets/Roadmap_Process_Inspiration_PDF_Slide_1.jpg';
-import peopleCollaborating from '/home/ukijaffna/um/swapSmartFrontend/src/assets/57602174-53a8-44eb-b64a-1e7d1fea7070.webp';
-import onlineLocation from '/home/ukijaffna/um/swapSmartFrontend/src/assets/Roadmap_Process_Inspiration_PDF_Slide_1.jpg';
-import romeLocation from '/home/ukijaffna/um/swapSmartFrontend/src/assets/apus-574x420.jpg';
+import learnfirst from '../assets/Roadmap_Process_Inspiration_PDF_Slide_1.jpg';
+import peopleCollaborating from '../assets/57602174-53a8-44eb-b64a-1e7d1fea7070.webp';
+import onlineLocation from '../assets/Roadmap_Process_Inspiration_PDF_Slide_1.jpg';
+import romeLocation from '../assets/apus-574x420.jpg';
 
 const LearnMore = () => {
   return (

@@ -85,7 +85,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
           if (response.data.pdfPrice) {
             setProduct({
               name: "buying pdf",
-              price: response.data.pdfPrice * 100, 
+              price: response.data.pdfPrice * 10, 
               productBy: "instructors"
             });
           }
@@ -215,7 +215,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
   
           <StripeCheckout
             name="Buying PDF"
-            amount={product.price}
+            amount={product.price*10}
             stripeKey="pk_test_51Q0z3OIDR6fHncujf4V778OtQb2gJHqfP54FvBGnuvugIcT4fSmXMDSn4qIkkKJ5pw6aGRdwyluYJsGGsH1kLN9s00c1SapMSi"
             token={makePayment}
           >

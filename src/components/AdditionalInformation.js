@@ -6,7 +6,7 @@ import {
     faBook, faClock, faUser, faTag,
     faLanguage, faDollarSign, faImage, 
 } from '@fortawesome/free-solid-svg-icons';
-import welcomeVideo from '/home/ukijaffna/um/swapSmartFrontend/src/assets/66387c8b-f554-45bd-b813-6b4b940a610b.mp4';
+import welcomeVideo from '../assets/66387c8b-f554-45bd-b813-6b4b940a610b.mp4';
 
 
 
@@ -328,8 +328,15 @@ const AdditionalInformation = () => {
     {/* Display chapters up to the chapterCount in a grid layout with 5 columns */}
     <div className="grid grid-cols-5 gap-4">
         {chapterNames.slice(0, 10).map((fieldName, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm p-2 border border-gray-200 hover:shadow-md transition-shadow duration-200">
-                <label htmlFor={fieldName} className="block text-xs font-medium text-gray-800 mb-1 text-center">
+            <div
+                key={index}
+                className="bg-white rounded-lg shadow-sm p-2 border border-gray-200 hover:shadow-md transition-shadow duration-200 flex flex-col items-center"
+                style={{ height: "100px" }} // Reduced height
+            >
+                <label
+                    htmlFor={fieldName}
+                    className="block text-xs font-medium text-gray-800 mb-1 text-center"
+                >
                     Chapter {index + 1} (PDF)
                 </label>
                 <input
@@ -338,15 +345,24 @@ const AdditionalInformation = () => {
                     name={fieldName}
                     accept="application/pdf"
                     onChange={handleFileChange}
-                    className="block w-full border border-gray-300 rounded-full p-1 text-xs focus:ring focus:ring-blue-400"
+                    className="block w-full rounded p-0.5 text-xs focus:ring focus:ring-blue-400" // Reduced input size
+                    style={{
+                        border: "none", // Removed border
+                        fontSize: "0.75rem", // Smaller font size
+                        padding: "2px 4px", // Minimal padding
+                    }}
                 />
-                {fileNames[fieldName] && (
-                    <span className="text-gray-500 text-xs mt-1 block text-center">{fileNames[fieldName]} uploaded successfully!</span>
-                )}
+                <span
+                    className="text-gray-500 text-xs mt-1 text-center"
+                    style={{ height: "1.25rem", lineHeight: "1.25rem" }} // Reduced height for the message
+                >
+                    {fileNames[fieldName] && `${fileNames[fieldName]} uploaded successfully!`}
+                </span>
             </div>
         ))}
     </div>
 </div>
+
 
 
                 {/* Submit Button */}

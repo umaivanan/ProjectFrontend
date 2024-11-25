@@ -2,16 +2,16 @@
 import React,{ useState , useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Popup from './Popup'; // Import the Popup component
-import StudentImage from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/Screenshot_from_2024-11-08_15-30-22-removebg-preview.png'; // Replace with the correct path to your student image
+import StudentImage from '../assets latest/Screenshot_from_2024-11-08_15-30-22-removebg-preview.png'; // Replace with the correct path to your student image
 import { AiOutlineFilePdf, AiOutlineAppstore, AiOutlineRead } from "react-icons/ai"; // Importing React Icons
 import { AiOutlineUserAdd, AiOutlineCheckSquare, AiOutlineMail, AiOutlineStar,AiOutlineClockCircle } from "react-icons/ai"; // Importing React Icons
-import Student from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/e6a66f65-264b-4bf4-8459-e7166caed8d0.webp'; // Replace with the actual path to your student image
-import ui from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/b71518604c4aa067e67eaf49d62d431b.jpg'; // Placeholder image for courses
-import ux from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/599210dac929ac2bcaa451ab53f73441.jpg'; // Placeholder image for courses
-import digital from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/389d05fd9c667452e6642f6275d8d5fc.jpg'; // Placeholder image for courses
-import graphic from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/f59abfadd3d46eb60428a0395c1bfecc.jpg'; // Placeholder image for courses
-import web from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/5fc25992225094ee02663a068e8e2397.jpg'; // Placeholder image for courses
-import api from '/home/ukijaffna/um/swapSmartFrontend/src/assets latest/b71518604c4aa067e67eaf49d62d431b.jpg'; // Placeholder image for courses
+import Student from '../assets latest/e6a66f65-264b-4bf4-8459-e7166caed8d0.webp'; // Replace with the actual path to your student image
+import ui from '../assets latest/b71518604c4aa067e67eaf49d62d431b.jpg'; // Placeholder image for courses
+import ux from '../assets latest/599210dac929ac2bcaa451ab53f73441.jpg'; // Placeholder image for courses
+import digital from '../assets latest/389d05fd9c667452e6642f6275d8d5fc.jpg'; // Placeholder image for courses
+import graphic from '../assets latest/f59abfadd3d46eb60428a0395c1bfecc.jpg'; // Placeholder image for courses
+import web from '../assets latest/5fc25992225094ee02663a068e8e2397.jpg'; // Placeholder image for courses
+import api from '../assets latest/9b6258f67de90bb7502e25f6c9dc6afa.jpg'; // Placeholder image for courses
 
 
 const Hero = React.forwardRef((props, ref) => {
