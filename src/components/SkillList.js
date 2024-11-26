@@ -129,12 +129,12 @@ const SkillList = () => {
           <FaBook size={24} />
           <span>History</span>
         </div>
-        <a href="http://localhost:3001">
+        {/* <a href="http://localhost:3001">
           <div className="flex flex-col items-center cursor-pointer">
             <FaFilePdf size={24} />
             <span>PDF Summarizer</span>
           </div>
-        </a>
+        </a> */}
       </div>
     </div>
   </div>
