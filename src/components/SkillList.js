@@ -26,7 +26,7 @@ const SkillList = () => {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const response = await axios.get('http://localhost:8715/api/formdata');
+        const response = await axios.get('https://project-backend-delta-seven.vercel.app/api/formdata');
         setUsersData(response.data);
         setFilteredData(response.data);
       } catch (error) {
@@ -172,7 +172,7 @@ const SkillList = () => {
         </div>
         {user.image && (
           <img
-            src={`http://localhost:8715/imageUploads/${user.image}`}
+            src={`https://project-backend-delta-seven.vercel.app/imageUploads/${user.image}`}
             alt="Course"
             className="object-cover w-full h-full rounded-lg"
           />

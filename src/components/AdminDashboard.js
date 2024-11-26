@@ -89,16 +89,16 @@ const getPaginatedUsers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formDataResponse = await axios.get('http://localhost:8715/api/formdata');
+        const formDataResponse = await axios.get('https://project-backend-delta-seven.vercel.app/api/formdata');
         setFormDatas(formDataResponse.data);
 
-        const skillsResponse = await axios.get('http://localhost:8715/api/skills');
+        const skillsResponse = await axios.get('https://project-backend-delta-seven.vercel.app/api/skills');
         setSkills(skillsResponse.data);
 
-        const paymentResponse = await axios.get('http://localhost:8715/payment');
+        const paymentResponse = await axios.get('https://project-backend-delta-seven.vercel.app/payment');
         setPayments(paymentResponse.data.payments);
 
-        const userResponse = await axios.get('http://localhost:8715/api/auth/admin/users');
+        const userResponse = await axios.get('https://project-backend-delta-seven.vercel.app/api/auth/admin/users');
         setUsers(userResponse.data);
       } catch (error) {
         setError('Error fetching data');
@@ -113,12 +113,12 @@ const getPaginatedUsers = () => {
     try {
         // Toggle the blocking status based on the current status
         const newStatus = !currentStatus;
-        await axios.put(`http://localhost:8715/api/auth/admin/users/${userId}/block`, { isBlocked: newStatus });
+        await axios.put(`https://project-backend-delta-seven.vercel.app/api/auth/admin/users/${userId}/block`, { isBlocked: newStatus });
         
         alert(`User with ID ${userId} has been ${newStatus ? 'blocked' : 'unblocked'}!`);
 
         // Refresh user list after toggling block status
-        const userResponse = await axios.get('http://localhost:8715/api/auth/admin/users');
+        const userResponse = await axios.get('https://project-backend-delta-seven.vercel.app/api/auth/admin/users');
         setUsers(userResponse.data);
     } catch (error) {
         alert('Error toggling user block status');
@@ -208,7 +208,7 @@ const getPaginatedUsers = () => {
                 <td className="p-2 border-t block md:table-cell">
                   {formData.image && (
                     <img
-                      src={`http://localhost:8715/imageUploads/${formData.image}`}
+                      src={`https://project-backend-delta-seven.vercel.app/imageUploads/${formData.image}`}
                       alt="Course"
                       className="object-cover w-20 h-20 rounded-lg"
                     />
@@ -229,7 +229,7 @@ const getPaginatedUsers = () => {
                     <div className="mt-2 space-y-2">
                       {formData.roadmapIntroduction && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.roadmapIntroduction}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.roadmapIntroduction}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -239,7 +239,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.firstChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.firstChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.firstChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -249,7 +249,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.secondChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.secondChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.secondChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -259,7 +259,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.thirdChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.thirdChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.thirdChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -269,7 +269,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.fourthChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.fourthChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.fourthChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -279,7 +279,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.fifthChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.fifthChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.fifthChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -289,7 +289,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.sixthChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.sixthChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.sixthChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -299,7 +299,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.seventhChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.seventhChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.seventhChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -309,7 +309,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.eighthChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.eighthChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.eighthChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -319,7 +319,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.ninthChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.ninthChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.ninthChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"
@@ -329,7 +329,7 @@ const getPaginatedUsers = () => {
                       )}
                       {formData.tenthChapter && (
                         <a
-                          href={`http://localhost:8715/pdfUploads/${formData.tenthChapter}`}
+                          href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${formData.tenthChapter}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="block text-blue-500 hover:underline"

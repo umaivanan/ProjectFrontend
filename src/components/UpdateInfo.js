@@ -25,10 +25,10 @@ const UpdateInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formResponse = await axios.get(`http://localhost:8715/api/formdata/${id}`);
+        const formResponse = await axios.get(`https://project-backend-delta-seven.vercel.app/api/formdata/${id}`);
         setData(formResponse.data); // Update form data
 
-        const skillResponse = await axios.get('http://localhost:8715/api/skills');
+        const skillResponse = await axios.get('https://project-backend-delta-seven.vercel.app/api/skills');
         setSkills(skillResponse.data); // Update skill context
       } catch (error) {
         setError('Error fetching data');
@@ -94,7 +94,7 @@ const UpdateInfo = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:8715/api/formdata/${id}`, formData, {
+      const response = await axios.put(`https://project-backend-delta-seven.vercel.app/api/formdata/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -103,7 +103,7 @@ const UpdateInfo = () => {
       // If the skill is available, update its formDataId
       if (userSkill) {
         const formDataId = response.data.formData._id;
-        await axios.patch(`http://localhost:8715/api/skills/${userSkill._id}`, { formDataId });
+        await axios.patch(`https://project-backend-delta-seven.vercel.app/api/skills/${userSkill._id}`, { formDataId });
       }
 
       alert('Data updated successfully!');
@@ -139,7 +139,7 @@ const UpdateInfo = () => {
             />
             {userSkill?.profilePicture && (
               <img
-                src={`http://localhost:8715${userSkill.profilePicture}`} 
+                src={`https://project-backend-delta-seven.vercel.app${userSkill.profilePicture}`} 
                 alt="Profile"
                 className="profile-picture"
               />

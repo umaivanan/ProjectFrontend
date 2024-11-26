@@ -112,14 +112,14 @@ const AdditionalInformation = () => {
                     }
                 });
 
-                const response = await axios.post('http://localhost:8715/api/formdata', formDataObj, {
+                const response = await axios.post('https://project-backend-delta-seven.vercel.app/api/formdata', formDataObj, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
 
                 const formDataId = response.data.formData._id;
-                await axios.patch(`http://localhost:8715/api/skills/${currentSkillId}`, { formDataId });
+                await axios.patch(`https://project-backend-delta-seven.vercel.app/api/skills/${currentSkillId}`, { formDataId });
 
-                const skillResponse = await axios.get(`http://localhost:8715/api/skills/${currentSkillId}`);
+                const skillResponse = await axios.get(`https://project-backend-delta-seven.vercel.app/api/skills/${currentSkillId}`);
                 const submittedStatus = skillResponse.data.submittedStatus;
 
                 localStorage.setItem('submittedStatus', submittedStatus);

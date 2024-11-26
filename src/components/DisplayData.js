@@ -40,7 +40,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
       "Content-Type": "application/json"
     };
 
-    return fetch("http://localhost:8715/payment", {
+    return fetch("https://project-backend-delta-seven.vercel.app/payment", {
       method: "POST",
       headers,
       body: JSON.stringify(body)
@@ -79,7 +79,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
     if (id) {  
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://localhost:8715/api/formdata/${id}`);
+          const response = await axios.get(`https://project-backend-delta-seven.vercel.app/api/formdata/${id}`);
           setData(response.data);  
 
           if (response.data.pdfPrice) {
@@ -106,7 +106,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await axios.get('http://localhost:8715/api/skills'); 
+        const response = await axios.get('https://project-backend-delta-seven.vercel.app/api/skills'); 
         setSkills(response.data);  
       } catch (error) {
         console.error('Error fetching skills:', error);
@@ -155,7 +155,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
             <div className="image-section mt-4">
               <h3>Course Image</h3>
               <img
-                src={`http://localhost:8715/imageUploads/${data.image}`}
+                src={`https://project-backend-delta-seven.vercel.app/imageUploads/${data.image}`}
                 alt="Course uploaded"
                 className="rounded-lg w-full h-60 object-cover"
               />
@@ -170,7 +170,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
           {data.roadmapIntroduction && (
             <div className="pdf-card mb-4">
               <a
-                href={`http://localhost:8715/pdfUploads/${data.roadmapIntroduction}`}
+                href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${data.roadmapIntroduction}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg--500 text-white p-2 rounded block text-center"
@@ -196,7 +196,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
               <div className="pdf-card mb-4" key={index}>
                 {index < 3 || !isLocked ? (
                   <a
-                    href={`http://localhost:8715/pdfUploads/${data[chapter]}`}
+                    href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${data[chapter]}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-teal-500 text-white-100 p-2 rounded block text-center"
@@ -235,7 +235,7 @@ const DisplayData = ({ id, onClose }) => {  // onClose prop இங்கே ப�
               <p><strong>Educational Background:</strong> {userSkill.educationalBackground}</p>
               {userSkill.profilePicture && (
                 <img
-                  src={`http://localhost:8715${userSkill.profilePicture}`}
+                  src={`https://project-backend-delta-seven.vercel.app${userSkill.profilePicture}`}
                   alt={userSkill.profileName}
                   className="rounded-full mt-4 w-40 h-40 object-cover"
                 />

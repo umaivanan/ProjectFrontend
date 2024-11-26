@@ -44,7 +44,7 @@ const Navbar = ({ heroRef, footerRef }) => {
 
   const fetchUserProfile = async (email) => {
     try {
-      const response = await fetch(`http://localhost:8715/api/skills?email=${email}`);
+      const response = await fetch(`https://project-backend-delta-seven.vercel.app/api/skills?email=${email}`);
       const data = await response.json();
       setUserProfile(data);
     } catch (error) {
@@ -135,7 +135,7 @@ const Navbar = ({ heroRef, footerRef }) => {
       } else {
         const checkFormSubmissionStatus = async () => {
           try {
-            const response = await fetch('http://localhost:8715/api/skills/check-form', {
+            const response = await fetch('https://project-backend-delta-seven.vercel.app/api/skills/check-form', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: userEmail }),
@@ -269,7 +269,7 @@ const Navbar = ({ heroRef, footerRef }) => {
                     {userProfile && userProfile.profilePicture && (
                       <li className="flex items-center ml-5 ">
                         <img
-                          src={`http://localhost:8715${userProfile.profilePicture}`}
+                          src={`https://project-backend-delta-seven.vercel.app${userProfile.profilePicture}`}
                           alt="Profile"
                           className="w-10 h-10 rounded-full cursor-pointer"
                           onClick={handleDashboardNavigation}

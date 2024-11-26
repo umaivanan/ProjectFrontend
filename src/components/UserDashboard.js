@@ -21,7 +21,7 @@ const UserDashboard = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8715/api/skills/${skillId}`);
+      const response = await axios.get(`https://project-backend-delta-seven.vercel.app/api/skills/${skillId}`);
       setSkillData(response.data);
       setProfileName(response.data.profileName);
       setPreferredLanguage(response.data.preferredLanguage);
@@ -39,7 +39,7 @@ const UserDashboard = () => {
     if (!skillId) return;
 
     try {
-      const response = await axios.get(`http://localhost:8715/api/formdata`);
+      const response = await axios.get(`https://project-backend-delta-seven.vercel.app/api/formdata`);
       setFormData(response.data);
     } catch (err) {
       console.error('Error fetching form data:', err);
@@ -75,7 +75,7 @@ const UserDashboard = () => {
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8715/api/formdata/${id}`, formDataObj, {
+      const response = await axios.patch(`https://project-backend-delta-seven.vercel.app/api/formdata/${id}`, formDataObj, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -110,7 +110,7 @@ const UserDashboard = () => {
     }
 
     try {
-      const response = await axios.patch(`http://localhost:8715/api/skills/${skillId}/details`, formData, {
+      const response = await axios.patch(`https://project-backend-delta-seven.vercel.app/api/skills/${skillId}/details`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -166,7 +166,7 @@ const UserDashboard = () => {
               <div className="relative group">
                 <div className="w-36 h-36 rounded-full overflow-hidden ring-4 ring-purple-100 group-hover:ring-purple-300 transition-all duration-300">
                   <img
-                    src={`http://localhost:8715${profilePicture}` || 'default_profile_picture_url.jpg'}
+                    src={`https://project-backend-delta-seven.vercel.app${profilePicture}` || 'default_profile_picture_url.jpg'}
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
@@ -256,7 +256,7 @@ const UserDashboard = () => {
                             <div className="space-y-1">
                               {form[key] && (
                                 <a
-                                  href={`http://localhost:8715/pdfUploads/${form[key]}`}
+                                  href={`https://project-backend-delta-seven.vercel.app/pdfUploads/${form[key]}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="text-purple-600 hover:text-purple-800 transition text-xs truncate"
@@ -274,7 +274,7 @@ const UserDashboard = () => {
                             <div className="space-y-1">
                               {form.image && (
                                 <img
-                                  src={`http://localhost:8715/imageUploads/${form.image}`}
+                                  src={`https://project-backend-delta-seven.vercel.app/imageUploads/${form.image}`}
                                   alt="Form data"
                                   className="w-16 h-16 rounded-lg object-cover"
                                 />

@@ -36,7 +36,7 @@ const SkillForm = () => {
         } else {
           const checkFormSubmissionStatus = async () => {
             try {
-              const response = await axios.post('http://localhost:8715/api/skills/check-form', { email: decryptedEmail });
+              const response = await axios.post('https://project-backend-delta-seven.vercel.app/api/skills/check-form', { email: decryptedEmail });
               console.log('Backend Response:', response.data);
               if (response.data.formSubmitted) {
                 localStorage.setItem(`formSubmitted_${decryptedEmail}`, 'true');
@@ -72,7 +72,7 @@ const SkillForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8715/api/skills', formData, {
+      const response = await axios.post('https://project-backend-delta-seven.vercel.app/api/skills', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -81,7 +81,7 @@ const SkillForm = () => {
       const skillId = response.data._id;
 
       // Update the submittedStatus in the backend
-      await axios.patch(`http://localhost:8715/api/skills/${skillId}`, { submittedStatus: true });
+      await axios.patch(`https://project-backend-delta-seven.vercel.app/api/skills/${skillId}`, { submittedStatus: true });
 
       // Save the form submission status to localStorage
       localStorage.setItem(`formSubmitted_${currentUserEmail}`, 'true');

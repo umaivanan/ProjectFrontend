@@ -48,7 +48,7 @@ const LoginPage = ({ onSuccess }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8715/api/auth/login', {
+      const response = await fetch('https://project-backend-delta-seven.vercel.app/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputs),
@@ -63,7 +63,7 @@ const LoginPage = ({ onSuccess }) => {
         const encryptedToken = encrypt(data.token);
         localStorage.setItem('token', encryptedToken);
 
-        const checkFormResponse = await fetch('http://localhost:8715/api/skills/check-form', {
+        const checkFormResponse = await fetch('https://project-backend-delta-seven.vercel.app/api/skills/check-form', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: inputs.email }),
@@ -75,7 +75,7 @@ const LoginPage = ({ onSuccess }) => {
         localStorage.setItem('submittedStatus', JSON.stringify(submittedStatus));
 
         if (submittedStatus) {
-          const skillIdResponse = await fetch(`http://localhost:8715/api/skills?email=${inputs.email}`, {
+          const skillIdResponse = await fetch(`https://project-backend-delta-seven.vercel.app/api/skills?email=${inputs.email}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           });

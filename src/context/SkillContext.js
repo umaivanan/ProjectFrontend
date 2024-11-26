@@ -14,7 +14,7 @@ export const SkillProvider = ({ children }) => {
   useEffect(() => {
     const fetchSkills = async () => {
       try {
-        const response = await axios.get('http://localhost:8715/api/skills');
+        const response = await axios.get('https://project-backend-delta-seven.vercel.app/api/skills');
         setSkills(response.data);
       } catch (error) {
         setError('Error fetching skills');
